@@ -14,5 +14,9 @@
   "1.0.3": {
     "en": "- Updated Gemini model to version 2.5 Flash Lite",
     "it": "- Aggiornato il modello Gemini alla versione 2.5 Flash Lite"
+  },
+  "1.0.4": {
+    "en": "- Fixed an issue with the app icon",
+    "it": "- Sistemato un problema con l'icona dell'app"
   }
 }
