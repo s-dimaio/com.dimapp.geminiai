@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.dimapp.geminiai",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -82,6 +82,41 @@
           }
         ],
         "id": "send-prompt"
+      },
+      {
+        "title": {
+          "en": "Send Prompt with Image"
+        },
+        "hint": {
+          "en": "Send a multimodal prompt to Gemini (text +image)"
+        },
+        "titleFormatted": {
+          "en": "Send a prompt [[prompt]] with image [[droptoken]]",
+          "it": "Invia un prompt [[prompt]] con immagine [[droptoken]]"
+        },
+        "droptoken": [
+          "image"
+        ],
+        "args": [
+          {
+            "type": "text",
+            "name": "prompt",
+            "placeholder": {
+              "en": "Text a Gemini prompt"
+            }
+          }
+        ],
+        "tokens": [
+          {
+            "name": "answer",
+            "type": "string",
+            "title": {
+              "en": "Gemini answer",
+              "it": "Risposta di Gemini"
+            }
+          }
+        ],
+        "id": "send-prompt-with-image"
       }
     ]
   }

@@ -1,0 +1,37 @@
+{
+  "title": {
+    "en": "Send Prompt with Image",
+    "it": "Invia Prompt con Immagine"
+  },
+  "hint": {
+    "en": "Send a multimodal prompt to Gemini (text +image)",
+    "it": "Invia un prompt multimodale a Gemini (testo + immagine)"
+  },
+  "titleFormatted": {
+    "en": "Send a prompt [[prompt]] with image [[droptoken]]",
+    "it": "Invia un prompt [[prompt]] con immagine [[droptoken]]"
+  },
+  "droptoken": [
+    "image"
+  ],
+  "args": [
+    {
+      "type": "text",
+      "name": "prompt",
+      "placeholder": {
+        "en": "Text a Gemini prompt",
+        "it": "Scrivi un prompt per Gemini"
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "name": "answer",
+      "type": "string",
+      "title": {
+        "en": "Gemini answer",
+        "it": "Risposta di Gemini"
+      }
+    }
+  ]
+}

@@ -15,6 +15,8 @@
     "prompt": {
         "error": {
             "noapi": "Gemini API key not found in settings",
+            "noimage": "No image provided. Please drag an image token to this action.",
+            "multipleimages": "Only one image is currently supported. Please provide a single image.",
             "generic": "Error sending Gemini prompt: __error__"
         }
     }

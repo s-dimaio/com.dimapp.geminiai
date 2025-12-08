@@ -5,111 +5,133 @@ const { GeminiClient } = require('./lib/GeminiClient');
 
 module.exports = class GeminiApp extends Homey.App {
 
-
   /**
    * onInit is called when the app is initialized.
    */
   async onInit() {
     this.log('[onInit] GeminiApp has been initialized');
 
+    // Initialize the GeminiClient once at startup
+    this.initializeGeminiClient();
+
+    // Register flow cards
+    this.registerSendPromptActionCard();
+    this.registerSendPromptWithImageActionCard();
+  }
+
+  /**
+   * Initialize the GeminiClient with the API key from settings
+   */
+  initializeGeminiClient() {
+    const apiKey = this.homey.settings.get('gemini_api_key');
+
+    if (!apiKey) {
+      this.error('[initializeGeminiClient] API key not found in settings');
+      throw new Error('Gemini API key not configured');
+    }
+
+    this.geminiClient = new GeminiClient(apiKey);
+    this.log('[initializeGeminiClient] GeminiClient initialized successfully');
+  }
+
+  /**
+   * Register the "Send Prompt" action card (text only)
+   */
+  registerSendPromptActionCard() {
     this.sendPromptActionCard = this.homey.flow.getActionCard("send-prompt");
     this.sendPromptActionCard.registerRunListener(async (args) => {
-      this.log(`[onInit] sendPromptActionCard: ${JSON.stringify(args, null, 2)}`);
-
-      const prompt = args['prompt'];
-
-      this.log(`[onInit] sendPromptActionCard - Prompt: ${prompt}`);
+      this.log(`[sendPromptActionCard] Args: ${JSON.stringify(args, null, 2)}`);
 
       try {
-        // Get the API key from the settings
-        const apiKey = this.homey.settings.get('gemini_api_key');
+        const prompt = args['prompt'];
+        this.log(`[sendPromptActionCard] Prompt: ${prompt}`);
 
-        if (!apiKey) {
-          this.error('[onInit] API key not found in settings');
-          throw new Error(this.homey.__("prompt.error.noapi"));
-        }
+        const text = await this.geminiClient.generateText(prompt);
+        this.log(`[sendPromptActionCard] Response: ${text}`);
 
-        // Create a GeminiClient instance with the API key
-        const geminiClient = new GeminiClient(apiKey);
-        const text = await geminiClient.generateText(prompt);
-        console.log(text);
-
-        return {
-          answer: text
-        };
+        return { answer: text };
 
       } catch (error) {
-        this.error('[onInit] Error sending prompt:', error);
-
-        // Extract a specific error message if available
-        let errorMessage = error.message;
-        if (Array.isArray(error.errorDetails)) {
-          const localized = error.errorDetails.find(
-            d => d['@type'] === 'type.googleapis.com/google.rpc.LocalizedMessage' && d.message
-          );
-          if (localized) {
-            errorMessage = localized.message;
-          }
-        }
-
-        this.error(`[onInit] Error message: ${errorMessage}`);
-
-        throw new Error(this.homey.__("prompt.error.generic", { error: errorMessage }));
+        return this.handleFlowError('[sendPromptActionCard]', error);
       }
     });
-    /* 
-    this.sendPromptForImageActionCard = this.homey.flow.getActionCard("send-prompt-for-image");
-    this.sendPromptForImageActionCard.registerRunListener(async (args) => {
-      this.log(`[onInit] sendPromptForImageActionCard: ${JSON.stringify(args, null, 2)}`);
+  }
 
-      const prompt = args['prompt'];
-
-      this.log(`[onInit] sendPromptForImageActionCard - Prompt: ${prompt}`);
+  /**
+   * Register the "Send Prompt with Image" action card (multimodal: text + image)
+   */
+  registerSendPromptWithImageActionCard() {
+    this.sendPromptWithImageActionCard = this.homey.flow.getActionCard("send-prompt-with-image");
+    this.sendPromptWithImageActionCard.registerRunListener(async (args) => {
+      this.log(`[sendPromptWithImageActionCard] Args: ${JSON.stringify(args, null, 2)}`);
 
       try {
-        // Get the API key from the settings
-        const apiKey = this.homey.settings.get('gemini_api_key');
+        const prompt = args['prompt'];
+        const imageToken = args.droptoken;
 
-        if (!apiKey) {
-          this.error('[onInit] API key not found in settings');
-          throw new Error(this.homey.__("prompt.error.noapi"));
-        }
+        this.log(`[sendPromptWithImageActionCard] Prompt: ${prompt}`);
 
-        // Create a GeminiClient instance with the API key
-        const geminiClient = new GeminiClient(apiKey);
+        // Validate image token
+        this.validateImageToken(imageToken);
 
-        // Create a Homey Image object
-        const image = await this.homey.images.createImage();
+        // Get the image stream and convert to buffer
+        const imageStream = await imageToken.getStream();
+        this.log(`[sendPromptWithImageActionCard] Image stream received - contentType: ${imageStream.contentType}, filename: ${imageStream.filename}`);
 
-        // Set the image stream
-        image.setStream(async (stream) => {
-          const imageStream = await geminiClient.generateImageStream(prompt);
-          return imageStream.pipe(stream);
-        });
+        const imageBuffer = await GeminiClient.streamToBuffer(imageStream);
+        this.log(`[sendPromptWithImageActionCard] Image buffer created, size: ${imageBuffer.length} bytes`);
 
-        // Return the image as a token
-        return {
-          image: image
-        };
+        const mimeType = imageStream.contentType || 'image/jpeg';
+
+        // Generate response
+        const text = await this.geminiClient.generateTextWithImage(prompt, imageBuffer, mimeType);
+        this.log(`[sendPromptWithImageActionCard] Response: ${text}`);
+
+        return { answer: text };
 
       } catch (error) {
-        this.error('[onInit] Error sending prompt for image:', error);
-
-        let errorMessage = error.message;
-        if (Array.isArray(error.errorDetails)) {
-          const localized = error.errorDetails.find(
-            d => d['@type'] === 'type.googleapis.com/google.rpc.LocalizedMessage' && d.message
-          );
-          if (localized) {
-            errorMessage = localized.message;
-          }
-        }
-
-        this.error(`[onInit] Error message: ${errorMessage}`);
-
-        throw new Error(this.homey.__("prompt.error.generic", { error: errorMessage }));
+        return this.handleFlowError('[sendPromptWithImageActionCard]', error);
       }
     });
-     */
+  }
+
+  /**
+   * Validate that a valid image token is provided
+   * @param {*} imageToken - The image token to validate
+   * @throws {Error} If imageToken is invalid or multiple images are provided
+   */
+  validateImageToken(imageToken) {
+    if (!imageToken) {
+      throw new Error(this.homey.__("prompt.error.noimage"));
+    }
+
+    if (Array.isArray(imageToken) && imageToken.length > 1) {
+      throw new Error(this.homey.__("prompt.error.multipleimages"));
+    }
+  }
+
+  /**
+   * Centralized error handling for flow card errors
+   * @param {string} context - The context where the error occurred
+   * @param {Error} error - The error object
+   * @throws {Error} A user-friendly error message
+   */
+  handleFlowError(context, error) {
+    this.error(`${context} Error:`, error);
+
+    let errorMessage = error.message;
+
+    // Extract localized error message from Google API errors
+    if (Array.isArray(error.errorDetails)) {
+      const localized = error.errorDetails.find(
+        d => d['@type'] === 'type.googleapis.com/google.rpc.LocalizedMessage' && d.message
+      );
+      if (localized) {
+        errorMessage = localized.message;
+      }
+    }
+
+    this.error(`${context} Error message: ${errorMessage}`);
+    throw new Error(this.homey.__("prompt.error.generic", { error: errorMessage }));
   }
 };
