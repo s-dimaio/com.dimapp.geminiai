@@ -14,6 +14,14 @@ module.exports = class GeminiApp extends Homey.App {
     // Initialize the GeminiClient once at startup
     this.initializeGeminiClient();
 
+    // Listen for settings changes to re-initialize the client when API key is set
+    this.homey.settings.on('set', (key) => {
+      if (key === 'gemini_api_key') {
+        this.log('[onInit] API key setting changed, re-initializing GeminiClient');
+        this.initializeGeminiClient();
+      }
+    });
+
     // Register flow cards
     this.registerSendPromptActionCard();
     this.registerSendPromptWithImageActionCard();
@@ -26,8 +34,8 @@ module.exports = class GeminiApp extends Homey.App {
     const apiKey = this.homey.settings.get('gemini_api_key');
 
     if (!apiKey) {
-      this.error('[initializeGeminiClient] API key not found in settings');
-      throw new Error('Gemini API key not configured');
+      this.log('[initializeGeminiClient] API key not found in settings - app will function but Gemini flows will fail until API key is configured');
+      return;
     }
 
     this.geminiClient = new GeminiClient(apiKey);
@@ -43,6 +51,11 @@ module.exports = class GeminiApp extends Homey.App {
       this.log(`[sendPromptActionCard] Args: ${JSON.stringify(args, null, 2)}`);
 
       try {
+        // Check if GeminiClient is initialized
+        if (!this.geminiClient) {
+          throw new Error(this.homey.__("prompt.error.noapi") || 'Gemini API key not configured in app settings');
+        }
+
         const prompt = args['prompt'];
         this.log(`[sendPromptActionCard] Prompt: ${prompt}`);
 
@@ -66,6 +79,11 @@ module.exports = class GeminiApp extends Homey.App {
       this.log(`[sendPromptWithImageActionCard] Args: ${JSON.stringify(args, null, 2)}`);
 
       try {
+        // Check if GeminiClient is initialized
+        if (!this.geminiClient) {
+          throw new Error(this.homey.__("prompt.error.noapi") || 'Gemini API key not configured in app settings');
+        }
+
         const prompt = args['prompt'];
         const imageToken = args.droptoken;
 
