@@ -19,7 +19,7 @@
     "en": "- Fixed an issue with the app icon",
     "it": "- Sistemato un problema con l'icona dell'app"
   },
-  "1.1.0": {
+  "1.1.1": {
     "en": "- Added support for sending multimodal prompts (text + image)",
     "it": "- Aggiunta la possibilità di inviare prompt multimodali (testo + immagine)"
   }

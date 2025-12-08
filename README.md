@@ -2,12 +2,14 @@
 
 **Send prompts to Google Gemini from Homey Flows and use the AI's answer in your automations.**
 
-This Homey app integrates Google's Gemini AI (gemini-1.5-flash model) into your smart home ecosystem, allowing you to create intelligent automations powered by generative AI. Send prompts to Gemini directly from Homey Flows and use the AI responses to make your home smarter and more responsive.
+This Homey app integrates Google's Gemini AI (gemini-2.5-flash-lite model) into your smart home ecosystem, allowing you to create intelligent automations powered by generative AI. Send text-only or multimodal prompts (text + image) to Gemini directly from Homey Flows and use the AI responses to make your home smarter and more responsive.
 
 ## Features
 
-- **Flow Action**: "Send Prompt" action card that accepts text prompts and returns AI-generated responses
+- **Text Prompts**: "Send Prompt" action card that accepts text prompts and returns AI-generated responses
+- **Image Analysis**: "Send Prompt with Image" action card that accepts multimodal prompts (image + text) and returns AI-generated responses
 - **Token Support**: Returns an "answer" token that can be used in subsequent Flow cards
+- **Image Token Handling**: Full integration with Homey image tokens from flow triggers (e.g., webcam snapshots)
 - **API Key Management**: Simple settings interface to securely store your Google Gemini API key
 
 ## Requirements
@@ -26,7 +28,7 @@ This Homey app integrates Google's Gemini AI (gemini-1.5-flash model) into your 
 ### For Development
 1. Clone this repository
 2. Install dependencies: `npm install`
-3. Use the Homey CLI to run: `homey app run`
+3. Use the Homey CLI to run: `homey app run --r`
 
 ## Getting Your Google Gemini API Key
 
@@ -62,38 +64,47 @@ This Homey app integrates Google's Gemini AI (gemini-1.5-flash model) into your 
 ### 2. Create a Flow
 1. Open the Homey app and go to "Flows"
 2. Create a new Flow or edit an existing one
-3. Add the "Send Prompt" action card from the "Gemini for Homey" app
-4. Enter your prompt text
+3. Add the "Send Prompt" or "Send Prompt with Image" action card from the "Gemini for Homey" app
+4. Enter your prompt text (and optionally drag an image token)
 5. Use the "Gemini answer" token in subsequent Flow cards
 
 ## Usage Examples
 
-### Basic Example
+### Basic Text Prompt
 ```
 WHEN: Motion is detected in the living room
 THEN: Send Prompt "Generate a welcoming message for someone entering the living room"
 AND: Speak the Gemini answer
 ```
 
-### Smart Lighting
+### Image Analysis with Webcam
 ```
-WHEN: Someone says "Set mood lighting"
-THEN: Send Prompt "Suggest appropriate lighting settings for a relaxing evening at home"
-AND: Use the response to configure your lights
+WHEN: Doorbell camera detects motion
+THEN: Send Prompt with Image "Describe what you see in this image and identify any people or packages"
+AND: Send notification with Gemini analysis
+```
+
+### Security Alert with Image
+```
+WHEN: Security sensor triggers
+THEN: Take a snapshot with camera
+AND: Send Prompt with Image "Analyze this security camera image and describe any potential threats"
+AND: Log the analysis result
+```
+
+### Visual Inspection
+```
+WHEN: Motion detected in storage room
+THEN: Capture image from security camera
+AND: Send Prompt with Image "Check if anything appears disturbed or out of place in this storage area. Reply with 'true' if everything is OK, otherwise reply with 'false'"
+AND: Manage true/false response
 ```
 
 ### Weather Advisory
 ```
 WHEN: Weather changes
-THEN: Send Prompt "Create a brief weather advisory based on today's forecast: [weather token]"
+THEN: Send Prompt "Create a brief weather advisory based on today's forecast"
 AND: Send notification with Gemini answer
-```
-
-### Home Security
-```
-WHEN: Security sensor triggers
-THEN: Send Prompt "Generate a security alert message for [sensor name] at [time]"
-AND: Log the Gemini answer
 ```
 
 ## Technical Details
@@ -111,7 +122,8 @@ AND: Log the Gemini answer
 │   ├── app.json                # App configuration source
 │   └── flow/
 │       └── actions/
-│           └── send-prompt.json # Flow action definition
+│           ├── send-prompt.json
+│           └── send-prompt-with-image.json
 └── assets/                     # App icons and images
 ```
 
@@ -120,10 +132,19 @@ AND: Log the Gemini answer
 - `homey`: Homey Apps SDK v3
 
 ### Flow Action Details
+
+#### Send Prompt (Text Only)
 - **ID**: `send-prompt`
 - **Input**: Text prompt (string)
 - **Output**: `answer` token (string) containing Gemini's response
-- **Model**: Uses Gemini 1.5 Flash for fast, efficient responses
+- **Model**: Gemini 2.5 Flash-Lite
+
+#### Send Prompt with Image (Multimodal)
+- **ID**: `send-prompt-with-image`
+- **Input**: Image token (from flow droptoken) + text prompt (string)
+- **Output**: `answer` token (string) containing Gemini's response
+- **Model**: Gemini 2.5 Flash-Lite
+- **Limitations**: Currently supports single image per prompt
 
 ## Development
 
@@ -134,14 +155,14 @@ AND: Log the Gemini answer
 ### Local Development
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/com.dimapp.geminiforhomey.git
-cd com.dimapp.geminiforhomey
+git clone https://github.com/s-dimaio/com.dimapp.geminiai.git
+cd com.dimapp.geminiai
 
 # Install dependencies
 npm install
 
 # Run the app in development mode
-homey app run
+homey app run --r
 
 # Validate the app
 homey app validate
@@ -153,15 +174,16 @@ homey app build
 ### Testing
 1. Install the app on your development Homey
 2. Configure your API key in the app settings
-3. Create test Flows with the "Send Prompt" action
-4. Monitor logs using `homey app log`
+3. Create test Flows with the "Send Prompt" and "Send Prompt with Image" actions
+4. Monitor logs using `homey app run --r`
 
 ## Privacy & Security
 
 - **API Key Storage**: Your Google Gemini API key is stored securely in Homey's settings
-- **Data Processing**: Prompts and responses are processed by Google's Gemini API
-- **No Data Retention**: This app doesn't store or log your prompts or AI responses
+- **Data Processing**: Prompts, images, and responses are processed by Google's Gemini API
+- **No Data Retention**: This app doesn't store or log your prompts, images, or AI responses
 - **Local Processing**: The app runs on your Homey device; only API calls are sent to Google
+- **Image Handling**: Images are converted to base64 and sent directly to the Gemini API; they are not stored locally
 
 ## Troubleshooting
 
@@ -176,16 +198,15 @@ homey app build
 - Verify your API key has sufficient quota
 - Ensure the prompt text is not empty
 
+**"No image provided" error**
+- Ensure you've dragged an image token to the "Send Prompt with Image" action card
+- Verify the image token is from a compatible source (e.g., security camera, webcam)
+
 **Empty or "none" responses**
 - Check Google AI Studio for API usage limits
 - Verify your API key has the necessary permissions
 - Try with a simpler prompt
-
-### Debug Information
-Enable debug logging in the Homey CLI:
-```bash
-homey app log --level debug
-```
+- For image analysis, ensure the image is clear and relevant to your prompt
 
 ## Contributing
 
@@ -209,9 +230,17 @@ Email: simone.dimaio77@gmail.com
 
 ## Support
 
-- **Issues**: Report bugs and feature requests on [GitHub Issues](https://github.com/your-username/com.dimapp.geminiforhomey/issues)
+- **Issues**: Report bugs and feature requests on [GitHub Issues](https://github.com/s-dimaio/com.dimapp.geminiai/issues)
+- **Documentation**: Visit [Gemini API Docs](https://ai.google.dev/gemini-api/docs)
 
 ## Changelog
+
+### v1.1.1
+- **New**: Add "Send Prompt with Image" action card for multimodal prompts
+- **New**: Full support for image token handling from Homey flows
+- **Improvement**: Upgrade to Gemini 2.5 Flash-Lite model for better performance
+- **Improvement**: Refactor app.js with better code organization
+- **Improvement**: Centralized error handling and flow card registration
 
 ### v1.0.0
 - Initial release

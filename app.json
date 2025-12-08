@@ -85,10 +85,12 @@
       },
       {
         "title": {
-          "en": "Send Prompt with Image"
+          "en": "Send Prompt with Image",
+          "it": "Invia Prompt con Immagine"
         },
         "hint": {
-          "en": "Send a multimodal prompt to Gemini (text +image)"
+          "en": "Send a multimodal prompt to Gemini (text + image)",
+          "it": "Invia un prompt multimodale a Gemini (testo + immagine)"
         },
         "titleFormatted": {
           "en": "Send a prompt [[prompt]] with image [[droptoken]]",
@@ -102,7 +104,8 @@
             "type": "text",
             "name": "prompt",
             "placeholder": {
-              "en": "Text a Gemini prompt"
+              "en": "Text a Gemini prompt",
+              "it": "Scrivi un prompt per Gemini"
             }
           }
         ],

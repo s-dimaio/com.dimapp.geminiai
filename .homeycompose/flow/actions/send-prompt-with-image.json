@@ -4,7 +4,7 @@
     "it": "Invia Prompt con Immagine"
   },
   "hint": {
-    "en": "Send a multimodal prompt to Gemini (text +image)",
+    "en": "Send a multimodal prompt to Gemini (text + image)",
     "it": "Invia un prompt multimodale a Gemini (testo + immagine)"
   },
   "titleFormatted": {
