@@ -10,6 +10,14 @@
         "error": {
             "generic": "Errore durante il salvataggio della API Key di Gemini",
             "api": "Si prega di inserire una API Key di Gemini valida"
+        },
+        "instructions": {
+            "title": "Come ottenere la tua API Key",
+            "step1": "Vai su Google AI Studio (aistudio.google.com)",
+            "step2": "Accedi con il tuo account Google",
+            "step3": "Clicca su \"Get API Key\" nella barra laterale",
+            "step4": "Clicca \"Create API key\" e copiala",
+            "note": "Importante: salva subito la tua API key - non potrai più visualizzarla."
         }
     },
     "prompt": {

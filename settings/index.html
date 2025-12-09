@@ -36,6 +36,48 @@
       margin-bottom: 10px;
       width: 100%;
     }
+
+    .instructions-section {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: rgba(0, 0, 0, 0.03);
+      border-radius: 8px;
+    }
+
+    .instructions-section h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      color: inherit;
+    }
+
+    .instructions-section ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .instructions-section li {
+      margin-bottom: 8px;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .instructions-section a {
+      color: #1f6ac1;
+      text-decoration: none;
+    }
+
+    .instructions-section a:hover {
+      text-decoration: underline;
+    }
+
+    .instructions-section .note {
+      margin-top: 10px;
+      font-size: 12px;
+      font-style: italic;
+      opacity: 0.8;
+    }
   </style>
 </head>
 
@@ -45,13 +87,25 @@
       <p class="homey-subtitle" data-i18n="settings.subtitle"></p>
     </header>
 
-    <fieldset class="homey-form-fieldset">
+    <form class="homey-form">
+      <fieldset class="homey-form-fieldset">
+        <div class="homey-form-group">
+          <label class="homey-form-label" for="apiKey" data-i18n="settings.api.label"></label>
+          <input class="homey-form-input" id="apiKey" type="text" />
+        </div>
+      </fieldset>
+    </form>
 
-      <div class="homey-form-group">
-        <label class="homey-form-label" for="apiKey" data-i18n="settings.api.label"></label>
-        <input class="homey-form-input" id="apiKey" type="text" />
-      </div>
-    </fieldset>
+    <div class="instructions-section">
+      <h3 data-i18n="settings.instructions.title"></h3>
+      <ol>
+        <li data-i18n="settings.instructions.step1"></li>
+        <li data-i18n="settings.instructions.step2"></li>
+        <li data-i18n="settings.instructions.step3"></li>
+        <li data-i18n="settings.instructions.step4"></li>
+      </ol>
+      <p class="note" data-i18n="settings.instructions.note"></p>
+    </div>
   </div>
 
   <div class="footer">

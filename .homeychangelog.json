@@ -19,8 +19,8 @@
     "en": "- Fixed an issue with the app icon",
     "it": "- Sistemato un problema con l'icona dell'app"
   },
-  "1.1.3": {
-    "en": "- Added support for sending multimodal prompts (text + image)",
-    "it": "- Aggiunta la possibilità di inviare prompt multimodali (testo + immagine)"
+  "1.1.4": {
+    "en": "- Added support for sending multimodal prompts (text + image)\n- Improved settings page with instructions on how to obtain the API Key",
+    "it": "- Aggiunta la possibilità di inviare prompt multimodali (testo + immagine)\n- Impostazioni migliorate con le indicazioni per ottenere la API Key"
   }
 }
