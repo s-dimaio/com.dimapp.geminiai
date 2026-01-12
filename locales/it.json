@@ -25,7 +25,8 @@
             "noapi": "API Key di Gemini non trovata nelle impostazioni",
             "noimage": "Nessuna immagine fornita. Trascina un token immagine su questa azione.",
             "multipleimages": "È attualmente supportata solo una immagine. Fornisci una singola immagine.",
-            "generic": "Errore durante l'invio del prompt di Gemini: __error__"
+            "generic": "Errore durante l'invio del prompt di Gemini: __error__",
+            "mcp": "Errore durante l'esecuzione del comando: __error__"
         }
     }
 }

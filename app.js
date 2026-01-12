@@ -25,6 +25,7 @@ module.exports = class GeminiApp extends Homey.App {
     // Register flow cards
     this.registerSendPromptActionCard();
     this.registerSendPromptWithImageActionCard();
+    this.registerMCPCommandActionCard();
   }
 
   /**
@@ -38,7 +39,7 @@ module.exports = class GeminiApp extends Homey.App {
       return;
     }
 
-    this.geminiClient = new GeminiClient(apiKey);
+    this.geminiClient = new GeminiClient(apiKey, { homey: this.homey });
     this.log('[initializeGeminiClient] GeminiClient initialized successfully');
   }
 
@@ -152,4 +153,38 @@ module.exports = class GeminiApp extends Homey.App {
     this.error(`${context} Error message: ${errorMessage}`);
     throw new Error(this.homey.__("prompt.error.generic", { error: errorMessage }));
   }
+
+  /**
+   * Register the "Execute MCP Command" action card (function calling with MCP)
+   */
+  registerMCPCommandActionCard() {
+    this.mcpCommandCard = this.homey.flow.getActionCard("send-mcp-command");
+    this.mcpCommandCard.registerRunListener(async (args) => {
+      this.log(`[mcpCommandCard] Command: ${args.command}`);
+
+      try {
+        // Check if GeminiClient is initialized
+        if (!this.geminiClient) {
+          throw new Error(this.homey.__("prompt.error.noapi") || 'Gemini API key not configured in app settings');
+        }
+
+        const command = args.command;
+        this.log(`[mcpCommandCard] Executing MCP command: ${command}`);
+
+        // Generate response with MCP function calling
+        const result = await this.geminiClient.generateTextWithMCP(command);
+        this.log(`[mcpCommandCard] Response: ${result.response}, Success: ${result.success}`);
+
+        return { 
+          response: result.response,
+          success: result.success
+        };
+
+      } catch (error) {
+        return this.handleFlowError('[mcpCommandCard]', error);
+      }
+    });
+  }
+
 };
+

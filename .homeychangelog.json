@@ -22,5 +22,9 @@
   "1.1.4": {
     "en": "- Added support for sending multimodal prompts (text + image)\n- Improved settings page with instructions on how to obtain the API Key",
     "it": "- Aggiunta la possibilità di inviare prompt multimodali (testo + immagine)\n- Impostazioni migliorate con le indicazioni per ottenere la API Key"
+  },
+  "2.0.0": {
+    "en": "Added support for sending home automation prompts (light switches, thermostats, etc.) via Gemini AI.",
+    "it": "Aggiunto il supporto per l'invio di prompt di automazione domestica (interruttori della luce, termostati, ecc.) tramite Gemini AI."
   }
 }

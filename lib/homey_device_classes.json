@@ -1,0 +1,236 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "3.0.0",
+  "lastUpdated": "2026-01-02",
+  "description": "Complete reference of Homey device classes with common capabilities",
+  "classes": {
+    "light": {
+      "name": "Light",
+      "icon": "💡",
+      "description": "Lighting devices including bulbs, LED strips, and dimmers",
+      "commonCapabilities": ["onoff", "dim", "light_hue", "light_saturation", "light_temperature", "light_mode"],
+      "requiredCapabilities": ["onoff"],
+      "uiComponent": "light",
+      "examples": ["Smart bulb", "LED strip", "Dimmer switch"]
+    },
+    "socket": {
+      "name": "Socket",
+      "icon": "🔌",
+      "description": "Smart plugs and power sockets with energy monitoring",
+      "commonCapabilities": ["onoff", "measure_power", "meter_power", "measure_voltage", "measure_current"],
+      "requiredCapabilities": ["onoff"],
+      "uiComponent": "toggle",
+      "examples": ["Smart plug", "Power socket", "Wall outlet"],
+      "notes": "Has 'What's plugged in?' setting to allow virtual device class selection"
+    },
+    "thermostat": {
+      "name": "Thermostat",
+      "icon": "🌡️",
+      "description": "Temperature control and HVAC devices",
+      "commonCapabilities": ["target_temperature", "measure_temperature", "thermostat_mode", "thermostat_state"],
+      "requiredCapabilities": ["target_temperature"],
+      "uiComponent": "thermostat",
+      "examples": ["Smart thermostat", "Room controller", "HVAC controller"]
+    },
+    "lock": {
+      "name": "Lock",
+      "icon": "🔐",
+      "description": "Door locks and security access devices",
+      "commonCapabilities": ["locked", "lock_mode", "alarm_tamper"],
+      "requiredCapabilities": ["locked"],
+      "uiComponent": "toggle",
+      "examples": ["Smart door lock", "Keypad lock", "Deadbolt"]
+    },
+    "windowcoverings": {
+      "name": "Window Coverings",
+      "icon": "🪟",
+      "description": "Generic window coverings (use specific classes when applicable)",
+      "commonCapabilities": ["windowcoverings_state", "windowcoverings_set", "windowcoverings_tilt_up", "windowcoverings_tilt_down", "windowcoverings_tilt_set", "windowcoverings_closed"],
+      "requiredCapabilities": [],
+      "uiComponent": "windowcoverings",
+      "examples": ["Generic window covering"],
+      "notes": "Prefer specific classes: blinds, curtain, or sunshade"
+    },
+    "blinds": {
+      "name": "Blinds",
+      "icon": "🪟",
+      "description": "Venetian blinds and roller blinds",
+      "commonCapabilities": ["windowcoverings_state", "windowcoverings_set", "windowcoverings_tilt_up", "windowcoverings_tilt_down", "windowcoverings_closed"],
+      "requiredCapabilities": [],
+      "uiComponent": "windowcoverings",
+      "examples": ["Venetian blinds", "Roller blinds", "Vertical blinds"]
+    },
+    "curtain": {
+      "name": "Curtain",
+      "icon": "🪟",
+      "description": "Motorized curtains and drapes",
+      "commonCapabilities": ["windowcoverings_state", "windowcoverings_set", "windowcoverings_closed"],
+      "requiredCapabilities": [],
+      "uiComponent": "windowcoverings",
+      "examples": ["Motorized curtains", "Electric drapes"]
+    },
+    "sunshade": {
+      "name": "Sunshade",
+      "icon": "☀️",
+      "description": "Outdoor awnings and sunshades",
+      "commonCapabilities": ["windowcoverings_state", "windowcoverings_set", "windowcoverings_closed"],
+      "requiredCapabilities": [],
+      "uiComponent": "windowcoverings",
+      "examples": ["Awning", "Outdoor sunshade", "Pergola cover"]
+    },
+    "sensor": {
+      "name": "Sensor",
+      "icon": "📡",
+      "description": "Environmental and detection sensors",
+      "commonCapabilities": ["measure_temperature", "measure_humidity", "measure_pressure", "measure_co2", "measure_pm25", "alarm_motion", "alarm_contact", "alarm_water", "alarm_fire", "alarm_smoke", "alarm_co", "alarm_co2"],
+      "requiredCapabilities": [],
+      "uiComponent": "sensor",
+      "examples": ["Motion sensor", "Door sensor", "Temperature sensor", "Air quality sensor"]
+    },
+    "doorbell": {
+      "name": "Doorbell",
+      "icon": "🔔",
+      "description": "Smart doorbells with video or audio",
+      "commonCapabilities": ["alarm_generic", "button"],
+      "requiredCapabilities": [],
+      "uiComponent": "sensor",
+      "examples": ["Video doorbell", "Smart doorbell", "Wireless doorbell"]
+    },
+    "speaker": {
+      "name": "Speaker",
+      "icon": "🔊",
+      "description": "Audio playback and streaming devices",
+      "commonCapabilities": ["volume_set", "volume_up", "volume_down", "volume_mute", "speaker_playing", "speaker_prev", "speaker_next", "speaker_shuffle", "speaker_repeat"],
+      "requiredCapabilities": [],
+      "uiComponent": "media",
+      "examples": ["Smart speaker", "Wireless speaker", "Streaming device"]
+    },
+    "tv": {
+      "name": "TV",
+      "icon": "📺",
+      "description": "Television and display devices",
+      "commonCapabilities": ["onoff", "volume_set", "volume_up", "volume_down", "volume_mute", "channel_up", "channel_down"],
+      "requiredCapabilities": ["onoff"],
+      "uiComponent": "media",
+      "examples": ["Smart TV", "Television", "Display"]
+    },
+    "amplifier": {
+      "name": "Amplifier",
+      "icon": "🎚️",
+      "description": "Audio amplifiers and receivers",
+      "commonCapabilities": ["onoff", "volume_set", "volume_up", "volume_down", "volume_mute"],
+      "requiredCapabilities": ["onoff"],
+      "uiComponent": "media",
+      "examples": ["AV receiver", "Audio amplifier", "Stereo system"]
+    },
+    "heater": {
+      "name": "Heater",
+      "icon": "♨️",
+      "description": "Heating devices and radiators",
+      "commonCapabilities": ["onoff", "target_temperature", "measure_temperature"],
+      "requiredCapabilities": ["onoff"],
+      "uiComponent": "thermostat",
+      "examples": ["Electric heater", "Radiator valve", "Space heater"]
+    },
+    "fan": {
+      "name": "Fan",
+      "icon": "🌀",
+      "description": "Ventilation fans and air circulators",
+      "commonCapabilities": ["onoff", "dim", "fan_speed"],
+      "requiredCapabilities": ["onoff"],
+      "uiComponent": "slider",
+      "examples": ["Ceiling fan", "Desk fan", "Ventilation fan"]
+    },
+    "kettle": {
+      "name": "Kettle",
+      "icon": "🫖",
+      "description": "Smart kettles and water boilers",
+      "commonCapabilities": ["onoff", "measure_temperature", "target_temperature"],
+      "requiredCapabilities": ["onoff"],
+      "uiComponent": "toggle",
+      "examples": ["Smart kettle", "Electric kettle"]
+    },
+    "coffeemachine": {
+      "name": "Coffee Machine",
+      "icon": "☕",
+      "description": "Smart coffee makers",
+      "commonCapabilities": ["onoff"],
+      "requiredCapabilities": ["onoff"],
+      "uiComponent": "toggle",
+      "examples": ["Smart coffee machine", "Espresso machine"]
+    },
+    "homealarm": {
+      "name": "Home Alarm",
+      "icon": "🚨",
+      "description": "Security alarm systems",
+      "commonCapabilities": ["homealarm_state", "alarm_generic"],
+      "requiredCapabilities": ["homealarm_state"],
+      "uiComponent": "picker",
+      "examples": ["Security system", "Alarm panel"]
+    },
+    "camera": {
+      "name": "Camera",
+      "icon": "📹",
+      "description": "Security and monitoring cameras",
+      "commonCapabilities": ["alarm_motion", "alarm_tamper"],
+      "requiredCapabilities": [],
+      "uiComponent": "camera",
+      "examples": ["Security camera", "IP camera", "Doorbell camera"]
+    },
+    "garagedoor": {
+      "name": "Garage Door",
+      "icon": "🚪",
+      "description": "Motorized garage door openers",
+      "commonCapabilities": ["garagedoor_closed", "onoff"],
+      "requiredCapabilities": [],
+      "uiComponent": "toggle",
+      "examples": ["Garage door opener", "Motorized garage door"]
+    },
+    "vacuumcleaner": {
+      "name": "Vacuum Cleaner",
+      "icon": "🤖",
+      "description": "Robotic and smart vacuum cleaners",
+      "commonCapabilities": ["onoff", "vacuumcleaner_state", "measure_battery"],
+      "requiredCapabilities": [],
+      "uiComponent": "button",
+      "examples": ["Robot vacuum", "Smart vacuum cleaner"]
+    },
+    "button": {
+      "name": "Button",
+      "icon": "🔘",
+      "description": "Physical buttons and switches",
+      "commonCapabilities": ["button"],
+      "requiredCapabilities": ["button"],
+      "uiComponent": "button",
+      "examples": ["Wireless button", "Scene controller", "Smart button"]
+    },
+    "remote": {
+      "name": "Remote",
+      "icon": "🎮",
+      "description": "Remote controls",
+      "commonCapabilities": ["button"],
+      "requiredCapabilities": [],
+      "uiComponent": "button",
+      "examples": ["Universal remote", "IR remote", "Wireless remote"]
+    },
+    "valve": {
+      "name": "Valve",
+      "icon": "🚰",
+      "description": "Water and gas valves",
+      "commonCapabilities": ["onoff", "valve_position"],
+      "requiredCapabilities": ["onoff"],
+      "uiComponent": "toggle",
+      "examples": ["Water valve", "Gas valve", "Irrigation valve"]
+    },
+    "other": {
+      "name": "Other",
+      "icon": "❓",
+      "description": "Devices that don't fit other categories",
+      "commonCapabilities": [],
+      "requiredCapabilities": [],
+      "uiComponent": "sensor",
+      "examples": ["Custom device", "Generic device"],
+      "notes": "Use when no other class fits. Users can manually configure appearance."
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "title": {
+    "en": "Execute a command for your smart home",
+    "it": "Esegui un comando per la tua smart home"
+  },
+  "hint": {
+    "en": "Send a natural language command to Gemini AI  to control your devices",
+    "it": "Invia un comando in linguaggio naturale a Gemini AI per controllare i tuoi dispositivi"
+  },
+  "titleFormatted": {
+    "en": "Send the command [[command]] to your smart home",
+    "it": "Invia il comando [[command]] alla tua smart home"
+  },
+  "args": [
+    {
+      "type": "text",
+      "name": "command",
+      "placeholder": {
+        "en": "Turn off all lights in the living room",
+        "it": "Spegni tutte le luci in soggiorno"
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "name": "response",
+      "type": "string",
+      "title": {
+        "en": "Response",
+        "it": "Risposta"
+      },
+      "example": {
+        "en": "The lights have been turned off"
+      }
+    },
+    {
+      "name": "success",
+      "type": "boolean",
+      "title": {
+        "en": "Success",
+        "it": "Successo"
+      },
+      "example": true
+    }
+  ]
+}
