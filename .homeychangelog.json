@@ -26,5 +26,9 @@
   "2.0.0": {
     "en": "Added support for sending home automation prompts (light switches, thermostats, etc.) via Gemini AI.",
     "it": "Aggiunto il supporto per l'invio di prompt di automazione domestica (interruttori della luce, termostati, ecc.) tramite Gemini AI."
+  },
+  "2.0.1": {
+    "en": "Improved device status checking",
+    "it": "Migliorata la verifica dello stato dei dispositivi"
   }
 }

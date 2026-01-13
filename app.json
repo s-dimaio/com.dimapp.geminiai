@@ -52,24 +52,24 @@
     "actions": [
       {
         "title": {
-          "en": "Execute conversational command",
-          "it": "Esegui comando conversazionale"
+          "en": "Execute a command for your smart home",
+          "it": "Esegui un comando per la tua smart home"
         },
         "hint": {
-          "en": "Send a natural language command to Gemini AI that will control your devices and flows",
-          "it": "Invia un comando in linguaggio naturale a Gemini AI che controllerà i tuoi dispositivi e flow"
+          "en": "Send a natural language command to Gemini to control your smart devices",
+          "it": "Invia un comando in linguaggio naturale a Gemini per controllare i tuoi dispositivi smart"
         },
         "titleFormatted": {
-          "en": "Execute: [[command]]",
-          "it": "Esegui: [[command]]"
+          "en": "Send the command [[command]] to your smart home",
+          "it": "Invia il comando [[command]] alla tua smart home"
         },
         "args": [
           {
             "type": "text",
             "name": "command",
             "placeholder": {
-              "en": "Turn off all lights in the living room",
-              "it": "Spegni tutte le luci in soggiorno"
+              "en": "Text a Gemini prompt",
+              "it": "Scrivi un prompt per Gemini"
             }
           }
         ],

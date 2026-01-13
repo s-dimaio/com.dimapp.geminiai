@@ -1,6 +1,6 @@
 {
   "id": "com.dimapp.geminiai",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -46,5 +46,6 @@
         "username": "sdimaio77"
       }
     }
-  }
+  },
+  "homeyCommunityTopicId": 149146
 }

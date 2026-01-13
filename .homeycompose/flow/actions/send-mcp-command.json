@@ -4,8 +4,8 @@
     "it": "Esegui un comando per la tua smart home"
   },
   "hint": {
-    "en": "Send a natural language command to Gemini AI  to control your devices",
-    "it": "Invia un comando in linguaggio naturale a Gemini AI per controllare i tuoi dispositivi"
+    "en": "Send a natural language command to Gemini to control your smart devices",
+    "it": "Invia un comando in linguaggio naturale a Gemini per controllare i tuoi dispositivi smart"
   },
   "titleFormatted": {
     "en": "Send the command [[command]] to your smart home",
@@ -16,8 +16,8 @@
       "type": "text",
       "name": "command",
       "placeholder": {
-        "en": "Turn off all lights in the living room",
-        "it": "Spegni tutte le luci in soggiorno"
+        "en": "Text a Gemini prompt",
+        "it": "Scrivi un prompt per Gemini"
       }
     }
   ],
