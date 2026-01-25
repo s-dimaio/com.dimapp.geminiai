@@ -1,7 +1,9 @@
 {
     "settings": {
+        "title": "Gemini AI",
         "subtitle": "Impostazioni di Gemini AI",
         "api": {
+            "legend": "Configurazione API",
             "label": "API Key",
             "placeholder": "Inserisci qui la tua API Key di Google Gemini"
         },
@@ -18,6 +20,23 @@
             "step3": "Clicca su \"Get API Key\" nella barra laterale",
             "step4": "Clicca \"Create API key\" e copiala",
             "note": "Importante: salva subito la tua API key - non potrai più visualizzarla."
+        },
+        "scheduledCommands": {
+            "title": "Comandi Programmati",
+            "subtitle": "Gestisci i tuoi comandi programmati. Puoi visualizzare e cancellare i timer in attesa.",
+            "noCommands": "Nessun comando programmato trovato.",
+            "command": "Comando",
+            "executionTime": "Ora di Esecuzione",
+            "status": "Stato",
+            "actions": "Azioni",
+            "cancel": "Cancella",
+            "refresh": "Aggiorna",
+            "confirmCancel": "Sei sicuro di voler cancellare questo comando programmato?",
+            "cancelled": "Comando programmato cancellato con successo.",
+            "error": {
+                "load": "Errore nel caricamento dei comandi programmati",
+                "cancel": "Errore nella cancellazione del comando"
+            }
         }
     },
     "prompt": {
@@ -26,7 +45,16 @@
             "noimage": "Nessuna immagine fornita. Trascina un token immagine su questa azione.",
             "multipleimages": "È attualmente supportata solo una immagine. Fornisci una singola immagine.",
             "generic": "Errore durante l'invio del prompt di Gemini: __error__",
-            "mcp": "Errore durante l'esecuzione del comando: __error__"
+            "mcp": "Errore durante l'esecuzione del comando: __error__",
+            "rate_limit_exceeded": "Hai superato la quota giornaliera. Riprova più tardi o aggiorna il tuo piano. Per maggiori informazioni su questo errore, visita: https://ai.google.dev/gemini-api/docs/rate-limits. Per monitorare il tuo utilizzo corrente, visita: https://ai.dev/rate-limit.",
+            "content_blocked": "Contenuto bloccato dai filtri di sicurezza. Prova a riformulare la richiesta. Per maggiori informazioni, visita: https://ai.google.dev/gemini-api/docs/safety-settings.",
+            "api_key_invalid": "API Key non valida. Controlla la tua API Key di Gemini nelle impostazioni dell'app. Per maggiori informazioni, visita: https://ai.google.dev/gemini-api/docs/api-key."
         }
+    },
+    "scheduled_commands": {
+        "scheduled": "Comando programmato per le {time}",
+        "executed": "Comando programmato eseguito: {command}",
+        "failed": "Comando programmato fallito: {error}",
+        "limit_exceeded": "Limite di programmazione superato. Il ritardo massimo è di 24 giorni."
     }
 }

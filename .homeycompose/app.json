@@ -1,6 +1,6 @@
 {
   "id": "com.dimapp.geminiai",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -47,5 +47,15 @@
       }
     }
   },
-  "homeyCommunityTopicId": 149146
+  "homeyCommunityTopicId": 149146,
+  "api": {
+    "getScheduledCommands": {
+      "method": "GET",
+      "path": "/scheduled-commands"
+    },
+    "cancelScheduledCommand": {
+      "method": "DELETE",
+      "path": "/scheduled-commands/:id"
+    }
+  }
 }

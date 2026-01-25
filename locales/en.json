@@ -1,7 +1,9 @@
 {
     "settings": {
+        "title": "Gemini AI",
         "subtitle": "Gemini AI Settings",
         "api": {
+            "legend": "API Configuration",
             "label": "API Key",
             "placeholder": "Insert your Google Gemini API Key here"
         },
@@ -18,6 +20,23 @@
             "step3": "Click on \"Get API Key\" in the left sidebar",
             "step4": "Click \"Create API key\" and copy it",
             "note": "Important: Save your API key immediately - you won't be able to see it again."
+        },
+        "scheduledCommands": {
+            "title": "Scheduled Commands",
+            "subtitle": "Manage your scheduled commands. You can view and cancel pending timers.",
+            "noCommands": "No scheduled commands found.",
+            "command": "Command",
+            "executionTime": "Execution Time",
+            "status": "Status",
+            "actions": "Actions",
+            "cancel": "Cancel",
+            "refresh": "Refresh",
+            "confirmCancel": "Are you sure you want to cancel this scheduled command?",
+            "cancelled": "Scheduled command cancelled successfully.",
+            "error": {
+                "load": "Error loading scheduled commands",
+                "cancel": "Error cancelling command"
+            }
         }
     },
     "prompt": {
@@ -26,7 +45,16 @@
             "noimage": "No image provided. Please drag an image token to this action.",
             "multipleimages": "Only one image is currently supported. Please provide a single image.",
             "generic": "Error sending Gemini prompt: __error__",
-            "mcp": "Error executing command: __error__"
+            "mcp": "Error executing command: __error__",
+            "rate_limit_exceeded": "You have exceeded your daily quota. Please try again later or upgrade your plan. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit.",
+            "content_blocked": "Content blocked by safety filters. Please try rephrasing your request. For more information, visit: https://ai.google.dev/gemini-api/docs/safety-settings.",
+            "api_key_invalid": "Invalid API key. Please check your Gemini API key in the app settings. For more information, visit: https://ai.google.dev/gemini-api/docs/api-key."
         }
+    },
+    "scheduled_commands": {
+        "scheduled": "Command scheduled for {time}",
+        "executed": "Scheduled command executed: {command}",
+        "failed": "Scheduled command failed: {error}",
+        "limit_exceeded": "Scheduling limit exceeded. Maximum delay is 24 days."
     }
 }

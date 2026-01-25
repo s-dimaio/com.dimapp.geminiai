@@ -30,5 +30,9 @@
   "2.0.1": {
     "en": "Improved device status checking",
     "it": "Migliorata la verifica dello stato dei dispositivi"
+  },
+  "2.1.0": {
+    "en": "Added ability to schedule and manage commands for home automation via Gemini AI",
+    "it": "Aggiunta la possibilità di programmare e gestire i comandi per l'automazione domestica tramite Gemini AI"
   }
 }

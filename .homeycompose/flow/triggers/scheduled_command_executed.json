@@ -1,0 +1,47 @@
+{
+  "id": "scheduled_command_executed",
+  "title": {
+    "en": "Scheduled command executed",
+    "it": "Comando programmato eseguito"
+  },
+  "hint": {
+    "en": "This card triggers when a scheduled command has been executed",
+    "it": "Questa carta si attiva quando un comando programmato viene eseguito"
+  },
+  "tokens": [
+    {
+      "name": "schedule_id",
+      "type": "string",
+      "title": {
+        "en": "Schedule ID",
+        "it": "ID Programmazione"
+      }
+    },
+    {
+      "name": "command",
+      "type": "string",
+      "title": {
+        "en": "Command",
+        "it": "Comando"
+      },
+      "example": "turn off all lights"
+    },
+    {
+      "name": "success",
+      "type": "boolean",
+      "title": {
+        "en": "Success",
+        "it": "Successo"
+      }
+    },
+    {
+      "name": "response",
+      "type": "string",
+      "title": {
+        "en": "Response",
+        "it": "Risposta"
+      },
+      "example": "Ho spento tutte le luci"
+    }
+  ]
+}

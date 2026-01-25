@@ -3,6 +3,7 @@
 /.homeybuild/
 /img/
 bck/
+/.agent/
 **/*.bck
 *.code-workspace
 *.ps1

@@ -23,18 +23,27 @@
       margin-right: 10px;
     }
 
-    .footer {
-      text-align: center;
-      margin-left: 10px;
-      margin-right: 10px;
-      margin-top: auto;
+    .homey-button-primary-full {
+      width: 100%;
     }
 
-    .homey-button-primary-full {
-      margin-top: auto;
-      align-self: center;
-      margin-bottom: 10px;
-      width: 100%;
+    /* Section headers with action buttons */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      gap: 15px;
+    }
+
+    .section-header h3 {
+      margin: 0;
+      flex: 1;
+    }
+
+    .section-header .homey-form-legend {
+      margin: 0;
+      flex: 1;
     }
 
     .instructions-section {
@@ -78,17 +87,181 @@
       font-style: italic;
       opacity: 0.8;
     }
+
+    /* Scheduled Commands Table Styles */
+    /* Scheduled Commands Table Styles */
+    .scheduled-commands-section {
+      margin-top: 30px;
+    }
+
+    .scheduled-commands-section .subtitle {
+      margin-bottom: 15px;
+      margin-top: 5px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .commands-table-container {
+      overflow-x: auto;
+      margin-top: 15px;
+    }
+
+    .commands-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .commands-table tbody {
+      display: block;
+    }
+
+    .timer-item {
+      display: block;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      padding: 12px;
+      background-color: rgba(255, 255, 255, 0.5);
+      transition: background-color 0.2s;
+    }
+
+    .timer-item:hover {
+      background-color: rgba(0, 0, 0, 0.02);
+    }
+
+    /* Fix table cell behavior for flex layout */
+    .timer-item td {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .timer-command {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1f6ac1;
+      word-wrap: break-word;
+    }
+
+    .timer-details {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 12px;
+      width: 100%;
+    }
+
+    .timer-details-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .execution-time {
+      font-size: 12px;
+      color: rgba(0, 0, 0, 0.7);
+      white-space: nowrap;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      background-color: rgba(31, 106, 193, 0.1);
+      color: #1f6ac1;
+    }
+
+    .timer-details .cancel-btn {
+      flex-shrink: 0;
+      align-self: center;
+      margin-left: 8px;
+    }
+
+    .no-commands {
+      text-align: center;
+      padding: 30px;
+      color: rgba(0, 0, 0, 0.5);
+      font-style: italic;
+    }
+
+
+
+    .loading-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top-color: #1f6ac1;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Toast notification styles */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 20px;
+      background-color: #28a745;
+      color: white;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    .toast.success {
+      background-color: #28a745;
+    }
+
+    .toast.error {
+      background-color: #dc3545;
+    }
+
+    .toast.warning {
+      background-color: #ffc107;
+      color: #856404;
+    }
   </style>
 </head>
 
 <body>
   <div class="content">
     <header class="homey-header">
+      <h1 class="homey-title" data-i18n="settings.title"></h1>
       <p class="homey-subtitle" data-i18n="settings.subtitle"></p>
     </header>
 
     <form class="homey-form">
       <fieldset class="homey-form-fieldset">
+        <div class="section-header">
+          <legend class="homey-form-legend" data-i18n="settings.api.legend"></legend>
+          <button id="save" type="button" class="homey-button-secondary" data-i18n="settings.button"></button>
+        </div>
         <div class="homey-form-group">
           <label class="homey-form-label" for="apiKey" data-i18n="settings.api.label"></label>
           <input class="homey-form-input" id="apiKey" type="text" />
@@ -106,22 +279,62 @@
       </ol>
       <p class="note" data-i18n="settings.instructions.note"></p>
     </div>
+
+    <div class="scheduled-commands-section">
+      <div class="section-header">
+        <legend class="homey-form-legend" data-i18n="settings.scheduledCommands.title"></legend>
+        <button id="refreshCommands" class="homey-button-secondary"
+          data-i18n="settings.scheduledCommands.refresh"></button>
+      </div>
+      <p class="subtitle" data-i18n="settings.scheduledCommands.subtitle"></p>
+
+      <div id="commandsContainer">
+        <div class="loading-spinner"></div>
+      </div>
+    </div>
   </div>
 
-  <div class="footer">
-    <button id="save" class="homey-button-primary-full" data-i18n="settings.button"></button>
-  </div>
+  <!-- Toast notification -->
+  <div id="toast" class="toast">✓ Saved</div>
 
   <script type="text/javascript">
     // a method named 'onHomeyReady' must be present in your code
     function onHomeyReady(Homey) {
       // Tell Homey we're ready to be displayed
       Homey.ready();
-  
+
+      /**
+       * Show a toast notification with customizable message and type
+       * @private
+       * @param {string} message - The message to display in the toast
+       * @param {string} [type='success'] - The type of toast: 'success', 'error', or 'warning'
+       * @example
+       * showToast('Settings saved successfully', 'success');
+       * showToast('An error occurred', 'error');
+       * showToast('Please check your input', 'warning');
+       */
+      function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+
+        // Remove existing type classes
+        toast.classList.remove('success', 'error', 'warning');
+
+        // Add appropriate type class
+        toast.classList.add(type);
+        toast.classList.add('show');
+
+        setTimeout(() => {
+          toast.classList.remove('show');
+        }, 3000);
+      }
+
       var apiKeyElement = document.getElementById("apiKey");
       apiKeyElement.placeholder = Homey.__("settings.api.placeholder");
 
       var saveElement = document.getElementById("save");
+      var refreshElement = document.getElementById("refreshCommands");
+      var commandsContainer = document.getElementById("commandsContainer");
 
       // Load the saved API Key from Homey settings
       Homey.get("gemini_api_key", function (err, apiKey) {
@@ -131,7 +344,9 @@
         }
       });
 
+      // Save API Key
       saveElement.addEventListener("click", function (e) {
+        e.preventDefault();
         var apiKey = apiKeyElement.value.trim();
 
         if (!apiKey) {
@@ -141,10 +356,126 @@
 
         // Save the API Key to Homey settings
         Homey.set("gemini_api_key", apiKey, function (err) {
-          if (err) return Homey.alert(Homey.__("settings.error.generic") + ": " + err);
-          Homey.alert(Homey.__("settings.saved"));
+          if (err) {
+            showToast(Homey.__("settings.error.generic") + ": " + err, 'error');
+            return;
+          }
+          showToast(Homey.__("settings.saved"), 'success');
         });
       });
+
+      // Load scheduled commands
+      function loadScheduledCommands() {
+        commandsContainer.innerHTML = '<div style="text-align: center; padding: 20px;"><div class="loading-spinner"></div></div>';
+
+        Homey.api("GET", "/scheduled-commands", null, function (err, result) {
+          if (err) {
+            commandsContainer.innerHTML = '<div class="no-commands">' + Homey.__("settings.scheduledCommands.error.load") + ': ' + err + '</div>';
+            return;
+          }
+
+          if (!result.commands || result.commands.length === 0) {
+            commandsContainer.innerHTML = '<div class="no-commands">' + Homey.__("settings.scheduledCommands.noCommands") + '</div>';
+            return;
+          }
+
+          // Build timer list
+          var table = '<div class="commands-table-container"><table class="commands-table"><tbody>';
+
+          result.commands.forEach(function (cmd) {
+            table += '<tr class="timer-item">';
+            table += '<td>';
+            // First row: Command
+            table += '<div class="timer-command">' + escapeHtml(cmd.description || cmd.command) + '</div>';
+            // Second row: Details (time, status, button)
+            table += '<div class="timer-details">';
+            table += '<div class="timer-details-left">';
+            table += '<span class="execution-time">⏰ ' + escapeHtml(cmd.executeAtLocal) + '</span>';
+            table += '<span class="status-badge">' + escapeHtml(cmd.status) + '</span>';
+            table += '</div>';
+            table += '<button class="homey-button-danger-shadow homey-button-small cancel-btn" data-schedule-id="' + escapeHtml(cmd.scheduleId) + '">' + Homey.__("settings.scheduledCommands.cancel") + '</button>';
+            table += '</div>';
+            table += '</td>';
+            table += '</tr>';
+          });
+
+          table += '</tbody></table></div>';
+          commandsContainer.innerHTML = table;
+
+          // Add event listeners to cancel buttons
+          var cancelButtons = commandsContainer.querySelectorAll('.cancel-btn');
+          console.log('[loadScheduledCommands] Found', cancelButtons.length, 'cancel buttons');
+
+          cancelButtons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              var scheduleId = this.getAttribute('data-schedule-id');
+              console.log('[Cancel button] Clicked, scheduleId:', scheduleId);
+              cancelScheduledCommand(scheduleId);
+            });
+          });
+        });
+      }
+
+      // Cancel scheduled command
+      function cancelScheduledCommand(scheduleId) {
+        console.log('[cancelScheduledCommand] Button clicked, scheduleId:', scheduleId);
+        console.log('[cancelScheduledCommand] Calling Homey.confirm...');
+
+        Homey.confirm(Homey.__("settings.scheduledCommands.confirmCancel"), 'warning', function (err, result) {
+          console.log('[cancelScheduledCommand] Homey.confirm callback called - err:', err, 'result:', result);
+
+          if (err) {
+            console.error('[cancelScheduledCommand] Error showing confirm dialog:', err);
+            return;
+          }
+
+          if (!result) {
+            console.log('[cancelScheduledCommand] User cancelled the confirmation dialog');
+            return;
+          }
+
+          console.log('[cancelScheduledCommand] User confirmed, proceeding with API call');
+
+          Homey.api("DELETE", "/scheduled-commands/" + scheduleId, null, function (err, result) {
+            console.log('[cancelScheduledCommand] API response - err:', err, 'result:', result);
+
+            if (err) {
+              console.error('[cancelScheduledCommand] API error:', err);
+              Homey.alert(Homey.__("settings.scheduledCommands.error.cancel") + ': ' + err);
+              return;
+            }
+
+            if (result.success) {
+              console.log('[cancelScheduledCommand] Command cancelled successfully');
+              showToast(Homey.__("settings.scheduledCommands.cancelled"), 'success');
+              loadScheduledCommands(); // Reload list
+            } else {
+              console.error('[cancelScheduledCommand] Cancellation failed:', result.error);
+              showToast(Homey.__("settings.scheduledCommands.error.cancel") + ': ' + (result.error || 'Unknown error'), 'error');
+            }
+          });
+        });
+      }
+
+      // Escape HTML to prevent XSS
+      function escapeHtml(text) {
+        var map = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        };
+        return String(text).replace(/[&<>"']/g, function (m) { return map[m]; });
+      }
+
+      // Refresh button
+      refreshElement.addEventListener("click", function () {
+        loadScheduledCommands();
+      });
+
+      // Load commands on init
+      loadScheduledCommands();
     }
   </script>
 </body>

@@ -14,6 +14,11 @@ module.exports = class GeminiApp extends Homey.App {
     // Initialize the GeminiClient once at startup
     this.initializeGeminiClient();
 
+    // Restore scheduled commands after restart
+    if (this.geminiClient && this.geminiClient.mcpAdapter) {
+      await this.geminiClient.mcpAdapter.restoreScheduledCommands();
+    }
+
     // Listen for settings changes to re-initialize the client when API key is set
     this.homey.settings.on('set', (key) => {
       if (key === 'gemini_api_key') {
@@ -41,6 +46,18 @@ module.exports = class GeminiApp extends Homey.App {
 
     this.geminiClient = new GeminiClient(apiKey, { homey: this.homey });
     this.log('[initializeGeminiClient] GeminiClient initialized successfully');
+  }
+
+  /**
+   * onUninit is called when the app is destroyed
+   */
+  async onUninit() {
+    this.log('[onUninit] GeminiApp is being destroyed');
+    
+    // Cleanup scheduler interval if MCP adapter exists
+    if (this.geminiClient && this.geminiClient.mcpAdapter) {
+      await this.geminiClient.mcpAdapter.cleanup();
+    }
   }
 
   /**
@@ -151,6 +168,35 @@ module.exports = class GeminiApp extends Homey.App {
     }
 
     this.error(`${context} Error message: ${errorMessage}`);
+
+    // Check for specific error types and provide localized messages
+    const errorStr = (error.message || '').toLowerCase();
+    const errorDetails = JSON.stringify(error).toLowerCase();
+    
+    // Rate limit / quota exceeded errors (429)
+    if (errorStr.includes('429') || 
+        errorStr.includes('quota') || 
+        errorStr.includes('resource_exhausted') ||
+        errorDetails.includes('429') ||
+        errorDetails.includes('resource_exhausted')) {
+      throw new Error(this.homey.__("prompt.error.rate_limit_exceeded"));
+    }
+    
+    // Content blocked by safety filters
+    if (errorStr.includes('blocked') || 
+        errorStr.includes('safety') ||
+        errorDetails.includes('blocked_reason')) {
+      throw new Error(this.homey.__("prompt.error.content_blocked"));
+    }
+    
+    // API key invalid
+    if (errorStr.includes('api_key_invalid') || 
+        errorStr.includes('invalid api key') ||
+        errorStr.includes('api key not valid')) {
+      throw new Error(this.homey.__("prompt.error.api_key_invalid"));
+    }
+
+    // Generic error fallback
     throw new Error(this.homey.__("prompt.error.generic", { error: errorMessage }));
   }
 
