@@ -3,7 +3,7 @@ Invia prompt a Google Gemini dai Flow di Homey e usa la risposta dell'IA nelle t
 Caratteristiche
 - Prompts di testo: il Flow "Invia Prompt" accetta prompt testuali e restituisce una risposta generata dall'AI;
 - Prompts multimodali: il Flow "Invia Prompt con Immagine" accetta prompt multimodali (immagine + testo) e restituisce una risposta generata dall'AI;
-- Prompts per la domotica: il Flow "Invia Prompt con Comando" invia un comando in linguaggio naturale a Gemini AI per controllare i tuoi dispositivi;
+- Prompts per la domotica: il Flow "Invia Comando alla tua Smart Home" invia un comando in linguaggio naturale a Gemini AI per controllare i tuoi dispositivi. Puoi anche creare automazioni chiedendo a Gemini di eseguire un determinato comando ad un certo orario. Tutti i timer creati sono gestibili dalle impostazioni dell'app;
 - Semplice pagina di impostazioni per salvare la tua chiave API Gemini;
 - Basato su Google Generative AI (gemini-2.5-flash-lite).
 
@@ -38,7 +38,7 @@ AND: Gestisci la risposta true/false
 ```
 WHEN: E' arrivato il week-end
 THEN: Invia una notifica "Ask question" con testo "Sta per arrivare il week-end. Cosa vuoi che faccia?"
-AND: Invia Prompt con la risposta dell'utente ("Inizia a riscaldare casa")
+AND: Invia Prompt con la risposta dell'utente: "Domani alle 18.00 inizia a riscaldare casa"
 AND: Gestisci la risposta e verificane la corretta esecuzione
 ```
 

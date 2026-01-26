@@ -38,5 +38,9 @@
   "2.1.1": {
     "en": "Improved translations",
     "it": "Traduzioni migliorate"
+  },
+  "2.1.2": {
+    "en": "(i) Added support for sending home automation prompts (light switches, thermostats, etc.) via Gemini AI \n(ii) Added ability to schedule and manage commands for home automation via Gemini AI",
+    "it": "(i) Aggiunto il supporto per l'invio di prompt di automazione domestica (interruttori della luce, termostati, ecc.) tramite Gemini AI \n(ii) Aggiunta la possibilità di creare timer per l'automazione domestica tramite Gemini AI"
   }
 }

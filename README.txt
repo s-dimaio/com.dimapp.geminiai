@@ -3,7 +3,7 @@ Send prompts to Google Gemini from Homey Flows and use the AI's answer in your a
 Features
 - Text Prompts: "Send Prompt" action card that accepts text prompts and returns AI-generated responses.
 - Multimodal Prompts: "Send Prompt with Image" action card that accepts an image plus text and returns AI-generated analysis of the image.
-- Home Automation Commands: "Send Prompt with Command" action card that sends natural language commands to Gemini to control Homey devices (e.g., turn lights on/off, trigger flows).
+- Home Automation Commands: "Send Command to your Smart Home" action card that sends natural language commands to Gemini to control Homey devices (e.g., turn lights on/off, trigger flows). You can also create automations by asking Gemini to run a specific command at a certain time. You can manage all your timers in the app settings; 
 - Simple settings page to store your Gemini API Key.
 - Powered by Google Generative AI (`gemini-2.5-flash-lite`).
 
@@ -36,9 +36,10 @@ AND: Send Prompt with Image "Check if anything appears disturbed or out of place
 AND: Manage true/false response in flows
 ```
 ```
-WHEN: It's the weekend
-THEN: Send Prompt with Command "Start heating the house to 20°C"
-AND: Use the `success` boolean token to confirm execution and notify the user
+WHEN: It is the weekend 
+THEN: Send an "Ask question" notification with the text: "The weekend is almost here. What would you like me to do?" 
+AND: Send a Prompt with the user response: "Start heating the house tomorrow at 6:00 PM" 
+AND: Process the response and verify successful execution
 ```
 
 Requirements
