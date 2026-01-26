@@ -34,5 +34,9 @@
   "2.1.0": {
     "en": "Added ability to schedule and manage commands for home automation via Gemini AI",
     "it": "Aggiunta la possibilità di programmare e gestire i comandi per l'automazione domestica tramite Gemini AI"
+  },
+  "2.1.1": {
+    "en": "Improved translations",
+    "it": "Traduzioni migliorate"
   }
 }

@@ -18,24 +18,25 @@
             "step1": "Vai su Google AI Studio (aistudio.google.com)",
             "step2": "Accedi con il tuo account Google",
             "step3": "Clicca su \"Get API Key\" nella barra laterale",
-            "step4": "Clicca \"Create API key\" e copiala",
-            "note": "Importante: salva subito la tua API key - non potrai più visualizzarla."
+            "step4": "Clicca \"Crea chiave API\" in alto a destra",
+            "step5": "Segui le istruzioni e una volta fatto premi \"Crea chiave\"",
+            "step6": "Clicca sulla chiave appena creata e copia la tua \"Chiave API\""
         },
         "scheduledCommands": {
-            "title": "Comandi Programmati",
-            "subtitle": "Gestisci i tuoi comandi programmati. Puoi visualizzare e cancellare i timer in attesa.",
-            "noCommands": "Nessun comando programmato trovato.",
+            "title": "Automazioni",
+            "subtitle": "Gestisci le tue automazioni. Puoi visualizzare e cancellare i timer in attesa.",
+            "noCommands": "Nessuna automazione trovata.",
             "command": "Comando",
             "executionTime": "Ora di Esecuzione",
             "status": "Stato",
             "actions": "Azioni",
             "cancel": "Cancella",
             "refresh": "Aggiorna",
-            "confirmCancel": "Sei sicuro di voler cancellare questo comando programmato?",
-            "cancelled": "Comando programmato cancellato con successo.",
+            "confirmCancel": "Sei sicuro di voler cancellare questa automazione?",
+            "cancelled": "Automazione cancellata con successo.",
             "error": {
-                "load": "Errore nel caricamento dei comandi programmati",
-                "cancel": "Errore nella cancellazione del comando"
+                "load": "Errore nel caricamento delle automazioni",
+                "cancel": "Errore nella cancellazione dell'automazione"
             }
         }
     },

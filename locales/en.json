@@ -18,8 +18,9 @@
             "step1": "Go to Google AI Studio (aistudio.google.com)",
             "step2": "Sign in with your Google account",
             "step3": "Click on \"Get API Key\" in the left sidebar",
-            "step4": "Click \"Create API key\" and copy it",
-            "note": "Important: Save your API key immediately - you won't be able to see it again."
+            "step4": "Click \"Create API key\"",
+            "step5": "Follow the instructions and once done press \"Create key\"",
+            "step6": "Click on the newly created key and copy your \"API Key\""
         },
         "scheduledCommands": {
             "title": "Scheduled Commands",

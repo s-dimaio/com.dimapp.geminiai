@@ -2,21 +2,13 @@
   "id": "scheduled_command_executed",
   "title": {
     "en": "Scheduled command executed",
-    "it": "Comando programmato eseguito"
+    "it": "L'automazione viene eseguita"
   },
   "hint": {
     "en": "This card triggers when a scheduled command has been executed",
-    "it": "Questa carta si attiva quando un comando programmato viene eseguito"
+    "it": "Questa carta si attiva quando un'automazione viene eseguita"
   },
   "tokens": [
-    {
-      "name": "schedule_id",
-      "type": "string",
-      "title": {
-        "en": "Schedule ID",
-        "it": "ID Programmazione"
-      }
-    },
     {
       "name": "command",
       "type": "string",
