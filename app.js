@@ -19,10 +19,10 @@ module.exports = class GeminiApp extends Homey.App {
       await this.geminiClient.mcpAdapter.restoreScheduledCommands();
     }
 
-    // Listen for settings changes to re-initialize the client when API key is set
+    // Listen for settings changes to re-initialize the client
     this.homey.settings.on('set', (key) => {
-      if (key === 'gemini_api_key') {
-        this.log('[onInit] API key setting changed, re-initializing GeminiClient');
+      if (key === 'gemini_api_key' || key === 'gemini_model') {
+        this.log(`[onInit] Setting ${key} changed, re-initializing GeminiClient`);
         this.initializeGeminiClient();
       }
     });
@@ -38,14 +38,18 @@ module.exports = class GeminiApp extends Homey.App {
    */
   initializeGeminiClient() {
     const apiKey = this.homey.settings.get('gemini_api_key');
+    const modelName = this.homey.settings.get('gemini_model') || 'gemini-2.5-flash';
 
     if (!apiKey) {
       this.log('[initializeGeminiClient] API key not found in settings - app will function but Gemini flows will fail until API key is configured');
       return;
     }
 
-    this.geminiClient = new GeminiClient(apiKey, { homey: this.homey });
-    this.log('[initializeGeminiClient] GeminiClient initialized successfully');
+    this.geminiClient = new GeminiClient(apiKey, {
+      homey: this.homey,
+      modelName: modelName
+    });
+    this.log(`[initializeGeminiClient] GeminiClient initialized successfully with model: ${modelName}`);
   }
 
   /**
@@ -53,7 +57,7 @@ module.exports = class GeminiApp extends Homey.App {
    */
   async onUninit() {
     this.log('[onUninit] GeminiApp is being destroyed');
-    
+
     // Cleanup scheduler interval if MCP adapter exists
     if (this.geminiClient && this.geminiClient.mcpAdapter) {
       await this.geminiClient.mcpAdapter.cleanup();
@@ -172,27 +176,27 @@ module.exports = class GeminiApp extends Homey.App {
     // Check for specific error types and provide localized messages
     const errorStr = (error.message || '').toLowerCase();
     const errorDetails = JSON.stringify(error).toLowerCase();
-    
+
     // Rate limit / quota exceeded errors (429)
-    if (errorStr.includes('429') || 
-        errorStr.includes('quota') || 
-        errorStr.includes('resource_exhausted') ||
-        errorDetails.includes('429') ||
-        errorDetails.includes('resource_exhausted')) {
+    if (errorStr.includes('429') ||
+      errorStr.includes('quota') ||
+      errorStr.includes('resource_exhausted') ||
+      errorDetails.includes('429') ||
+      errorDetails.includes('resource_exhausted')) {
       throw new Error(this.homey.__("prompt.error.rate_limit_exceeded"));
     }
-    
+
     // Content blocked by safety filters
-    if (errorStr.includes('blocked') || 
-        errorStr.includes('safety') ||
-        errorDetails.includes('blocked_reason')) {
+    if (errorStr.includes('blocked') ||
+      errorStr.includes('safety') ||
+      errorDetails.includes('blocked_reason')) {
       throw new Error(this.homey.__("prompt.error.content_blocked"));
     }
-    
+
     // API key invalid
-    if (errorStr.includes('api_key_invalid') || 
-        errorStr.includes('invalid api key') ||
-        errorStr.includes('api key not valid')) {
+    if (errorStr.includes('api_key_invalid') ||
+      errorStr.includes('invalid api key') ||
+      errorStr.includes('api key not valid')) {
       throw new Error(this.homey.__("prompt.error.api_key_invalid"));
     }
 
@@ -219,11 +223,12 @@ module.exports = class GeminiApp extends Homey.App {
 
         // Generate response with MCP function calling
         const result = await this.geminiClient.generateTextWithMCP(command);
-        this.log(`[mcpCommandCard] Response: ${result.response}, Success: ${result.success}`);
+        this.log(`[mcpCommandCard] Response: ${result.response}, Success: ${result.success}, TimerId: ${result.timerId || 'none'}`);
 
-        return { 
+        return {
           response: result.response,
-          success: result.success
+          success: result.success,
+          timer_id: result.timerId || ''
         };
 
       } catch (error) {

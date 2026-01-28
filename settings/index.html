@@ -266,6 +266,16 @@
           <label class="homey-form-label" for="apiKey" data-i18n="settings.api.label"></label>
           <input class="homey-form-input" id="apiKey" type="text" />
         </div>
+        <div class="homey-form-group">
+          <label class="homey-form-label" for="modelSelect" data-i18n="settings.model.label"></label>
+          <select class="homey-form-select" id="modelSelect">
+            <option value="gemini-2.5-flash-lite" data-i18n="settings.model.options.flash_lite"></option>
+            <option value="gemini-2.5-flash" data-i18n="settings.model.options.flash"></option>
+            <option value="gemini-2.5-pro" data-i18n="settings.model.options.pro"></option>
+            <option value="gemini-3-flash-preview" data-i18n="settings.model.options.flash3_preview"></option>
+            <option value="gemini-3-pro-preview" data-i18n="settings.model.options.pro3_preview"></option>
+          </select>
+        </div>
       </fieldset>
     </form>
 
@@ -296,7 +306,7 @@
   </div>
 
   <!-- Toast notification -->
-  <div id="toast" class="toast">✓ Saved</div>
+  <div id="toast" class="toast"></div>
 
   <script type="text/javascript">
     // a method named 'onHomeyReady' must be present in your code
@@ -345,6 +355,19 @@
         }
       });
 
+      var modelSelectElement = document.getElementById("modelSelect");
+
+      // Load the saved Model from Homey settings
+      Homey.get("gemini_model", function (err, model) {
+        if (err) return console.error("Error loading Gemini Model:", err);
+        if (model) {
+          modelSelectElement.value = model;
+        } else {
+          // Default to gemini-2.5-flash if not set
+          modelSelectElement.value = "gemini-2.5-flash";
+        }
+      });
+
       // Save API Key
       saveElement.addEventListener("click", function (e) {
         e.preventDefault();
@@ -361,7 +384,16 @@
             showToast(Homey.__("settings.error.generic") + ": " + err, 'error');
             return;
           }
-          showToast(Homey.__("settings.saved"), 'success');
+
+          // Save the Gemini Model
+          var model = modelSelectElement.value;
+          Homey.set("gemini_model", model, function (err) {
+            if (err) {
+              showToast(Homey.__("settings.error.generic") + ": " + err, 'error');
+              return;
+            }
+            showToast(Homey.__("settings.saved"), 'success');
+          });
         });
       });
 

@@ -42,5 +42,9 @@
   "2.1.2": {
     "en": "(i) Added support for sending home automation prompts (light switches, thermostats, etc.) via Gemini AI \n(ii) Added ability to schedule and manage commands for home automation via Gemini AI",
     "it": "(i) Aggiunto il supporto per l'invio di prompt di automazione domestica (interruttori della luce, termostati, ecc.) tramite Gemini AI \n(ii) Aggiunta la possibilità di creare timer per l'automazione domestica tramite Gemini AI"
+  },
+  "2.2.0": {
+    "en": "(i) Upgraded Gemini SDK to version 1.38.0 and added model selection (Flash, Pro, Gemini 3) \n(ii) Added complete localization for settings page and app messages \n(iii) Improved reliability for next-gen models",
+    "it": "(i) Aggiornato l'SDK di Gemini alla versione 1.38.0 e aggiunta la selezione del modello (Flash, Pro, Gemini 3) \n(ii) Aggiunta la localizzazione completa per la pagina delle impostazioni e i messaggi dell'app \n(iii) Migliorata l'affidabilità per i modelli di prossima generazione"
   }
 }

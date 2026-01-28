@@ -3,14 +3,14 @@
         "title": "Gemini AI",
         "subtitle": "Gemini AI Settings",
         "api": {
-            "legend": "API Configuration",
+            "legend": "Configuration",
             "label": "API Key",
             "placeholder": "Insert your Google Gemini API Key here"
         },
         "button": "Save",
-        "saved": "API Key saved successfully!",
+        "saved": "Configuration saved successfully!",
         "error": {
-            "generic": "Error saving Gemini API Key",
+            "generic": "Error saving Gemini configuration",
             "api": "Please insert a valid Gemini API Key"
         },
         "instructions": {
@@ -38,9 +38,21 @@
                 "load": "Error loading scheduled commands",
                 "cancel": "Error cancelling command"
             }
+        },
+        "model": {
+            "label": "Gemini Model",
+            "options": {
+                "flash_lite": "Gemini 2.5 Flash-Lite (Lightweight - Default)",
+                "flash": "Gemini 2.5 Flash (Balanced)",
+                "pro": "Gemini 2.5 Pro (Best Quality)",
+                "flash3_preview": "Gemini 3 Flash Preview (Next Gen Speed)",
+                "pro3_preview": "Gemini 3 Pro Preview (Most Capable)"
+            }
         }
     },
     "prompt": {
+        "action_completed": "Done.",
+        "empty_response": "I retrieved the information but couldn't formulate a response. Please try rephrasing your question.",
         "error": {
             "noapi": "Gemini API key not found in settings",
             "noimage": "No image provided. Please drag an image token to this action.",

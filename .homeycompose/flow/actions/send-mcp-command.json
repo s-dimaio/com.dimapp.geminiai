@@ -23,6 +23,15 @@
   ],
   "tokens": [
     {
+      "name": "timer_id",
+      "type": "string",
+      "title": {
+        "en": "Timer ID",
+        "it": "ID Timer"
+      },
+      "example": "timer_123abc"
+    },
+    {
       "name": "response",
       "type": "string",
       "title": {

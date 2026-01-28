@@ -3,14 +3,14 @@
         "title": "Gemini AI",
         "subtitle": "Impostazioni di Gemini AI",
         "api": {
-            "legend": "Configurazione API",
+            "legend": "Configurazione",
             "label": "API Key",
             "placeholder": "Inserisci qui la tua API Key di Google Gemini"
         },
         "button": "Salva",
-        "saved": "API Key salvata con successo!",
+        "saved": "Configurazione salvata con successo!",
         "error": {
-            "generic": "Errore durante il salvataggio della API Key di Gemini",
+            "generic": "Errore durante la configurazione di Gemini",
             "api": "Si prega di inserire una API Key di Gemini valida"
         },
         "instructions": {
@@ -38,9 +38,21 @@
                 "load": "Errore nel caricamento delle automazioni",
                 "cancel": "Errore nella cancellazione dell'automazione"
             }
+        },
+        "model": {
+            "label": "Modello Gemini",
+            "options": {
+                "flash_lite": "Gemini 2.5 Flash-Lite (Leggero - Predefinito)",
+                "flash": "Gemini 2.5 Flash (Bilanciato)",
+                "pro": "Gemini 2.5 Pro (Massima Qualità)",
+                "flash3_preview": "Gemini 3 Flash Preview (Velocità di Nuova Generazione)",
+                "pro3_preview": "Gemini 3 Pro Preview (Più Capace)"
+            }
         }
     },
     "prompt": {
+        "action_completed": "Fatto.",
+        "empty_response": "Ho recuperato le informazioni ma non sono riuscito a formulare una risposta. Prova a riformulare la domanda.",
         "error": {
             "noapi": "API Key di Gemini non trovata nelle impostazioni",
             "noimage": "Nessuna immagine fornita. Trascina un token immagine su questa azione.",
