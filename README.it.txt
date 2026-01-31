@@ -1,13 +1,20 @@
-Invia prompt a Google Gemini dai Flow di Homey e usa la risposta dell'IA nelle tue automazioni.
+Invia prompt a Google Gemini dai Flow di Homey e usa la risposta dell'IA nelle tue automazioni. Se usato insieme ad un account Telegram puoi creare dei bot personalizzati per la gestione della tua casa.
 
 Caratteristiche
 - Prompts di testo: il Flow "Invia Prompt" accetta prompt testuali e restituisce una risposta generata dall'AI;
 - Prompts multimodali: il Flow "Invia Prompt con Immagine" accetta prompt multimodali (immagine + testo) e restituisce una risposta generata dall'AI;
-- Prompts per la domotica: il Flow "Invia Comando alla tua Smart Home" invia un comando in linguaggio naturale a Gemini AI per controllare i tuoi dispositivi. Puoi anche creare automazioni chiedendo a Gemini di eseguire un determinato comando ad un certo orario. Tutti i timer creati sono gestibili dalle impostazioni dell'app;
-- Semplice pagina di impostazioni per salvare la tua chiave API Gemini;
-- Basato su Google Generative AI (gemini-2.5-flash-lite).
+- Prompts per la domotica: il Flow "Esegui un comando per la tua smart home" invia un comando in linguaggio naturale a Gemini AI per controllare i tuoi dispositivi.
+- Automazioni pianificate: crea automazioni chiedendo a Gemini di eseguire un comando ad un certo orario. I timer sono gestibili dalle impostazioni dell'app;
+- Selezione del modello: scegli il tuo modello Gemini preferito (Flash, Pro, Gemini 3) nelle impostazioni;
+- Semplice pagina di impostazioni per salvare la tua chiave API Gemini e selezionare i modelli;
+- Basato su Google Generative AI (modelli selezionabili dall'utente).
 
 Esempi di utilizzo
+```
+WHEN: Arriva un messaggio Telegram con un comando per la Smart Home (ie spegni tutte le luci)
+THEN: Invia prompt a Gemini AI con il messaggio Telegram
+AND: Invia messaggio Telegram con la risposta di Gemini
+```
 ```
 WHEN: Movimento rilevato nel soggiorno
 THEN: Invia Prompt "Genera un messaggio di benvenuto per chi entra nel soggiorno"
@@ -47,8 +54,9 @@ Requisiti
 
 Configurazione
 1) Apri le Impostazioni dell'app ed inserisci la tua chiave API.
-2) Crea un Flow e aggiungi l'azione “Invia Prompt”, “Invia Prompt con Immagine” o “Invia il comando”.
-3) Fornisci il prompt e usa il token “Risposta di Gemini” nelle schede Flow successive.
+2) Seleziona il modello Gemini che desideri utilizzare.
+3) Crea un Flow e aggiungi l'azione “Invia Prompt”, “Invia Prompt con Immagine” o “Esegui un comando per la tua smart home”.
+4) Fornisci il prompt e usa i token “Risposta di Gemini”, “Risposta” o “Successo” nelle schede Flow successive.
 
 Privacy
 - L'app memorizza solo la tua chiave API nelle impostazioni di Homey.

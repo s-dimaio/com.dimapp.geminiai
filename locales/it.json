@@ -61,7 +61,8 @@
             "mcp": "Errore durante l'esecuzione del comando: __error__",
             "rate_limit_exceeded": "Hai superato la quota giornaliera. Riprova più tardi o aggiorna il tuo piano. Per maggiori informazioni su questo errore, visita: https://ai.google.dev/gemini-api/docs/rate-limits. Per monitorare il tuo utilizzo corrente, visita: https://ai.dev/rate-limit.",
             "content_blocked": "Contenuto bloccato dai filtri di sicurezza. Prova a riformulare la richiesta. Per maggiori informazioni, visita: https://ai.google.dev/gemini-api/docs/safety-settings.",
-            "api_key_invalid": "API Key non valida. Controlla la tua API Key di Gemini nelle impostazioni dell'app. Per maggiori informazioni, visita: https://ai.google.dev/gemini-api/docs/api-key."
+            "api_key_invalid": "API Key non valida. Controlla la tua API Key di Gemini nelle impostazioni dell'app. Per maggiori informazioni, visita: https://ai.google.dev/gemini-api/docs/api-key.",
+            "max_turns_reached": "Dopo diversi tentativi non sono riuscito a completare la richiesta. Puoi essere più preciso?"
         }
     },
     "scheduled_commands": {

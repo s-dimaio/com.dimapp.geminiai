@@ -8,8 +8,10 @@ This Homey app integrates Google's Gemini AI into your smart home ecosystem, all
 
 - **Text Prompts**: "Send Prompt" action card that accepts text prompts and returns AI-generated responses
 - **Image Analysis**: "Send Prompt with Image" action card that accepts multimodal prompts (image + text) and returns AI-generated responses
-- **Function Calling (NEW)**: "Send MCP Command" action card for conversational smart home control - ask Gemini to control devices, trigger flows, and query device states using natural language
-- **Token Support**: Returns an "answer" token that can be used in subsequent Flow cards
+- **Function Calling**: "Execute a command for your smart home" action card for conversational smart home control - ask Gemini to control devices, trigger flows, and query device states using natural language
+- **Scheduled Automations**: Schedule commands to be executed later (e.g., "In 10 minutes turn off the lights"). Manage active timers directly in the app settings.
+- **Model Selection**: Choose your preferred Gemini model (Flash, Pro, Gemini 3) in the app settings to balance speed and performance.
+- **Token Support**: Returns various tokens (answer, response, success, timer_id) that can be used in subsequent Flow cards
 - **Image Token Handling**: Full integration with Homey image tokens from flow triggers (e.g., webcam snapshots)
 - **API Key Management**: Simple settings interface to securely store your Google Gemini API key
 
@@ -41,7 +43,7 @@ This Homey app integrates Google's Gemini AI into your smart home ecosystem, all
 1. Click on "Get API Key" in the left sidebar
 2. Click "Create API key in new project" (or select an existing project)
 3. Your API key will be generated automatically
-4. **Important**: Copy and save your API key immediately - you won't be able to see it again
+
 
 ### Step 3: (Optional) Configure Usage Limits
 1. Go to [Google Cloud Console](https://console.cloud.google.com/)
@@ -60,7 +62,8 @@ This Homey app integrates Google's Gemini AI into your smart home ecosystem, all
 2. Go to "More" → "Apps" → "Gemini for Homey"
 3. Click "Settings"
 4. Enter your Google Gemini API key
-5. Click "Save"
+5. Select your preferred Gemini Model (e.g., Gemini 1.5 Flash, Gemini 2.0 Pro, etc.)
+6. Click "Save"
 
 ### 2. Create a Flow
 1. Open the Homey app and go to "Flows"
@@ -108,32 +111,32 @@ THEN: Send Prompt "Create a brief weather advisory based on today's forecast"
 AND: Send notification with Gemini answer
 ```
 
-### Conversational Device Control (Function Calling)
+### Conversational Device Control
 ```
 WHEN: Voice command received
-THEN: Send MCP Command "Turn off all the lights in the living room"
-AND: Speak the Gemini answer
+THEN: Execute a command for your smart home "Turn off all the lights in the living room"
+AND: Speak the response
 ```
 
 ### Smart Home Queries
 ```
 WHEN: Schedule triggers
-THEN: Send MCP Command "How many lights are currently on in the house?"
-AND: Log the Gemini answer
+THEN: Execute a command for your smart home "How many lights are currently on in the house?"
+AND: Log the response
 ```
 
 ### Complex Automation
 ```
 WHEN: Motion detected
-THEN: Send MCP Command "Set the bedroom lights to 50% brightness and turn on the bedroom fan"
-AND: Send notification with result
+THEN: Execute a command for your smart home "Set the bedroom lights to 50% brightness and turn on the bedroom fan"
+AND: Send notification with response
 ```
 
 ### Scene Management
 ```
 WHEN: Button pressed
-THEN: Send MCP Command "Activate the 'Movie Night' flow"
-AND: Speak confirmation message
+THEN: Execute a command for your smart home "Activate the 'Movie Night' flow"
+AND: Speak confirmation (response)
 ```
 
 ## Technical Details
@@ -157,7 +160,7 @@ AND: Speak confirmation message
 ```
 
 ### Dependencies
-- `@google/genai`: Official Google Generative AI SDK (v0.3.0+)
+- `@google/generative-ai`: Official Google Generative AI SDK (v1.38.0+)
 - `homey-api`: Homey API client for device access (v3.2.1+)
 - `homey`: Homey Apps SDK v3
 
@@ -167,22 +170,23 @@ AND: Speak confirmation message
 - **ID**: `send-prompt`
 - **Input**: Text prompt (string)
 - **Output**: `answer` token (string) containing Gemini's response
-- **Model**: Gemini 2.5 Flash-Lite
+- **Model**: User selected (Default: Gemini 2.5 Flash-Lite)
 
 #### Send Prompt with Image (Multimodal)
 - **ID**: `send-prompt-with-image`
 - **Input**: Image token (from flow droptoken) + text prompt (string)
 - **Output**: `answer` token (string) containing Gemini's response
-- **Model**: Gemini 2.5 Flash-Lite
+- **Model**: User selected (Default: Gemini 2.5 Flash-Lite)
 - **Limitations**: Currently supports single image per prompt
 
-#### Send MCP Command (Function Calling)
+#### Execute a command for your smart home (Function Calling)
 - **ID**: `send-mcp-command`
 - **Input**: Natural language command (string)
 - **Output**: 
   - `response` token (string) containing Gemini's natural language response
-  - `actions_executed` token (number) count of executed actions
-- **Model**: Gemini 2.5 Flash (optimized for function calling)
+  - `success` token (boolean) whether the command was successful
+  - `timer_id` token (string) ID of the created timer (if applicable)
+- **Model**: User selected (Optimized for function calling)
 - **Capabilities**:
   - **Device Control**: Turn devices on/off, adjust brightness/temperature, control any device capability
   - **Flow Triggering**: Start Homey Flows by name
@@ -197,7 +201,12 @@ AND: Speak confirmation message
 - **Requirements**: 
   - Requires `homey:manager:api` permission for full device access
   - Only works on local Homey installations (not Homey Cloud)
-- **Rate Limits**: Free tier allows 15 requests per minute, 1500 per day
+- **Model Options**: 
+  - Gemini 2.5 Flash-Lite
+  - Gemini 2.5 Flash
+  - Gemini 2.5 Pro
+  - Gemini 3 Flash Preview
+  - Gemini 3 Pro Preview
 
 ## Development
 
@@ -297,32 +306,5 @@ Email: simone.dimaio77@gmail.com
 
 - **Issues**: Report bugs and feature requests on [GitHub Issues](https://github.com/s-dimaio/com.dimapp.geminiai/issues)
 - **Documentation**: Visit [Gemini API Docs](https://ai.google.dev/gemini-api/docs)
-
-## Changelog
-
-### v1.2.0
-- **New**: Add "Send MCP Command" action card with function calling for conversational device control
-- **New**: 5 built-in functions: control devices, trigger flows, query states, list devices by zone/all
-- **New**: Natural language smart home control - ask Gemini to control your home
-- **New**: Added `homey:manager:api` permission for full account device access
-- **New**: Quota exceeded error handling with localized messages
-- **Improvement**: Uses Gemini 2.5 Flash for better function calling performance
-- **Improvement**: Integrated `homey-api` package for comprehensive device access
-- **Fix**: Resolved zone deprecation warnings by using zone ID lookup
-- **Note**: Requires local Homey installation (not compatible with Homey Cloud)
-
-### v1.1.1
-- **New**: Add "Send Prompt with Image" action card for multimodal prompts
-- **New**: Full support for image token handling from Homey flows
-- **Improvement**: Upgrade to Gemini 2.5 Flash-Lite model for better performance
-- **Improvement**: Refactor app.js with better code organization
-- **Improvement**: Centralized error handling and flow card registration
-
-### v1.0.0
-- Initial release
-- Basic "Send Prompt" Flow action
-- Google Gemini 1.5 Flash integration
-- Multi-language support (English/Italian)
-- Settings interface for API key configuration
 
 
