@@ -50,5 +50,9 @@
   "2.2.1": {
     "en": "(i) Upgraded Gemini SDK to version 1.38.0 and added model selection (Flash, Pro, Gemini 3) \n(ii) Added complete localization for settings page and app messages \n(iii) Improved reliability for next-gen models",
     "it": "(i) Aggiornato l'SDK di Gemini alla versione 1.38.0 e aggiunta la selezione del modello (Flash, Pro, Gemini 3) \n(ii) Aggiunta la localizzazione completa per la pagina delle impostazioni e i messaggi dell'app \n(iii) Migliorata l'affidabilità per i modelli di prossima generazione"
+  },
+  "2.3.0": {
+    "en": "(i) Added conversation memory (remembers context for up to 2 hours) \n(ii) Implemented recursive zone filtering for better device discovery in sub-areas \n(iii) Added support for \"virtualClass\" (correctly identifies sockets/switches configured as lights)",
+    "it": "(i) Aggiunta la memoria della conversazione (ricorda il contesto per 2 ore) \n(ii) Implementato il filtraggio ricorsivo delle zone per migliorare il rilevamento dei dispositivi nelle sotto-zone \n(iii) Aggiunto il supporto per \"virtualClass\" (identifica correttamente prese/interruttori configurati come luci)"
   }
 }
