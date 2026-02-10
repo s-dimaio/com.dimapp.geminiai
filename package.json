@@ -1,6 +1,6 @@
 {
   "name": "com.dimapp.geminiforhomey",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "main": "app.js",
   "scripts": {},
   "devDependencies": {
@@ -8,6 +8,6 @@
   },
   "dependencies": {
     "@google/genai": "^1.38.0",
-    "homey-api": "^3.2.1"
+    "homey-api": "^3.16.0"
   }
 }

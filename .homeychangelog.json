@@ -54,5 +54,9 @@
   "2.3.0": {
     "en": "(i) Added conversation memory (remembers context for up to 2 hours) \n(ii) Implemented recursive zone filtering for better device discovery in sub-areas \n(iii) Added support for \"virtualClass\" (correctly identifies sockets/switches configured as lights)",
     "it": "(i) Aggiunta la memoria della conversazione (ricorda il contesto per 2 ore) \n(ii) Implementato il filtraggio ricorsivo delle zone per migliorare il rilevamento dei dispositivi nelle sotto-zone \n(iii) Aggiunto il supporto per \"virtualClass\" (identifica correttamente prese/interruttori configurati come luci)"
+  },
+  "2.4.0": {
+    "en": "(i) Improved reliability when triggering flows (requires HomeyScript app installed) \n(ii) Significantly improved smart home control with 11 new capabilities, including better search for devices and zone-specific queries \n(iii) Faster performance and better handling of timezone and API limits",
+    "it": "(i) Migliorata l'affidabilità nell'attivazione dei Flow (richiede l'app HomeyScript installata) \n(ii) Controllo della casa intelligente notevolmente potenziato con 11 nuove funzioni, tra cui una migliore ricerca dei dispositivi e interrogazioni per zona \n(iii) Prestazioni più veloci e migliore gestione del fuso orario locale"
   }
 }

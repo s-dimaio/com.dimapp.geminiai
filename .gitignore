@@ -7,3 +7,5 @@ bck/
 **/*.bck
 *.code-workspace
 *.ps1
+TODO.txt
+HOMEY_POST.md

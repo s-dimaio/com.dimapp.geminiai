@@ -1,17 +1,15 @@
 Send prompts to Google Gemini from Homey Flows and use the AI's answer in your automations. If used together with a Telegram account you can create custom bots for managing your home.
 
 Features
-- Text Prompts: "Send Prompt" action card that accepts text prompts and returns AI-generated responses.
-- Multimodal Prompts: "Send Prompt with Image" action card that accepts an image plus text and returns AI-generated analysis.
-- Home Automation Commands: "Execute a command for your smart home" action card that sends natural language commands to Gemini to control Homey devices.
-- Scheduled Automations: Create automations by asking Gemini to run a command at a certain time. Manage timers in the app settings.
-- Model Selection: Choose your preferred Gemini model (Flash, Pro, Gemini 3) in the settings.
-- Simple settings page to store your Gemini API Key and select models.
-- Powered by Google Generative AI (user-selectable models).
+- Text Prompts: send questions or instructions and receive AI-generated responses.
+- Image Prompts: analyze images (e.g. from cameras) to describe what's happening at home.
+- Smart Home Control: use natural language to control devices, ask about your home status, or trigger Flows.
+- Scheduled Automations: ask Gemini to run a command at a specific time. Manage timers in the app settings.
+- Model Selection: choose from the latest Gemini models (Flash, Pro, Gemini 3) for superior speed or intelligence.
 
 Usage Examples
 ```
-WHEN: A Telegram message with smart home comand is received (ie swithc off all lights)
+WHEN: A Telegram message with smart home command is received (e.g. switch off all lights)
 THEN: Send prompt to Gemini AI with Telegram message
 AND: Send a Telegram message with Gemini reply
 ```
@@ -19,11 +17,6 @@ AND: Send a Telegram message with Gemini reply
 WHEN: Motion is detected in the living room
 THEN: Send Prompt "Generate a welcoming message for someone entering the living room"
 AND: Speak the Gemini answer
-```
-```
-WHEN: Weather changes
-THEN: Send Prompt "Create a brief weather advisory based on today's forecast"
-AND: Send notification with Gemini answer
 ```
 ```
 WHEN: Doorbell camera detects motion
@@ -50,14 +43,15 @@ AND: Process the response and verify successful execution
 ```
 
 Requirements
-- A valid Google Gemini API Key (see setup guide: https://github.com/s-dimaio/com.dimapp.geminiforhomey#getting-your-google-gemini-api-key).
+- A valid Google Gemini API Key.
+- **HomeyScript**: Must be installed to enable flow triggering and advanced device actions.
 
 Setup
 1) Open the app’s Settings and insert your API Key.
 2) Select the Gemini Model you want to use.
-3) Create a Flow and add the action “Send Prompt”, “Send Prompt with Image” or “Execute a command for your smart home”.
-4) Provide the prompt and use the returned tokens (e.g., `Gemini answer`, `response`, `success`) in subsequent Flow cards.
+3) Create a Flow and add an action card from the Gemini app.
+4) Use the returned tokens (e.g., `answer`, `response`, `success`) in subsequent Flow cards.
 
 Privacy
-- The app stores only your API Key in Homey’s settings.
-- Prompts and answers are sent to Google’s API when you run the Flow.
+- Your API Key is stored securely on your Homey.
+- Prompts and images are sent to Google's API only when a Flow is executed.

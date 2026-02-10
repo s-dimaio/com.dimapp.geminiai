@@ -1,13 +1,11 @@
 Invia prompt a Google Gemini dai Flow di Homey e usa la risposta dell'IA nelle tue automazioni. Se usato insieme ad un account Telegram puoi creare dei bot personalizzati per la gestione della tua casa.
 
 Caratteristiche
-- Prompts di testo: il Flow "Invia Prompt" accetta prompt testuali e restituisce una risposta generata dall'AI;
-- Prompts multimodali: il Flow "Invia Prompt con Immagine" accetta prompt multimodali (immagine + testo) e restituisce una risposta generata dall'AI;
-- Prompts per la domotica: il Flow "Esegui un comando per la tua smart home" invia un comando in linguaggio naturale a Gemini AI per controllare i tuoi dispositivi.
-- Automazioni pianificate: crea automazioni chiedendo a Gemini di eseguire un comando ad un certo orario. I timer sono gestibili dalle impostazioni dell'app;
-- Selezione del modello: scegli il tuo modello Gemini preferito (Flash, Pro, Gemini 3) nelle impostazioni;
-- Semplice pagina di impostazioni per salvare la tua chiave API Gemini e selezionare i modelli;
-- Basato su Google Generative AI (modelli selezionabili dall'utente).
+- Prompt di testo: invia domande o istruzioni e ricevi risposte generate dall'intelligenza artificiale.
+- Prompt con immagini: analizza immagini (es. da telecamere) per descrivere cosa succede in casa.
+- Controllo Casa Intelligente: usa il linguaggio naturale per controllare dispositivi, chiedere lo stato della casa o attivare Flow.
+- Automazioni pianificate: chiedi a Gemini di eseguire un comando a un orario specifico. I timer sono gestibili dalle impostazioni dell'app.
+- Selezione del modello: scegli tra i modelli Gemini più recenti (Flash, Pro, Gemini 3) per velocità o intelligenza superiori.
 
 Esempi di utilizzo
 ```
@@ -19,11 +17,6 @@ AND: Invia messaggio Telegram con la risposta di Gemini
 WHEN: Movimento rilevato nel soggiorno
 THEN: Invia Prompt "Genera un messaggio di benvenuto per chi entra nel soggiorno"
 AND: Pronuncia la risposta di Gemini
-```
-```
-WHEN: Cambiamento delle condizioni meteo
-THEN: Invia Prompt "Crea un breve avviso meteo basato sulle previsioni di oggi"
-AND: Invia una notifica con la risposta di Gemini
 ```
 ```
 WHEN: La videocamera del citofono rileva movimento
@@ -50,7 +43,8 @@ AND: Gestisci la risposta e verificane la corretta esecuzione
 ```
 
 Requisiti
-- Una chiave API Google Gemini valida (vedi guida alla configurazione: https://github.com/s-dimaio/com.dimapp.geminiforhomey#getting-your-google-gemini-api-key).
+- Una chiave API Google Gemini valida (segui le istruzioni all'interno dell'app).
+- L'app HomeyScript installata (per la gestione automatica).
 
 Configurazione
 1) Apri le Impostazioni dell'app ed inserisci la tua chiave API.
