@@ -4,6 +4,7 @@ Caratteristiche
 - Prompt di testo: invia domande o istruzioni e ricevi risposte generate dall'intelligenza artificiale.
 - Prompt con immagini: analizza immagini (es. da telecamere) per descrivere cosa succede in casa.
 - Controllo Casa Intelligente: usa il linguaggio naturale per controllare dispositivi, chiedere lo stato della casa o attivare Flow.
+- Contesto conversazionale: imposta un contesto per comandi di seguito naturali tra più flow (es. "sì, accendila").
 - Automazioni pianificate: chiedi a Gemini di eseguire un comando a un orario specifico. I timer sono gestibili dalle impostazioni dell'app.
 - Selezione del modello: scegli tra i modelli Gemini più recenti (Flash, Pro, Gemini 3) per velocità o intelligenza superiori.
 

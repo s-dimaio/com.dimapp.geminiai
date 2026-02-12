@@ -1,15 +1,15 @@
     {
         "title": {
-            "en": "Set conversation context",
-            "it": "Imposta il contesto della conversazione"
+            "en": "Add to conversation context",
+            "it": "Aggiungi il contesto della conversazione"
         },
         "hint": {
-            "en": "Inject a message into the conversation memory so Gemini already knows what you're talking about in the next command",
-            "it": "Inietta un messaggio nella memoria della conversazione in modo che Gemini sappia già di cosa stai parlando nel prossimo comando"
+            "en": "Add a message to the conversation memory so Gemini already knows what you're talking about in the next command",
+            "it": "Aggiungi un messaggio alla memoria della conversazione in modo che Gemini sappia già di cosa stai parlando nel prossimo comando"
         },
         "titleFormatted": {
-            "en": "Set conversation context to [[context]]",
-            "it": "Imposta il contesto della conversazione a [[context]]"
+            "en": "Add to conversation context: [[context]]",
+            "it": "Aggiungi al contesto della conversazione: [[context]]"
         },
         "args": [
             {

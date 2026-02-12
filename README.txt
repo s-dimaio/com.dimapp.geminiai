@@ -4,6 +4,7 @@ Features
 - Text Prompts: send questions or instructions and receive AI-generated responses.
 - Image Prompts: analyze images (e.g. from cameras) to describe what's happening at home.
 - Smart Home Control: use natural language to control devices, ask about your home status, or trigger Flows.
+- Conversation Context: seed context for natural follow-up commands across multiple flows (e.g., "yes, turn it on").
 - Scheduled Automations: ask Gemini to run a command at a specific time. Manage timers in the app settings.
 - Model Selection: choose from the latest Gemini models (Flash, Pro, Gemini 3) for superior speed or intelligence.
 
