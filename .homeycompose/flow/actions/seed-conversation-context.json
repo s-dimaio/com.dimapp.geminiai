@@ -1,0 +1,35 @@
+    {
+        "title": {
+            "en": "Set conversation context",
+            "it": "Imposta il contesto della conversazione"
+        },
+        "hint": {
+            "en": "Inject a message into the conversation memory so Gemini already knows what you're talking about in the next command",
+            "it": "Inietta un messaggio nella memoria della conversazione in modo che Gemini sappia già di cosa stai parlando nel prossimo comando"
+        },
+        "titleFormatted": {
+            "en": "Set conversation context to [[context]]",
+            "it": "Imposta il contesto della conversazione a [[context]]"
+        },
+        "args": [
+            {
+                "type": "text",
+                "name": "context",
+                "placeholder": {
+                    "en": "e.g. Do you want me to turn on the living room light?",
+                    "it": "es. Vuoi che accenda la luce del soggiorno?"
+                }
+            }
+        ],
+        "tokens": [
+            {
+                "name": "success",
+                "type": "boolean",
+                "title": {
+                    "en": "Success",
+                    "it": "Successo"
+                },
+                "example": true
+            }
+        ]
+    }

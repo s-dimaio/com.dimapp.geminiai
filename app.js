@@ -31,6 +31,7 @@ module.exports = class GeminiApp extends Homey.App {
     this.registerSendPromptActionCard();
     this.registerSendPromptWithImageActionCard();
     this.registerMCPCommandActionCard();
+    this.registerSeedConversationContextCard();
   }
 
   /**
@@ -202,6 +203,33 @@ module.exports = class GeminiApp extends Homey.App {
 
     // Generic error fallback
     throw new Error(this.homey.__("prompt.error.generic", { error: errorMessage }));
+  }
+
+  /**
+   * Register the "Seed Conversation Context" action card.
+   * Injects a message into the conversation memory so that the next
+   * MCP command already has conversational context.
+   */
+  registerSeedConversationContextCard() {
+    this.seedContextCard = this.homey.flow.getActionCard('seed-conversation-context');
+    this.seedContextCard.registerRunListener(async (args) => {
+      this.log(`[seedContextCard] Context: ${args.context}`);
+
+      try {
+        if (!this.geminiClient) {
+          throw new Error(this.homey.__('prompt.error.noapi') || 'Gemini API key not configured in app settings');
+        }
+
+        const context = args.context;
+        this.geminiClient.seedConversationContext(context);
+        this.log(`[seedContextCard] Context injected successfully`);
+
+        return { success: true };
+      } catch (error) {
+        this.error('[seedContextCard] Error:', error);
+        return { success: false };
+      }
+    });
   }
 
   /**

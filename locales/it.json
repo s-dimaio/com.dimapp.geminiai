@@ -65,6 +65,9 @@
             "max_turns_reached": "Dopo diversi tentativi non sono riuscito a completare la richiesta. Puoi essere più preciso?"
         }
     },
+    "context": {
+        "injected": "Contesto della conversazione impostato con successo."
+    },
     "scheduled_commands": {
         "scheduled": "Comando programmato per le {time}",
         "executed": "Comando programmato eseguito: {command}",

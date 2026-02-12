@@ -1,6 +1,6 @@
 {
   "name": "com.dimapp.geminiforhomey",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "main": "app.js",
   "scripts": {},
   "devDependencies": {

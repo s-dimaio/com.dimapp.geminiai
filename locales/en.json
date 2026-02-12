@@ -65,6 +65,9 @@
             "max_turns_reached": "After several attempts, I couldn't complete the request. Can you be more specific?"
         }
     },
+    "context": {
+        "injected": "Conversation context set successfully."
+    },
     "scheduled_commands": {
         "scheduled": "Command scheduled for {time}",
         "executed": "Scheduled command executed: {command}",

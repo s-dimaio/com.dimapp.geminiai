@@ -44,7 +44,7 @@ AND: Gestisci la risposta e verificane la corretta esecuzione
 
 Requisiti
 - Una chiave API Google Gemini valida (segui le istruzioni all'interno dell'app).
-- L'app HomeyScript installata (per la gestione automatica).
+- L'app HomeyScript installata (opzionale: serve per permettere a Gemini di eseguire le action card dei Flow).
 
 Configurazione
 1) Apri le Impostazioni dell'app ed inserisci la tua chiave API.
