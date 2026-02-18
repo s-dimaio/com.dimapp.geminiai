@@ -40,7 +40,8 @@
             }
         },
         "model": {
-            "label": "Modello Gemini",
+            "label": "Modello per Smart Home",
+            "help": "Utilizzato per i comandi Smart Home ed il ragionamento complesso.",
             "options": {
                 "flash_lite": "Gemini 2.5 Flash-Lite (Leggero - Predefinito)",
                 "flash": "Gemini 2.5 Flash (Bilanciato)",
@@ -48,6 +49,10 @@
                 "flash3_preview": "Gemini 3 Flash Preview (Velocità di Nuova Generazione)",
                 "pro3_preview": "Gemini 3 Pro Preview (Più Capace)"
             }
+        },
+        "model_chat": {
+            "label": "Modello per Generazione Testo",
+            "help": "Utilizzato per le carte \"Invia Prompt\" e \"Invia Prompt con Immagine\"."
         }
     },
     "prompt": {
@@ -62,7 +67,10 @@
             "rate_limit_exceeded": "Hai superato la quota giornaliera. Riprova più tardi o aggiorna il tuo piano. Per maggiori informazioni su questo errore, visita: https://ai.google.dev/gemini-api/docs/rate-limits. Per monitorare il tuo utilizzo corrente, visita: https://ai.dev/rate-limit.",
             "content_blocked": "Contenuto bloccato dai filtri di sicurezza. Prova a riformulare la richiesta. Per maggiori informazioni, visita: https://ai.google.dev/gemini-api/docs/safety-settings.",
             "api_key_invalid": "API Key non valida. Controlla la tua API Key di Gemini nelle impostazioni dell'app. Per maggiori informazioni, visita: https://ai.google.dev/gemini-api/docs/api-key.",
-            "max_turns_reached": "Dopo diversi tentativi non sono riuscito a completare la richiesta. Puoi essere più preciso?"
+            "max_turns_reached": "Dopo diversi tentativi non sono riuscito a completare la richiesta. Puoi essere più preciso?",
+            "no_device_image": "Nessuna immagine disponibile per questo dispositivo",
+            "image_too_large": "Immagine troppo grande (max 5MB)",
+            "fetch_image_failed": "Errore nel recupero dell'immagine del dispositivo"
         }
     },
     "context": {

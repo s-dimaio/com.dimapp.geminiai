@@ -21,7 +21,7 @@ module.exports = class GeminiApp extends Homey.App {
 
     // Listen for settings changes to re-initialize the client
     this.homey.settings.on('set', (key) => {
-      if (key === 'gemini_api_key' || key === 'gemini_model') {
+      if (key === 'gemini_api_key' || key === 'gemini_model' || key === 'gemini_model_chat') {
         this.log(`[onInit] Setting ${key} changed, re-initializing GeminiClient`);
         this.initializeGeminiClient();
       }
@@ -40,6 +40,7 @@ module.exports = class GeminiApp extends Homey.App {
   initializeGeminiClient() {
     const apiKey = this.homey.settings.get('gemini_api_key');
     const modelName = this.homey.settings.get('gemini_model') || 'gemini-2.5-flash';
+    const chatModelName = this.homey.settings.get('gemini_model_chat');
 
     if (!apiKey) {
       this.log('[initializeGeminiClient] API key not found in settings - app will function but Gemini flows will fail until API key is configured');
@@ -48,9 +49,10 @@ module.exports = class GeminiApp extends Homey.App {
 
     this.geminiClient = new GeminiClient(apiKey, {
       homey: this.homey,
-      modelName: modelName
+      smartHomeModel: modelName,
+      chatModel: chatModelName
     });
-    this.log(`[initializeGeminiClient] GeminiClient initialized successfully with model: ${modelName}`);
+    this.log(`[initializeGeminiClient] GeminiClient initialized successfully. Smart Home: ${modelName}, Chat: ${chatModelName || 'Default (' + modelName + ')'}`);
   }
 
   /**

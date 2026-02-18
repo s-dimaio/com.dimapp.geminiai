@@ -275,6 +275,21 @@
             <option value="gemini-3-flash-preview" data-i18n="settings.model.options.flash3_preview"></option>
             <option value="gemini-3-pro-preview" data-i18n="settings.model.options.pro3_preview"></option>
           </select>
+          <small class="homey-form-help" style="display:block; margin-top:5px; opacity:0.8;"
+            data-i18n="settings.model.help"></small>
+        </div>
+
+        <div class="homey-form-group" style="margin-top: 20px;">
+          <label class="homey-form-label" for="chatModelSelect" data-i18n="settings.model_chat.label"></label>
+          <select class="homey-form-select" id="chatModelSelect">
+            <option value="gemini-2.5-flash-lite" data-i18n="settings.model.options.flash_lite"></option>
+            <option value="gemini-2.5-flash" data-i18n="settings.model.options.flash"></option>
+            <option value="gemini-2.5-pro" data-i18n="settings.model.options.pro"></option>
+            <option value="gemini-3-flash-preview" data-i18n="settings.model.options.flash3_preview"></option>
+            <option value="gemini-3-pro-preview" data-i18n="settings.model.options.pro3_preview"></option>
+          </select>
+          <small class="homey-form-help" style="display:block; margin-top:5px; opacity:0.8;"
+            data-i18n="settings.model_chat.help"></small>
         </div>
       </fieldset>
     </form>
@@ -356,6 +371,7 @@
       });
 
       var modelSelectElement = document.getElementById("modelSelect");
+      var chatModelSelectElement = document.getElementById("chatModelSelect");
 
       // Load the saved Model from Homey settings
       Homey.get("gemini_model", function (err, model) {
@@ -365,6 +381,18 @@
         } else {
           // Default to gemini-2.5-flash if not set
           modelSelectElement.value = "gemini-2.5-flash";
+        }
+      });
+
+      // Load the saved Chat Model from Homey settings
+      Homey.get("gemini_model_chat", function (err, chatModel) {
+        if (err) return console.error("Error loading Gemini Chat Model:", err);
+        // If chatModel is set and not empty, use it; otherwise it will fallback to Smart Home model in the backend
+        if (chatModel) {
+          chatModelSelectElement.value = chatModel;
+        } else {
+          // Set to the same as Smart Home model as visual indicator
+          chatModelSelectElement.value = modelSelectElement.value;
         }
       });
 
@@ -385,14 +413,24 @@
             return;
           }
 
-          // Save the Gemini Model
+          // Save the Gemini Model (Smart Home)
           var model = modelSelectElement.value;
+
           Homey.set("gemini_model", model, function (err) {
             if (err) {
               showToast(Homey.__("settings.error.generic") + ": " + err, 'error');
               return;
             }
-            showToast(Homey.__("settings.saved"), 'success');
+
+            // Save the Chat Model
+            var chatModel = chatModelSelectElement.value;
+            Homey.set("gemini_model_chat", chatModel, function (err) {
+              if (err) {
+                showToast(Homey.__("settings.error.generic") + ": " + err, 'error');
+                return;
+              }
+              showToast(Homey.__("settings.saved"), 'success');
+            });
           });
         });
       });

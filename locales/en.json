@@ -40,7 +40,8 @@
             }
         },
         "model": {
-            "label": "Gemini Model",
+            "label": "Smart Home Model",
+            "help": "Used for Smart Home commands and complex reasoning.",
             "options": {
                 "flash_lite": "Gemini 2.5 Flash-Lite (Lightweight - Default)",
                 "flash": "Gemini 2.5 Flash (Balanced)",
@@ -48,6 +49,10 @@
                 "flash3_preview": "Gemini 3 Flash Preview (Next Gen Speed)",
                 "pro3_preview": "Gemini 3 Pro Preview (Most Capable)"
             }
+        },
+        "model_chat": {
+            "label": "Text Generation Model",
+            "help": "Used for \"Send Prompt\" and \"Send Prompt with Image\" cards."
         }
     },
     "prompt": {
@@ -62,7 +67,10 @@
             "rate_limit_exceeded": "You have exceeded your daily quota. Please try again later or upgrade your plan. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit.",
             "content_blocked": "Content blocked by safety filters. Please try rephrasing your request. For more information, visit: https://ai.google.dev/gemini-api/docs/safety-settings.",
             "api_key_invalid": "Invalid API key. Please check your Gemini API key in the app settings. For more information, visit: https://ai.google.dev/gemini-api/docs/api-key.",
-            "max_turns_reached": "After several attempts, I couldn't complete the request. Can you be more specific?"
+            "max_turns_reached": "After several attempts, I couldn't complete the request. Can you be more specific?",
+            "no_device_image": "No image available for this device",
+            "image_too_large": "Image too large (max 5MB)",
+            "fetch_image_failed": "Failed to fetch device image"
         }
     },
     "context": {
