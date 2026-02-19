@@ -68,10 +68,14 @@
     "it": "Aggiunta la action card 'Imposta il contesto della conversazione' - permette di iniettare un contesto conversazionale in modo che Gemini possa comprendere comandi successivi come 'sì, accendila' dopo una domanda contestuale"
   },
   "2.5.1": {
-    "en": "Added 'Set conversation context' action card - allows injecting conversational context so Gemini can understand follow-up commands like 'yes, turn it on' after a contextual question",
-    "it": "Aggiunta la action card 'Imposta il contesto della conversazione' - permette di iniettare un contesto conversazionale in modo che Gemini possa comprendere comandi successivi come 'sì, accendila' dopo una domanda contestuale"
+    "en": "Added 'Set conversation context' action card - allows injecting conversational context so Gemini can understand follow-up commands",
+    "it": "Aggiunta la action card 'Imposta il contesto della conversazione' - permette di iniettare un contesto conversazionale in modo che Gemini possa comprendere comandi successivi"
   },
   "2.6.0": {
+    "en": "(i) Added separate model selection for Smart Home and Text Generation \n(ii) Improved image handling within Smart Home commands (e.g. \"Check the camera image and tell me what you see\")",
+    "it": "(i) Aggiunta la selezione separata del modello per Smart Home e Generazione Testo \n(ii) Milgiorata la gestione delle immagini all'interno dei comandi per la Smart Home (es. \"Controlla l'immagine della telecamera e dimmi cosa vedi\")"
+  },
+  "2.6.1": {
     "en": "(i) Added separate model selection for Smart Home and Text Generation \n(ii) Improved image handling within Smart Home commands (e.g. \"Check the camera image and tell me what you see\")",
     "it": "(i) Aggiunta la selezione separata del modello per Smart Home e Generazione Testo \n(ii) Milgiorata la gestione delle immagini all'interno dei comandi per la Smart Home (es. \"Controlla l'immagine della telecamera e dimmi cosa vedi\")"
   }
