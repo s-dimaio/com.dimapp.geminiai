@@ -92,5 +92,24 @@ module.exports = {
     console.log('[cancelScheduledCommand] Result:', JSON.stringify(result));
 
     return result;
+  },
+
+  /**
+   * DELETE /api/app/com.dimapp.geminiai/conversation-history
+   * Clear the entire Gemini conversation history
+   */
+  async clearConversationHistory({ homey }) {
+    const geminiClient = homey.app?.geminiClient;
+
+    if (!geminiClient) {
+      return {
+        success: false,
+        error: 'GeminiClient not initialized. Please configure the Gemini API key in settings.'
+      };
+    }
+
+    geminiClient.clearConversationHistory();
+
+    return { success: true };
   }
 };

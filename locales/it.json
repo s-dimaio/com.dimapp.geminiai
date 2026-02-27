@@ -53,6 +53,14 @@
         "model_chat": {
             "label": "Modello per Generazione Testo",
             "help": "Utilizzato per le carte \"Invia Prompt\" e \"Invia Prompt con Immagine\"."
+        },
+        "conversationHistory": {
+            "title": "Cronologia Conversazione",
+            "subtitle": "Azzera la memoria della conversazione. Tutto il contesto delle interazioni precedenti con Gemini verrà eliminato definitivamente.",
+            "button": "Cancella Cronologia",
+            "confirm": "Sei sicuro di voler cancellare tutta la cronologia della conversazione? Questa azione non può essere annullata.",
+            "cleared": "Cronologia della conversazione cancellata con successo.",
+            "error": "Errore durante la cancellazione della cronologia"
         }
     },
     "prompt": {

@@ -82,5 +82,13 @@
   "2.6.2": {
     "en": "(i) Added separate model selection for Smart Home and Text Generation \n(ii) Improved image handling within Smart Home commands (e.g. \"Check the camera image and tell me what you see\")",
     "it": "(i) Aggiunta la selezione separata del modello per Smart Home e Generazione Testo \n(ii) Milgiorata la gestione delle immagini all'interno dei comandi per la Smart Home (es. \"Controlla l'immagine della telecamera e dimmi cosa vedi\")"
+  },
+  "2.6.3": {
+    "en": "(i) Added separate model selection for Smart Home and Text Generation \n(ii) Improved image handling within Smart Home commands (e.g. \"Check the camera image and tell me what you see\")",
+    "it": "(i) Aggiunta la selezione separata del modello per Smart Home e Generazione Testo \n(ii) Milgiorata la gestione delle immagini all'interno dei comandi per la Smart Home (es. \"Controlla l'immagine della telecamera e dimmi cosa vedi\")"
+  },
+  "2.7.0": {
+    "en": "(i) Optimized chat history management for better continuity and reliability \n(ii) Implemented token usage optimization via advanced context caching \n(iii) Improved natural language responses for scheduled commands by including original request context",
+    "it": "(i) Ottimizzata la gestione della cronologia della chat per una migliore continuità e affidabilità \n(ii) Implementata l'ottimizzazione del consumo dei token tramite caching avanzato del contesto \n(iii) Migliorate le risposte in linguaggio naturale per i comandi programmati includendo il contesto originale della richiesta"
   }
 }

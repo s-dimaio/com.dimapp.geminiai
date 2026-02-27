@@ -53,6 +53,14 @@
         "model_chat": {
             "label": "Text Generation Model",
             "help": "Used for \"Send Prompt\" and \"Send Prompt with Image\" cards."
+        },
+        "conversationHistory": {
+            "title": "Conversation History",
+            "subtitle": "Reset the conversation memory. All context from previous interactions with Gemini will be permanently deleted.",
+            "button": "Clear History",
+            "confirm": "Are you sure you want to clear the entire conversation history? This action cannot be undone.",
+            "cleared": "Conversation history cleared successfully.",
+            "error": "Error clearing conversation history"
         }
     },
     "prompt": {

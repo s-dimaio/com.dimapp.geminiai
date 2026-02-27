@@ -32,6 +32,7 @@ module.exports = class GeminiApp extends Homey.App {
     this.registerSendPromptWithImageActionCard();
     this.registerMCPCommandActionCard();
     this.registerSeedConversationContextCard();
+    //this.registerScheduledCommandExecutedTriggerCard();
   }
 
   /**
@@ -232,6 +233,25 @@ module.exports = class GeminiApp extends Homey.App {
         return { success: false };
       }
     });
+  }
+
+  /**
+   * Registers and initialises the 'scheduled_command_executed' flow trigger card.
+   *
+   * In Homey SDK 3 trigger cards must be obtained via {@link Homey.FlowManager.getTriggerCard}
+   * during app initialisation so that the Flow Engine can match and route the
+   * card to any flows that use it as a trigger. Without this call the card is
+   * unknown to the runtime and `.trigger()` calls from {@link Scheduler}
+   * will silently fail to activate matching flows.
+   *
+   * The card exposes four tokens: `timer_id`, `command`, `success`, `response`.
+   *
+   * @public
+   * @returns {void}
+   */
+  registerScheduledCommandExecutedTriggerCard() {
+    this.scheduledCommandExecutedTrigger = this.homey.flow.getTriggerCard('scheduled_command_executed');
+    this.log('[registerScheduledCommandExecutedTriggerCard] Trigger card "scheduled_command_executed" registered');
   }
 
   /**

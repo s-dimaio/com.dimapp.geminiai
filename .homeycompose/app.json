@@ -1,6 +1,6 @@
 {
   "id": "com.dimapp.geminiai",
-  "version": "2.6.2",
+  "version": "2.7.0",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -56,6 +56,10 @@
     "cancelScheduledCommand": {
       "method": "DELETE",
       "path": "/scheduled-commands/:id"
+    },
+    "clearConversationHistory": {
+      "method": "DELETE",
+      "path": "/conversation-history"
     }
   }
 }

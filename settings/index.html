@@ -318,6 +318,15 @@
         <div class="loading-spinner"></div>
       </div>
     </div>
+
+    <div class="scheduled-commands-section">
+      <div class="section-header">
+        <legend class="homey-form-legend" data-i18n="settings.conversationHistory.title"></legend>
+      </div>
+      <p class="subtitle" data-i18n="settings.conversationHistory.subtitle"></p>
+      <button id="clearHistory" class="homey-button-danger-shadow homey-button-primary-full"
+        data-i18n="settings.conversationHistory.button"></button>
+    </div>
   </div>
 
   <!-- Toast notification -->
@@ -543,6 +552,22 @@
       // Refresh button
       refreshElement.addEventListener("click", function () {
         loadScheduledCommands();
+      });
+
+      // Clear conversation history button
+      var clearHistoryElement = document.getElementById("clearHistory");
+      clearHistoryElement.addEventListener("click", function () {
+        Homey.confirm(Homey.__("settings.conversationHistory.confirm"), 'warning', function (err, confirmed) {
+          if (err || !confirmed) return;
+
+          Homey.api("DELETE", "/conversation-history", null, function (err, result) {
+            if (err || !result.success) {
+              showToast(Homey.__("settings.conversationHistory.error") + (err ? ': ' + err : ''), 'error');
+              return;
+            }
+            showToast(Homey.__("settings.conversationHistory.cleared"), 'success');
+          });
+        });
       });
 
       // Load commands on init
