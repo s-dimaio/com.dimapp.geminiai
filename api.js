@@ -73,7 +73,7 @@ module.exports = {
       };
     }
 
-    // Get MCP adapter from app
+    // Get MCP adapter from app, then derive the scheduler from it
     const mcpAdapter = homey.app?.geminiClient?.mcpAdapter;
 
     if (!mcpAdapter) {
@@ -84,10 +84,20 @@ module.exports = {
       };
     }
 
-    console.log('[cancelScheduledCommand] MCP Adapter found, calling cancelScheduledCommand');
+    // Get scheduler from MCP adapter
+    const scheduler = mcpAdapter.scheduler;
 
-    // Cancel the scheduled command (clears timeout + removes from settings)
-    const result = await mcpAdapter.cancelScheduledCommand(scheduleId);
+    if (!scheduler) {
+      return {
+        success: false,
+        error: 'Scheduler not available on MCP Adapter.'
+      };
+    }
+
+    console.log('[cancelScheduledCommand] Scheduler found, calling cancelScheduledCommand');
+
+    // Cancel via scheduler (clears timeout + removes from settings)
+    const result = await scheduler.cancelScheduledCommand(scheduleId);
 
     console.log('[cancelScheduledCommand] Result:', JSON.stringify(result));
 
