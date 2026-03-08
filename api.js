@@ -121,5 +121,52 @@ module.exports = {
     geminiClient.clearConversationHistory();
 
     return { success: true };
+  },
+
+  /**
+   * POST /api/app/com.dimapp.geminiai/generate-custom-prompt
+   * Generate formatted Markdown system prompt from user natural language
+   */
+  async generateCustomPrompt({ homey, body }) {
+    const geminiClient = homey.app?.geminiClient;
+
+    if (!geminiClient) {
+      return {
+        success: false,
+        error: homey.__("settings.error.api") || "GeminiClient not initialized. Please configure API key."
+      };
+    }
+
+    if (!body || !body.text) {
+      return {
+        success: false,
+        error: "Missing text input."
+      };
+    }
+
+    console.log('[generateCustomPrompt] Received input text of length:', body.text.length);
+
+    try {
+      const metaPrompt = `Translate and format the following user instruction into one or more concise directive rules in ENGLISH, **formatted natively in Markdown** (use \`-\`, \`**\`, etc. where necessary for maximum clarity).
+These rules will be injected into the System Prompt of a Smart Home assistant for the Homey app.
+You must extract ONLY the rule or behavior that the user describes. Do not add preambles, do not greet, do not provide explanations. Return EXCLUSIVELY the final ready-to-use Markdown content.
+
+USER TEXT:
+${body.text}`;
+
+      const generatedMarkdown = await geminiClient.generateText(metaPrompt);
+      console.log('[generateCustomPrompt] Generated prompt of length:', generatedMarkdown.length);
+
+      return {
+        success: true,
+        generatedPrompt: generatedMarkdown
+      };
+    } catch (error) {
+      console.error('[generateCustomPrompt] Error generating prompt:', error);
+      return {
+        success: false,
+        error: error.message || 'Error communicating with Gemini'
+      };
+    }
   }
 };

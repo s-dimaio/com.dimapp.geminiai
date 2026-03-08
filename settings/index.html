@@ -89,17 +89,10 @@
     }
 
     /* Scheduled Commands Table Styles */
-    /* Scheduled Commands Table Styles */
     .scheduled-commands-section {
-      margin-top: 30px;
+      margin-top: 10px;
     }
 
-    .scheduled-commands-section .subtitle {
-      margin-bottom: 15px;
-      margin-top: 5px;
-      font-size: 12px;
-      opacity: 0.7;
-    }
 
     .commands-table-container {
       overflow-x: auto;
@@ -193,8 +186,6 @@
       font-style: italic;
     }
 
-
-
     .loading-spinner {
       display: inline-block;
       width: 14px;
@@ -211,7 +202,15 @@
       }
     }
 
-    /* Toast notification styles */
+    /* SPA view management */
+    .view {
+      display: none;
+    }
+
+    .view.is-active {
+      display: block;
+    }
+
     .toast {
       position: fixed;
       bottom: 20px;
@@ -228,6 +227,9 @@
       transition: opacity 0.3s ease;
       pointer-events: none;
       z-index: 1000;
+      text-align: center;
+      max-width: 90%;
+      word-wrap: break-word;
     }
 
     .toast.show {
@@ -246,89 +248,401 @@
       background-color: #ffc107;
       color: #856404;
     }
+
+    /* Main Menu list items */
+    .menu-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 16px;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .menu-item:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    .menu-item:active {
+      transform: scale(0.98);
+    }
+
+    .menu-item-content {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .menu-item-icon {
+      font-size: 24px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1f6ac1;
+      /* Gemini AI Brand Color */
+    }
+
+    .menu-item-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .menu-item-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .menu-item-subtitle {
+      font-size: 13px;
+      color: #666;
+    }
+
+    .menu-item-arrow {
+      color: #999;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+      text-align: justify;
+      white-space: pre-line;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
   </style>
 </head>
 
 <body>
   <div class="content">
-    <header class="homey-header">
-      <h1 class="homey-title" data-i18n="settings.title"></h1>
-      <p class="homey-subtitle" data-i18n="settings.subtitle"></p>
-    </header>
 
-    <form class="homey-form">
-      <fieldset class="homey-form-fieldset">
-        <div class="section-header">
-          <legend class="homey-form-legend" data-i18n="settings.api.legend"></legend>
-          <button id="save" type="button" class="homey-button-secondary" data-i18n="settings.button"></button>
-        </div>
-        <div class="homey-form-group">
-          <label class="homey-form-label" for="apiKey" data-i18n="settings.api.label"></label>
-          <input class="homey-form-input" id="apiKey" type="text" />
-        </div>
-        <div class="homey-form-group">
-          <label class="homey-form-label" for="modelSelect" data-i18n="settings.model.label"></label>
-          <select class="homey-form-select" id="modelSelect">
-            <option value="gemini-2.5-flash-lite" data-i18n="settings.model.options.flash_lite"></option>
-            <option value="gemini-2.5-flash" data-i18n="settings.model.options.flash"></option>
-            <option value="gemini-2.5-pro" data-i18n="settings.model.options.pro"></option>
-            <option value="gemini-3-flash-preview" data-i18n="settings.model.options.flash3_preview"></option>
-            <option value="gemini-3.1-flash-lite-preview" data-i18n="settings.model.options.flash3_lite_preview"></option>
-            <option value="gemini-3.1-pro-preview" data-i18n="settings.model.options.pro3_preview"></option>
-          </select>
-          <small class="homey-form-help" style="display:block; margin-top:5px; opacity:0.8;"
-            data-i18n="settings.model.help"></small>
-        </div>
+    <!-- View 0: Main Menu -->
+    <div id="view-menu" class="view is-active">
+      <form class="homey-form">
+        <fieldset class="homey-form-fieldset">
+          <div class="menu-list-container">
+            <div id="nav_config" class="menu-item" role="button" tabindex="0">
+              <div class="menu-item-content">
+                <div class="menu-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path
+                      d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                    </path>
+                  </svg>
+                </div>
+                <div class="menu-item-text">
+                  <span class="menu-item-title" data-i18n="settings.menu.api_title"></span>
+                  <span class="menu-item-subtitle" data-i18n="settings.menu.api_desc"></span>
+                </div>
+              </div>
+              <div class="menu-item-arrow">›</div>
+            </div>
+
+            <div id="nav_custom_instructions" class="menu-item" role="button" tabindex="0">
+              <div class="menu-item-content">
+                <div class="menu-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                  </svg>
+                </div>
+                <div class="menu-item-text">
+                  <span class="menu-item-title" data-i18n="settings.menu.custom_instructions_title"></span>
+                  <span class="menu-item-subtitle" data-i18n="settings.menu.custom_instructions_desc"></span>
+                </div>
+              </div>
+              <div class="menu-item-arrow">›</div>
+            </div>
+
+            <div id="nav_timers" class="menu-item" role="button" tabindex="0">
+              <div class="menu-item-content">
+                <div class="menu-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                </div>
+                <div class="menu-item-text">
+                  <span class="menu-item-title" data-i18n="settings.menu.timers_title"></span>
+                  <span class="menu-item-subtitle" data-i18n="settings.menu.timers_desc"></span>
+                </div>
+              </div>
+              <div class="menu-item-arrow">›</div>
+            </div>
+
+            <div id="nav_history" class="menu-item" role="button" tabindex="0">
+              <div class="menu-item-content">
+                <div class="menu-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <div class="menu-item-text">
+                  <span class="menu-item-title" data-i18n="settings.menu.history_title"></span>
+                  <span class="menu-item-subtitle" data-i18n="settings.menu.history_desc"></span>
+                </div>
+              </div>
+              <div class="menu-item-arrow">›</div>
+            </div>
+
+            <div id="open_guide_menu" class="menu-item" role="button" tabindex="0">
+              <div class="menu-item-content">
+                <div class="menu-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                  </svg>
+                </div>
+                <div class="menu-item-text">
+                  <span class="menu-item-title" data-i18n="settings.menu.guide_title"></span>
+                  <span class="menu-item-subtitle" data-i18n="settings.menu.guide_desc"></span>
+                </div>
+              </div>
+              <div class="menu-item-arrow">›</div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <!-- View 1: Settings -->
+    <div id="view-settings" class="view">
+      <form class="homey-form">
+        <fieldset class="homey-form-fieldset">
+          <header class="homey-header" style="margin-top: 20px; margin-bottom: 20px;">
+            <h1 class="homey-title" data-i18n="settings.api.title"></h1>
+          </header>
+          <p class="subtitle">
+            <span data-i18n="settings.api.description"></span>
+            <a href="#" id="link_to_guide" style="color: #1f6ac1; text-decoration: none;"
+              data-i18n="settings.api.guide_link"></a>
+          </p>
+
+          <div class="homey-form-group" style="margin-top: 20px;">
+            <label class="homey-form-label" for="apiKey" data-i18n="settings.api.key_label"></label>
+            <input class="homey-form-input" id="apiKey" type="text" />
+          </div>
+          <div class="homey-form-group">
+            <label class="homey-form-label" for="modelSelect" data-i18n="settings.api.model_sh_label"></label>
+            <select class="homey-form-select" id="modelSelect">
+              <option value="gemini-2.5-flash-lite" data-i18n="settings.api.models.flash_lite"></option>
+              <option value="gemini-2.5-flash" data-i18n="settings.api.models.flash"></option>
+              <option value="gemini-2.5-pro" data-i18n="settings.api.models.pro"></option>
+              <option value="gemini-3-flash-preview" data-i18n="settings.api.models.flash3_preview"></option>
+              <option value="gemini-3.1-flash-lite-preview" data-i18n="settings.api.models.flash3_lite_preview">
+              </option>
+              <option value="gemini-3.1-pro-preview" data-i18n="settings.api.models.pro3_preview"></option>
+            </select>
+            <small class="homey-form-help" style="display:block; margin-top:5px; opacity:0.8;"
+              data-i18n="settings.api.model_sh_help"></small>
+          </div>
+
+          <div class="homey-form-group" style="margin-top: 20px;">
+            <label class="homey-form-label" for="chatModelSelect" data-i18n="settings.api.model_chat_label"></label>
+            <select class="homey-form-select" id="chatModelSelect">
+              <option value="gemini-2.5-flash-lite" data-i18n="settings.api.models.flash_lite"></option>
+              <option value="gemini-2.5-flash" data-i18n="settings.api.models.flash"></option>
+              <option value="gemini-2.5-pro" data-i18n="settings.api.models.pro"></option>
+              <option value="gemini-3-flash-preview" data-i18n="settings.api.models.flash3_preview"></option>
+              <option value="gemini-3.1-flash-lite-preview" data-i18n="settings.api.models.flash3_lite_preview">
+              </option>
+              <option value="gemini-3.1-pro-preview" data-i18n="settings.api.models.pro3_preview"></option>
+            </select>
+            <small class="homey-form-help" style="display:block; margin-top:5px; opacity:0.8;"
+              data-i18n="settings.api.model_chat_help"></small>
+          </div>
+
+          <div class="homey-form-group" style="margin-top: 30px;">
+            <button id="save" class="homey-button-primary-full" data-i18n="settings.common.save" type="button"></button>
+          </div>
+
+          <div class="homey-form-group" style="margin-top: 20px;">
+            <button id="back_from_config" class="homey-button-transparent" style="padding-left: 0;"
+              data-i18n="settings.common.guide_back" type="button"></button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <!-- View 2: Scheduled Commands -->
+    <div id="view-timers" class="view">
+      <form class="homey-form">
+        <fieldset class="homey-form-fieldset">
+          <div class="scheduled-commands-section">
+            <header class="homey-header" style="margin-top: 20px; margin-bottom: 20px;">
+              <h1 class="homey-title" data-i18n="settings.scheduled_commands.title"></h1>
+            </header>
+            <p class="subtitle" data-i18n="settings.scheduled_commands.subtitle"></p>
+
+            <div id="commandsContainer">
+              <div class="loading-spinner"></div>
+            </div>
+          </div>
+
+          <div class="homey-form-group" style="margin-top: 20px;">
+            <button id="back_from_timers" class="homey-button-transparent" style="padding-left: 0;"
+              data-i18n="settings.common.guide_back" type="button"></button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <!-- View 3: Conversation History -->
+    <div id="view-history" class="view">
+      <form class="homey-form">
+        <fieldset class="homey-form-fieldset">
+          <!-- Section 1: Memory Configuration -->
+          <header class="homey-header" style="margin-top: 20px; margin-bottom: 20px;">
+            <h1 class="homey-title" data-i18n="settings.history.title"></h1>
+          </header>
+          <p class="subtitle" data-i18n="settings.history.subtitle"></p>
+
+          <div class="homey-form-group" style="margin-top: 20px;">
+            <div
+              style="display: grid; grid-template-columns: max-content auto; column-gap: 15px; align-items: center; padding-left: 4px; padding-bottom: 4px;">
+              <label class="homey-form-label" for="historyTimeout" data-i18n="settings.history.timeout_label"
+                style="grid-column: 1; grid-row: 1; margin: 0 0 5px 0; white-space: nowrap;"></label>
+
+              <input class="homey-form-input" id="historyTimeout" type="number" min="10" max="240" step="10" value="30"
+                style="grid-column: 1; grid-row: 2; width: 100%; box-sizing: border-box; text-align: right; margin: 0;"
+                onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                oninput="if(this.value.length > 3) this.value = this.value.slice(0,3);" />
+
+              <button id="saveHistoryTimeout" class="homey-button-secondary" data-i18n="settings.common.save"
+                type="button" style="grid-column: 2; grid-row: 2; margin: 0; justify-self: start;"></button>
+            </div>
+            <small class="homey-form-help" style="display:block; margin-top:10px; opacity:0.8; padding-left: 4px;"
+              data-i18n="settings.history.timeout_help"></small>
+          </div>
+
+          <!-- Section 2: Manual Clear -->
+          <header class="homey-header" style="margin-top: 20px; margin-bottom: 20px;">
+            <h1 class="homey-title" data-i18n="settings.history.manual_clear_title"></h1>
+          </header>
+          <p class="subtitle" data-i18n="settings.history.manual_clear_desc"></p>
+
+          <div class="homey-form-group" style="margin-top: 20px;">
+            <button id="clearHistory" class="homey-button-danger-shadow homey-button-primary-full"
+              data-i18n="settings.history.btn_clear" type="button"></button>
+          </div>
+
+          <div class="homey-form-group" style="margin-top: 20px;">
+            <button id="back_from_history" class="homey-button-transparent" style="padding-left: 0;"
+              data-i18n="settings.common.guide_back" type="button"></button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <!-- View 4: Setup Guide -->
+    <div id="view-guide" class="view">
+      <header class="homey-header">
+        <h1 class="homey-title" data-i18n="settings.guide.title"></h1>
+      </header>
+
+      <form class="homey-form">
+        <!-- SECTION 1: BOT CONFIGURATION -->
+        <fieldset class="homey-form-fieldset">
+          <legend class="homey-form-legend" data-i18n="settings.guide.part1_title"></legend>
+          <div class="homey-form-group">
+            <ol class="homey-text-regular">
+              <li>
+                <span data-i18n="settings.guide.step1"></span>
+                (<a href="#" class="open-aistudio-link"
+                  style="color: #1f6ac1; text-decoration: none;">aistudio.google.com</a>)
+              </li>
+              <li data-i18n="settings.guide.step2"></li>
+              <li data-i18n="settings.guide.step3"></li>
+              <li data-i18n="settings.guide.step4"></li>
+              <li data-i18n="settings.guide.step5"></li>
+              <li data-i18n="settings.guide.step6"></li>
+            </ol>
+          </div>
+        </fieldset>
 
         <div class="homey-form-group" style="margin-top: 20px;">
-          <label class="homey-form-label" for="chatModelSelect" data-i18n="settings.model_chat.label"></label>
-          <select class="homey-form-select" id="chatModelSelect">
-            <option value="gemini-2.5-flash-lite" data-i18n="settings.model.options.flash_lite"></option>
-            <option value="gemini-2.5-flash" data-i18n="settings.model.options.flash"></option>
-            <option value="gemini-2.5-pro" data-i18n="settings.model.options.pro"></option>
-            <option value="gemini-3-flash-preview" data-i18n="settings.model.options.flash3_preview"></option>
-            <option value="gemini-3.1-flash-lite-preview" data-i18n="settings.model.options.flash3_lite_preview"></option>
-            <option value="gemini-3.1-pro-preview" data-i18n="settings.model.options.pro3_preview"></option>
-          </select>
-          <small class="homey-form-help" style="display:block; margin-top:5px; opacity:0.8;"
-            data-i18n="settings.model_chat.help"></small>
+          <button id="back_from_guide" class="homey-button-transparent" style="padding-left: 0;"
+            data-i18n="settings.common.guide_back" type="button"></button>
         </div>
-      </fieldset>
-    </form>
-
-    <div class="instructions-section">
-      <h3 data-i18n="settings.instructions.title"></h3>
-      <ol>
-        <li data-i18n="settings.instructions.step1"></li>
-        <li data-i18n="settings.instructions.step2"></li>
-        <li data-i18n="settings.instructions.step3"></li>
-        <li data-i18n="settings.instructions.step4"></li>
-        <li data-i18n="settings.instructions.step5"></li>
-        <li data-i18n="settings.instructions.step6"></li>
-      </ol>
+      </form>
     </div>
 
-    <div class="scheduled-commands-section">
-      <div class="section-header">
-        <legend class="homey-form-legend" data-i18n="settings.scheduledCommands.title"></legend>
-        <button id="refreshCommands" class="homey-button-secondary"
-          data-i18n="settings.scheduledCommands.refresh"></button>
-      </div>
-      <p class="subtitle" data-i18n="settings.scheduledCommands.subtitle"></p>
+    <!-- View 5: Custom Instructions -->
+    <div id="view-custom-instructions" class="view">
+      <form class="homey-form">
+        <fieldset class="homey-form-fieldset">
+          <header class="homey-header" style="margin-top: 20px; margin-bottom: 20px;">
+            <h1 class="homey-title" data-i18n="settings.custom_instructions.title"></h1>
+          </header>
+          <p class="subtitle" data-i18n="settings.custom_instructions.subtitle"></p>
 
-      <div id="commandsContainer">
-        <div class="loading-spinner"></div>
-      </div>
+          <!-- Input Section (Natural Language) -->
+          <div class="homey-form-group" style="margin-top: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5px;">
+              <div>
+                <label class="homey-form-label" for="rawInstructions" data-i18n="settings.custom_instructions.label_raw"
+                  style="margin: 0; display: inline-block;"></label>
+              </div>
+              <button id="generatePromptBtn" class="homey-button-secondary homey-button-small" type="button"
+                style="margin: 0;">
+                <span class="btn-text" data-i18n="settings.custom_instructions.btn_generate"></span>
+                <span class="loading-spinner" style="display: none; border-top-color: #1f6ac1;"></span>
+              </button>
+            </div>
+            <textarea class="homey-form-input" id="rawInstructions"
+              style="resize: none; width: 100%; box-sizing: border-box; overflow: hidden; min-height: 130px;"></textarea>
+          </div>
+
+          <!-- Output Section (Generated Prompt) -->
+          <div class="homey-form-group" style="margin-top: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 5px;">
+              <label class="homey-form-label" for="customInstructions"
+                data-i18n="settings.custom_instructions.label_formatted" style="margin: 0;"></label>
+              <button id="editPromptBtn" class="homey-button-secondary homey-button-small" type="button"
+                style="margin: 0;" data-i18n="settings.custom_instructions.btn_edit"></button>
+            </div>
+            <textarea class="homey-form-input" id="customInstructions" readonly="true"
+              style="resize: none; width: 100%; box-sizing: border-box; background-color: rgba(0,0,0,0.02); overflow: hidden; min-height: 130px;"></textarea>
+          </div>
+
+          <!-- Save and Back Buttons -->
+          <div class="homey-form-group" style="margin-top: 30px;">
+            <button id="saveCustomInstructions" class="homey-button-primary-full" data-i18n="settings.common.save"
+              type="button"></button>
+          </div>
+
+          <div class="homey-form-group" style="margin-top: 20px;">
+            <button id="back_from_custom_instructions" class="homey-button-transparent" style="padding-left: 0;"
+              data-i18n="settings.common.guide_back" type="button"></button>
+          </div>
+        </fieldset>
+      </form>
     </div>
 
-    <div class="scheduled-commands-section">
-      <div class="section-header">
-        <legend class="homey-form-legend" data-i18n="settings.conversationHistory.title"></legend>
-      </div>
-      <p class="subtitle" data-i18n="settings.conversationHistory.subtitle"></p>
-      <button id="clearHistory" class="homey-button-danger-shadow homey-button-primary-full"
-        data-i18n="settings.conversationHistory.button"></button>
-    </div>
   </div>
 
   <!-- Toast notification -->
@@ -366,11 +680,64 @@
         }, 3000);
       }
 
+      // SPA Navigation
+      const viewMenu = document.getElementById('view-menu');
+      const viewSettings = document.getElementById('view-settings');
+      const viewCustomInstructions = document.getElementById('view-custom-instructions');
+      const viewTimers = document.getElementById('view-timers');
+      const viewHistory = document.getElementById('view-history');
+      const viewGuide = document.getElementById('view-guide');
+
+      function switchView(targetView) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('is-active'));
+        targetView.classList.add('is-active');
+      }
+
+      document.getElementById('nav_config').addEventListener('click', () => switchView(viewSettings));
+      document.getElementById('nav_custom_instructions').addEventListener('click', () => {
+        customInstructionsElement.setAttribute('readonly', 'true');
+        customInstructionsElement.style.backgroundColor = 'rgba(0,0,0,0.02)';
+        switchView(viewCustomInstructions);
+        // Trigger auto-resize AFTER view is visible (so scrollHeight is computed correctly)
+        requestAnimationFrame(() => {
+          [rawInput, customInstructionsElement].forEach(ta => {
+            ta.style.height = 'auto';
+            ta.style.height = (ta.scrollHeight) + 'px';
+          });
+        });
+      });
+      document.getElementById('nav_timers').addEventListener('click', () => {
+        loadScheduledCommands();
+        switchView(viewTimers);
+      });
+      document.getElementById('nav_history').addEventListener('click', () => {
+        loadHistoryTimeout();
+        switchView(viewHistory);
+      });
+      document.getElementById('open_guide_menu').addEventListener('click', () => switchView(viewGuide));
+      document.getElementById('link_to_guide').addEventListener('click', (e) => {
+        e.preventDefault();
+        switchView(viewGuide);
+      });
+
+      document.getElementById('back_from_config').addEventListener('click', (e) => { e.preventDefault(); switchView(viewMenu); });
+      document.getElementById('back_from_custom_instructions').addEventListener('click', (e) => { e.preventDefault(); switchView(viewMenu); });
+      document.getElementById('back_from_timers').addEventListener('click', (e) => { e.preventDefault(); switchView(viewMenu); });
+      document.getElementById('back_from_history').addEventListener('click', (e) => { e.preventDefault(); switchView(viewMenu); });
+      document.getElementById('back_from_guide').addEventListener('click', (e) => { e.preventDefault(); switchView(viewMenu); });
+
+      // External Links
+      document.body.addEventListener('click', function (e) {
+        if (e.target && e.target.classList.contains('open-aistudio-link')) {
+          e.preventDefault();
+          Homey.popup('https://aistudio.google.com');
+        }
+      });
+
       var apiKeyElement = document.getElementById("apiKey");
-      apiKeyElement.placeholder = Homey.__("settings.api.placeholder");
+      apiKeyElement.placeholder = Homey.__("settings.api.key_placeholder");
 
       var saveElement = document.getElementById("save");
-      var refreshElement = document.getElementById("refreshCommands");
       var commandsContainer = document.getElementById("commandsContainer");
 
       // Load the saved API Key from Homey settings
@@ -383,6 +750,8 @@
 
       var modelSelectElement = document.getElementById("modelSelect");
       var chatModelSelectElement = document.getElementById("chatModelSelect");
+      var customInstructionsElement = document.getElementById("customInstructions");
+      customInstructionsElement.placeholder = Homey.__("settings.custom_instructions.placeholder");
 
       // Load the saved Model from Homey settings
       Homey.get("gemini_model", function (err, model) {
@@ -407,20 +776,41 @@
         }
       });
 
+      // Load saved Custom Instructions
+      Homey.get("gemini_custom_instructions", function (err, instructions) {
+        if (err) return console.error("Error loading Custom Instructions:", err);
+        if (instructions) {
+          customInstructionsElement.value = instructions;
+          // Deferred resize happens when user opens the view
+        }
+      });
+
+      // Load saved Custom Instructions (Raw)
+      Homey.get("gemini_custom_instructions_raw", function (err, rawInstructions) {
+        if (err) return console.error("Error loading raw instructions:", err);
+        if (rawInstructions) {
+          const rawInput = document.getElementById("rawInstructions");
+          if (rawInput) {
+            rawInput.value = rawInstructions;
+            // Deferred resize happens when user opens the view
+          }
+        }
+      });
+
       // Save API Key
       saveElement.addEventListener("click", function (e) {
         e.preventDefault();
         var apiKey = apiKeyElement.value.trim();
 
         if (!apiKey) {
-          Homey.alert(Homey.__("settings.error.api"));
+          Homey.alert(Homey.__("settings.common.error_api"));
           return;
         }
 
         // Save the API Key to Homey settings
         Homey.set("gemini_api_key", apiKey, function (err) {
           if (err) {
-            showToast(Homey.__("settings.error.generic") + ": " + err, 'error');
+            showToast(Homey.__("settings.common.error_generic") + ": " + err, 'error');
             return;
           }
 
@@ -429,7 +819,7 @@
 
           Homey.set("gemini_model", model, function (err) {
             if (err) {
-              showToast(Homey.__("settings.error.generic") + ": " + err, 'error');
+              showToast(Homey.__("settings.common.error_generic") + ": " + err, 'error');
               return;
             }
 
@@ -437,11 +827,103 @@
             var chatModel = chatModelSelectElement.value;
             Homey.set("gemini_model_chat", chatModel, function (err) {
               if (err) {
-                showToast(Homey.__("settings.error.generic") + ": " + err, 'error');
+                showToast(Homey.__("settings.common.error_generic") + ": " + err, 'error');
                 return;
               }
-              showToast(Homey.__("settings.saved"), 'success');
+
+              showToast(Homey.__("settings.common.saved"), 'success');
             });
+          });
+        });
+      });
+
+      // UI Elements for Custom Instructions
+      const generatePromptBtn = document.getElementById("generatePromptBtn");
+      const editPromptBtn = document.getElementById("editPromptBtn");
+      const rawInput = document.getElementById("rawInstructions");
+
+      // Auto-resize logic (hidden scrollbars)
+      function autoResizeTextarea() {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+      }
+      rawInput.addEventListener('input', autoResizeTextarea);
+      customInstructionsElement.addEventListener('input', autoResizeTextarea);
+
+      // Generate Prompt via API
+      generatePromptBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        var rawText = rawInput.value.trim();
+
+        if (!rawText) {
+          showToast(Homey.__("settings.custom_instructions.error_empty"), 'warning');
+          return;
+        }
+
+        // UI Loading state
+        const btnText = generatePromptBtn.querySelector('.btn-text');
+        const spinner = generatePromptBtn.querySelector('.loading-spinner');
+
+        generatePromptBtn.disabled = true;
+        btnText.style.display = 'none';
+        spinner.style.display = 'inline-block';
+
+        Homey.api('POST', '/generate-custom-prompt', { text: rawText }, function (err, result) {
+          // Restore UI
+          generatePromptBtn.disabled = false;
+          btnText.style.display = 'inline';
+          spinner.style.display = 'none';
+
+          if (err) {
+            console.error('[generateCustomPrompt] err:', err);
+            showToast(err.message || err.toString(), 'error');
+            return;
+          }
+          if (result && result.success && result.generatedPrompt) {
+            customInstructionsElement.value = result.generatedPrompt;
+            customInstructionsElement.style.height = 'auto';
+            customInstructionsElement.style.height = (customInstructionsElement.scrollHeight) + 'px';
+            showToast(Homey.__("settings.custom_instructions.msg_generated"), 'success');
+          } else {
+            console.error('[generateCustomPrompt] error result:', result);
+            showToast(result?.error || Homey.__("settings.common.unknown_error"), 'error');
+          }
+        });
+      });
+
+      // Edit Prompt Manually
+      editPromptBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        customInstructionsElement.removeAttribute('readonly');
+        customInstructionsElement.style.backgroundColor = ''; // Remove the gray background
+        customInstructionsElement.focus();
+        showToast(Homey.__("settings.custom_instructions.msg_edit_mode"), "warning");
+      });
+
+      // Save Custom Instructions
+      document.getElementById("saveCustomInstructions").addEventListener("click", function (e) {
+        e.preventDefault();
+        var customInstructions = customInstructionsElement.value.trim();
+
+        if (!customInstructions) {
+          showToast(Homey.__("settings.custom_instructions.error_empty_save"), 'warning');
+          return;
+        }
+
+        Homey.set("gemini_custom_instructions", customInstructions, function (err) {
+          if (err) {
+            showToast(Homey.__("settings.common.error_generic") + ": " + err, 'error');
+            return;
+          }
+
+          // Also save the raw natural language input
+          var rawText = rawInput.value.trim();
+          Homey.set("gemini_custom_instructions_raw", rawText, function (err) {
+            if (err) {
+              console.error('[save] Error saving raw instructions:', err);
+              // We don't block the UI here since the main prompt is saved
+            }
+            showToast(Homey.__("settings.custom_instructions.msg_saved"), 'success');
           });
         });
       });
@@ -452,12 +934,12 @@
 
         Homey.api("GET", "/scheduled-commands", null, function (err, result) {
           if (err) {
-            commandsContainer.innerHTML = '<div class="no-commands">' + Homey.__("settings.scheduledCommands.error.load") + ': ' + err + '</div>';
+            commandsContainer.innerHTML = '<div class="no-commands">' + Homey.__("settings.scheduled_commands.error_load") + ': ' + err + '</div>';
             return;
           }
 
           if (!result.commands || result.commands.length === 0) {
-            commandsContainer.innerHTML = '<div class="no-commands">' + Homey.__("settings.scheduledCommands.noCommands") + '</div>';
+            commandsContainer.innerHTML = '<div class="no-commands">' + Homey.__("settings.scheduled_commands.no_commands") + '</div>';
             return;
           }
 
@@ -475,7 +957,7 @@
             table += '<span class="execution-time">⏰ ' + escapeHtml(cmd.executeAtLocal) + '</span>';
             table += '<span class="status-badge">' + escapeHtml(cmd.status) + '</span>';
             table += '</div>';
-            table += '<button class="homey-button-danger-shadow homey-button-small cancel-btn" data-schedule-id="' + escapeHtml(cmd.scheduleId) + '">' + Homey.__("settings.scheduledCommands.cancel") + '</button>';
+            table += '<button class="homey-button-danger-shadow homey-button-small cancel-btn" data-schedule-id="' + escapeHtml(cmd.scheduleId) + '">' + Homey.__("settings.scheduled_commands.btn_cancel") + '</button>';
             table += '</div>';
             table += '</td>';
             table += '</tr>';
@@ -503,7 +985,7 @@
         console.log('[cancelScheduledCommand] Button clicked, scheduleId:', scheduleId);
         console.log('[cancelScheduledCommand] Calling Homey.confirm...');
 
-        Homey.confirm(Homey.__("settings.scheduledCommands.confirmCancel"), 'warning', function (err, result) {
+        Homey.confirm(Homey.__("settings.scheduled_commands.confirm_cancel"), 'warning', function (err, result) {
           console.log('[cancelScheduledCommand] Homey.confirm callback called - err:', err, 'result:', result);
 
           if (err) {
@@ -523,17 +1005,17 @@
 
             if (err) {
               console.error('[cancelScheduledCommand] API error:', err);
-              Homey.alert(Homey.__("settings.scheduledCommands.error.cancel") + ': ' + err);
+              Homey.alert(Homey.__("settings.scheduled_commands.error_cancel") + ': ' + err);
               return;
             }
 
             if (result.success) {
               console.log('[cancelScheduledCommand] Command cancelled successfully');
-              showToast(Homey.__("settings.scheduledCommands.cancelled"), 'success');
+              showToast(Homey.__("settings.scheduled_commands.msg_cancelled"), 'success');
               loadScheduledCommands(); // Reload list
             } else {
               console.error('[cancelScheduledCommand] Cancellation failed:', result.error);
-              showToast(Homey.__("settings.scheduledCommands.error.cancel") + ': ' + (result.error || 'Unknown error'), 'error');
+              showToast(Homey.__("settings.scheduled_commands.error_cancel") + ': ' + (result.error || Homey.__("settings.common.unknown_error")), 'error');
             }
           });
         });
@@ -550,30 +1032,50 @@
         };
         return String(text).replace(/[&<>"']/g, function (m) { return map[m]; });
       }
-
-      // Refresh button
-      refreshElement.addEventListener("click", function () {
-        loadScheduledCommands();
-      });
-
       // Clear conversation history button
       var clearHistoryElement = document.getElementById("clearHistory");
-      clearHistoryElement.addEventListener("click", function () {
-        Homey.confirm(Homey.__("settings.conversationHistory.confirm"), 'warning', function (err, confirmed) {
+      clearHistoryElement.addEventListener("click", function (e) {
+        e.preventDefault();
+        Homey.confirm(Homey.__("settings.history.confirm_clear"), 'warning', function (err, confirmed) {
           if (err || !confirmed) return;
 
           Homey.api("DELETE", "/conversation-history", null, function (err, result) {
             if (err || !result.success) {
-              showToast(Homey.__("settings.conversationHistory.error") + (err ? ': ' + err : ''), 'error');
+              showToast(Homey.__("settings.history.error_clear") + (err ? ': ' + err : ''), 'error');
               return;
             }
-            showToast(Homey.__("settings.conversationHistory.cleared"), 'success');
+            showToast(Homey.__("settings.history.msg_cleared"), 'success');
           });
         });
       });
 
-      // Load commands on init
-      loadScheduledCommands();
+      // Load history timeout setting
+      var historyTimeoutElement = document.getElementById("historyTimeout");
+
+      function loadHistoryTimeout() {
+        Homey.get("conversation_history_timeout", function (err, value) {
+          if (err) return console.error("Error loading history timeout:", err);
+          historyTimeoutElement.value = (value && !isNaN(value)) ? Number(value) : 30;
+        });
+      }
+
+      // Save history timeout button
+      document.getElementById("saveHistoryTimeout").addEventListener("click", function (e) {
+        e.preventDefault();
+        var raw = parseInt(historyTimeoutElement.value, 10);
+        if (isNaN(raw) || raw < 10 || raw > 240) {
+          showToast(Homey.__("settings.history.error_invalid_timeout"), 'warning');
+          return;
+        }
+        Homey.set("conversation_history_timeout", raw, function (err) {
+          if (err) {
+            showToast(Homey.__("settings.history.error_timeout") + ': ' + err, 'error');
+            return;
+          }
+          showToast(Homey.__("settings.history.msg_timeout_saved"), 'success');
+        });
+      });
+
     }
   </script>
 </body>

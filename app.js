@@ -19,13 +19,16 @@ module.exports = class GeminiApp extends Homey.App {
       await this.geminiClient.mcpAdapter.restoreScheduledCommands();
     }
 
-    // Listen for settings changes to re-initialize the client
-    this.homey.settings.on('set', (key) => {
-      if (key === 'gemini_api_key' || key === 'gemini_model' || key === 'gemini_model_chat') {
+    // Listen for settings changes to re-initialize the client.
+    // Store the reference so it can be removed in onUninit() to avoid
+    // accessing a destroyed app instance after a ready_timeout crash.
+    this._settingsListener = (key) => {
+      if (key === 'gemini_api_key' || key === 'gemini_model' || key === 'gemini_model_chat' || key === 'gemini_custom_instructions') {
         this.log(`[onInit] Setting ${key} changed, re-initializing GeminiClient`);
         this.initializeGeminiClient();
       }
-    });
+    };
+    this.homey.settings.on('set', this._settingsListener);
 
     // Register flow cards
     this.registerSendPromptActionCard();
@@ -42,6 +45,7 @@ module.exports = class GeminiApp extends Homey.App {
     const apiKey = this.homey.settings.get('gemini_api_key');
     const modelName = this.homey.settings.get('gemini_model') || 'gemini-2.5-flash';
     const chatModelName = this.homey.settings.get('gemini_model_chat');
+    const customInstructions = this.homey.settings.get('gemini_custom_instructions');
 
     if (!apiKey) {
       this.log('[initializeGeminiClient] API key not found in settings - app will function but Gemini flows will fail until API key is configured');
@@ -51,7 +55,8 @@ module.exports = class GeminiApp extends Homey.App {
     this.geminiClient = new GeminiClient(apiKey, {
       homey: this.homey,
       smartHomeModel: modelName,
-      chatModel: chatModelName
+      chatModel: chatModelName,
+      customInstructions: customInstructions
     });
     this.log(`[initializeGeminiClient] GeminiClient initialized successfully. Smart Home: ${modelName}, Chat: ${chatModelName || 'Default (' + modelName + ')'}`);
   }
@@ -61,6 +66,13 @@ module.exports = class GeminiApp extends Homey.App {
    */
   async onUninit() {
     this.log('[onUninit] GeminiApp is being destroyed');
+
+    // Remove the settings listener to prevent it from firing after the app
+    // instance has been destroyed (which would cause a "Cannot access this.homey.app" error).
+    if (this._settingsListener) {
+      this.homey.settings.off('set', this._settingsListener);
+      this._settingsListener = null;
+    }
 
     // Cleanup scheduler interval if MCP adapter exists
     if (this.geminiClient && this.geminiClient.mcpAdapter) {

@@ -10,6 +10,7 @@ This Homey app integrates Google's Gemini AI into your smart home ecosystem, all
 - **Image Analysis**: "Send a prompt with image" action card for multimodal prompts (image + text).
 - **Smart Home Control (Function Calling)**: "Run a command for your smart home" action card for conversational control - ask Gemini to control devices, trigger flows, and query the state of your home.
 - **History Management**: Persistent conversation memory for coherent multi-turn sessions.
+- **Custom Instructions (Memory)**: Define general rules or specific context that Gemini must always follow during smart home control.
 - **Conversation Context**: "Set conversation context" action card to inject context for follow-up commands across flows.
 - **Scheduled Automations**: Schedule commands to run in the future (e.g., "Turn off the lights in 10 minutes").
 - **Retry Logic**: Intelligent quota limit handling (429 errors) with automatic retries.

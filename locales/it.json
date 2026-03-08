@@ -1,48 +1,38 @@
 {
     "settings": {
-        "title": "Gemini AI",
-        "subtitle": "Impostazioni di Gemini AI",
+        "common": {
+            "save": "Salva",
+            "saved": "Configurazione salvata con successo!",
+            "guide_back": "← Torna alle Impostazioni",
+            "error_generic": "Errore durante la configurazione di Gemini",
+            "error_api": "Si prega di inserire una API Key di Gemini valida",
+            "unknown_error": "Errore sconosciuto"
+        },
+        "menu": {
+            "title": "Gemini AI",
+            "subtitle": "Impostazioni di Gemini AI",
+            "api_title": "Configurazione",
+            "api_desc": "Configura API e modelli",
+            "custom_instructions_title": "Istruzioni Personalizzate",
+            "custom_instructions_desc": "Migliora le risposte con direttive personali",
+            "timers_title": "Automazioni",
+            "timers_desc": "Gestisci comandi programmati",
+            "history_title": "Cronologia",
+            "history_desc": "Gestisci la cronologia delle chat",
+            "guide_title": "Guida alla configurazione",
+            "guide_desc": "Istruzioni per l'app"
+        },
         "api": {
-            "legend": "Configurazione",
-            "label": "API Key",
-            "placeholder": "Inserisci qui la tua API Key di Google Gemini"
-        },
-        "button": "Salva",
-        "saved": "Configurazione salvata con successo!",
-        "error": {
-            "generic": "Errore durante la configurazione di Gemini",
-            "api": "Si prega di inserire una API Key di Gemini valida"
-        },
-        "instructions": {
-            "title": "Come ottenere la tua API Key",
-            "step1": "Vai su Google AI Studio (aistudio.google.com)",
-            "step2": "Accedi con il tuo account Google",
-            "step3": "Clicca su \"Get API Key\" nella barra laterale",
-            "step4": "Clicca \"Crea chiave API\" in alto a destra",
-            "step5": "Segui le istruzioni e una volta fatto premi \"Crea chiave\"",
-            "step6": "Clicca sulla chiave appena creata e copia la tua \"Chiave API\""
-        },
-        "scheduledCommands": {
-            "title": "Automazioni",
-            "subtitle": "Gestisci le tue automazioni. Puoi visualizzare e cancellare i timer in attesa.",
-            "noCommands": "Nessuna automazione trovata.",
-            "command": "Comando",
-            "executionTime": "Ora di Esecuzione",
-            "status": "Stato",
-            "actions": "Azioni",
-            "cancel": "Cancella",
-            "refresh": "Aggiorna",
-            "confirmCancel": "Sei sicuro di voler cancellare questa automazione?",
-            "cancelled": "Automazione cancellata con successo.",
-            "error": {
-                "load": "Errore nel caricamento delle automazioni",
-                "cancel": "Errore nella cancellazione dell'automazione"
-            }
-        },
-        "model": {
-            "label": "Modello per Smart Home",
-            "help": "Utilizzato per i comandi Smart Home ed il ragionamento complesso.",
-            "options": {
+            "title": "Configurazione",
+            "description": "Configura qui la tua Chiave API di Gemini e le preferenze per i modelli.",
+            "guide_link": "Come ottenere una Gemini API Key?",
+            "key_label": "API Key",
+            "key_placeholder": "Inserisci qui la tua API Key di Google Gemini",
+            "model_sh_label": "Modello per Smart Home",
+            "model_sh_help": "Utilizzato per i comandi Smart Home ed il ragionamento complesso.",
+            "model_chat_label": "Modello per Generazione Testo",
+            "model_chat_help": "Utilizzato per le carte \"Invia Prompt\" e \"Invia Prompt con Immagine\".",
+            "models": {
                 "flash_lite": "Gemini 2.5 Flash-Lite (Leggero - Predefinito)",
                 "flash": "Gemini 2.5 Flash (Bilanciato)",
                 "pro": "Gemini 2.5 Pro (Massima Qualità)",
@@ -51,17 +41,61 @@
                 "pro3_preview": "Gemini 3.1 Pro Preview (Più Capace)"
             }
         },
-        "model_chat": {
-            "label": "Modello per Generazione Testo",
-            "help": "Utilizzato per le carte \"Invia Prompt\" e \"Invia Prompt con Immagine\"."
+        "scheduled_commands": {
+            "title": "Automazioni",
+            "subtitle": "In tabella trovi tutte le tue automazioni in attesa di essere eseguite. Puoi visualizzarle e cancellare quelle che non vuoi più eseguire.",
+            "no_commands": "Nessuna automazione trovata.",
+            "command_label": "Comando",
+            "execution_time": "Ora di Esecuzione",
+            "status": "Stato",
+            "actions": "Azioni",
+            "btn_cancel": "Cancella",
+            "btn_refresh": "Aggiorna",
+            "confirm_cancel": "Sei sicuro di voler cancellare questa automazione?",
+            "msg_cancelled": "Automazione cancellata con successo.",
+            "error_load": "Errore nel caricamento delle automazioni",
+            "error_cancel": "Errore nella cancellazione dell'automazione"
         },
-        "conversationHistory": {
-            "title": "Cronologia Conversazione",
-            "subtitle": "Azzera la memoria della conversazione. Tutto il contesto delle interazioni precedenti con Gemini verrà eliminato definitivamente.",
-            "button": "Cancella Cronologia",
-            "confirm": "Sei sicuro di voler cancellare tutta la cronologia della conversazione? Questa azione non può essere annullata.",
-            "cleared": "Cronologia della conversazione cancellata con successo.",
-            "error": "Errore durante la cancellazione della cronologia"
+        "custom_instructions": {
+            "title": "Istruzioni Personalizzate",
+            "subtitle": "Definisci delle regole generali per Gemini quando controlla la tua smart home. Scrivi in modo naturale cosa vuoi che Gemini ricordi (es: 'Ricordati sempre di verificare anche i condizionatori quando voglio sapere la temperatura di casa'). \nSe il prompt generato non soddisfa a pieno le tue aspettative potrai sempre modificarlo manualmente.",
+            "label_raw": "Le tue Istruzioni",
+            "label_formatted": "Prompt di Sistema",
+            "help": "Questo codice sarà iniettato nel System Prompt di Gemini.",
+            "placeholder": "Es. Includi i Daikin quando chiedo la temperatura...\nRispondi sempre in modo affettuoso...\nNon spegnere mai l'allarme...",
+            "btn_generate": "Genera Prompt",
+            "btn_edit": "Modifica",
+            "msg_generated": "Prompt generato con successo! Ricordati di salvare prima di uscire.",
+            "msg_saved": "Istruzioni personalizzate salvate con successo!",
+            "msg_edit_mode": "Ora puoi modificare il codice direttamente.",
+            "error_empty": "Inserisci delle istruzioni prima di generare il prompt.",
+            "error_empty_save": "Genera o inserisci delle istruzioni prima di salvare."
+        },
+        "history": {
+            "title": "Cronologia",
+            "subtitle": "Imposta per quanto tempo Gemini deve ricordare i messaggi della sessione corrente. La cronologia viene cancellata automaticamente dopo questo periodo di inattività. \nATTENZIONE: una maggiore durata consuma più Token.",
+            "timeout_label": "Durata memoria (minuti)",
+            "timeout_help": "Min: 10min - Max: 240min",
+            "manual_clear_title": "Azzeramento Manuale",
+            "manual_clear_desc": "Azzera la memoria della conversazione. Tutto il contesto delle interazioni precedenti con Gemini finora verrà eliminato definitivamente.",
+            "btn_clear": "Cancella Cronologia",
+            "msg_cleared": "Cronologia della conversazione cancellata con successo.",
+            "msg_timeout_saved": "Durata memoria aggiornata con successo.",
+            "confirm_clear": "Sei sicuro di voler cancellare tutta la cronologia della conversazione? Questa azione non può essere annullata.",
+            "error_clear": "Errore durante la cancellazione della cronologia",
+            "error_timeout": "Errore durante il salvataggio della durata memoria",
+            "error_invalid_timeout": "Inserisci un valore compreso tra 10 e 240 minuti."
+        },
+        "guide": {
+            "title": "Guida alla configurazione",
+            "section_bot": "Configurazione App",
+            "part1_title": "Ottieni la API Key",
+            "step1": "Vai su Google AI Studio",
+            "step2": "Accedi con il tuo account Google",
+            "step3": "Clicca su \"Get API Key\" nella barra laterale",
+            "step4": "Clicca \"Crea chiave API\" in alto a destra",
+            "step5": "Segui le istruzioni e una volta fatto premi \"Crea chiave\"",
+            "step6": "Clicca sulla chiave appena creata e copia la tua \"Chiave API\""
         }
     },
     "prompt": {

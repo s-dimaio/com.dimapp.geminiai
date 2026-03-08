@@ -1,48 +1,38 @@
 {
     "settings": {
-        "title": "Gemini AI",
-        "subtitle": "Gemini AI Settings",
+        "common": {
+            "save": "Save",
+            "saved": "Configuration saved successfully!",
+            "guide_back": "← Back to Settings",
+            "error_generic": "Error saving Gemini configuration",
+            "error_api": "Please insert a valid Gemini API Key",
+            "unknown_error": "Unknown error"
+        },
+        "menu": {
+            "title": "Gemini AI",
+            "subtitle": "Gemini AI Settings",
+            "api_title": "Configuration",
+            "api_desc": "Configure API and models",
+            "custom_instructions_title": "Custom Instructions",
+            "custom_instructions_desc": "Improve responses with custom rules",
+            "timers_title": "Scheduled Commands",
+            "timers_desc": "Manage scheduled commands",
+            "history_title": "History Configuration",
+            "history_desc": "Manage chat history",
+            "guide_title": "Setup Guide",
+            "guide_desc": "Instructions to configure the app"
+        },
         "api": {
-            "legend": "Configuration",
-            "label": "API Key",
-            "placeholder": "Insert your Google Gemini API Key here"
-        },
-        "button": "Save",
-        "saved": "Configuration saved successfully!",
-        "error": {
-            "generic": "Error saving Gemini configuration",
-            "api": "Please insert a valid Gemini API Key"
-        },
-        "instructions": {
-            "title": "How to get your API Key",
-            "step1": "Go to Google AI Studio (aistudio.google.com)",
-            "step2": "Sign in with your Google account",
-            "step3": "Click on \"Get API Key\" in the left sidebar",
-            "step4": "Click \"Create API key\"",
-            "step5": "Follow the instructions and once done press \"Create key\"",
-            "step6": "Click on the newly created key and copy your \"API Key\""
-        },
-        "scheduledCommands": {
-            "title": "Scheduled Commands",
-            "subtitle": "Manage your scheduled commands. You can view and cancel pending timers.",
-            "noCommands": "No scheduled commands found.",
-            "command": "Command",
-            "executionTime": "Execution Time",
-            "status": "Status",
-            "actions": "Actions",
-            "cancel": "Cancel",
-            "refresh": "Refresh",
-            "confirmCancel": "Are you sure you want to cancel this scheduled command?",
-            "cancelled": "Scheduled command cancelled successfully.",
-            "error": {
-                "load": "Error loading scheduled commands",
-                "cancel": "Error cancelling command"
-            }
-        },
-        "model": {
-            "label": "Smart Home Model",
-            "help": "Used for Smart Home commands and complex reasoning.",
-            "options": {
+            "title": "Configuration",
+            "description": "Configure your Gemini API Key and model preferences here.",
+            "guide_link": "How to get a Gemini API Key?",
+            "key_label": "API Key",
+            "key_placeholder": "Insert your Google Gemini API Key here",
+            "model_sh_label": "Smart Home Model",
+            "model_sh_help": "Used for Smart Home commands and complex reasoning.",
+            "model_chat_label": "Text Generation Model",
+            "model_chat_help": "Used for \"Send Prompt\" and \"Send Prompt with Image\" cards.",
+            "models": {
                 "flash_lite": "Gemini 2.5 Flash-Lite (Lightweight - Default)",
                 "flash": "Gemini 2.5 Flash (Balanced)",
                 "pro": "Gemini 2.5 Pro (Best Quality)",
@@ -51,17 +41,61 @@
                 "pro3_preview": "Gemini 3.1 Pro Preview (Most Capable)"
             }
         },
-        "model_chat": {
-            "label": "Text Generation Model",
-            "help": "Used for \"Send Prompt\" and \"Send Prompt with Image\" cards."
+        "scheduled_commands": {
+            "title": "Scheduled Commands",
+            "subtitle": "In the table below you can see all your scheduled commands. You can view and cancel the ones you no longer want to execute.",
+            "no_commands": "No scheduled commands found.",
+            "command_label": "Command",
+            "execution_time": "Execution Time",
+            "status": "Status",
+            "actions": "Actions",
+            "btn_cancel": "Cancel",
+            "btn_refresh": "Refresh",
+            "confirm_cancel": "Are you sure you want to cancel this scheduled command?",
+            "msg_cancelled": "Scheduled command cancelled successfully.",
+            "error_load": "Error loading scheduled commands",
+            "error_cancel": "Error cancelling command"
         },
-        "conversationHistory": {
-            "title": "Conversation History",
-            "subtitle": "Reset the conversation memory. All context from previous interactions with Gemini will be permanently deleted.",
-            "button": "Clear History",
-            "confirm": "Are you sure you want to clear the entire conversation history? This action cannot be undone.",
-            "cleared": "Conversation history cleared successfully.",
-            "error": "Error clearing conversation history"
+        "custom_instructions": {
+            "title": "Custom Instructions",
+            "subtitle": "Define general rules for Gemini when controlling your smart home. Write naturally what you want Gemini to remember (e.g. 'Always check the air conditioning too when I want to know the home temperature'). \nIf the generated prompt doesn't fully meet your expectations, you can always edit it manually.",
+            "label_raw": "Your Instructions",
+            "label_formatted": "System Prompt",
+            "help": "This text will be injected into Gemini's System Prompt.",
+            "placeholder": "e.g. Include Daikin when I ask for temperature...\nAlways respond affectionately...\nNever turn off the alarm...",
+            "btn_generate": "Generate Prompt",
+            "btn_edit": "Edit",
+            "msg_generated": "Prompt generated successfully! Remember to save before exiting.",
+            "msg_saved": "Custom instructions saved successfully!",
+            "msg_edit_mode": "You can now edit the code directly.",
+            "error_empty": "Please enter some instructions first.",
+            "error_empty_save": "Please generate or enter some instructions before saving."
+        },
+        "history": {
+            "title": "History Configuration",
+            "subtitle": "Set how long Gemini should remember messages from the current session. History is automatically cleared after this idle period. \nWARNING: A longer duration consumes more Tokens.",
+            "timeout_label": "Memory duration (minutes)",
+            "timeout_help": "Min: 10min - Max: 240min",
+            "manual_clear_title": "Manual Clear",
+            "manual_clear_desc": "Reset the conversation memory. All context from previous interactions with Gemini so far will be permanently deleted.",
+            "btn_clear": "Clear History",
+            "msg_cleared": "Conversation history cleared successfully.",
+            "msg_timeout_saved": "Memory duration updated successfully.",
+            "confirm_clear": "Are you sure you want to clear the entire conversation history? This action cannot be undone.",
+            "error_clear": "Error clearing conversation history",
+            "error_timeout": "Error saving memory duration",
+            "error_invalid_timeout": "Please enter a value between 10 and 240 minutes."
+        },
+        "guide": {
+            "title": "Setup Guide",
+            "section_bot": "App Configuration",
+            "part1_title": "Get the API Key",
+            "step1": "Go to Google AI Studio",
+            "step2": "Sign in with your Google account",
+            "step3": "Click on \"Get API Key\" in the left sidebar",
+            "step4": "Click \"Create API key\"",
+            "step5": "Follow the instructions and once done press \"Create key\"",
+            "step6": "Click on the newly created key and copy your \"API Key\""
         }
     },
     "prompt": {

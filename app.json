@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.dimapp.geminiai",
-  "version": "2.7.1",
+  "version": "2.8.0",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -11,8 +11,8 @@
     "en": "Gemini AI"
   },
   "description": {
-    "en": "Use Google Gemini prompts in your Homey Flows",
-    "it": "Utilizza i prompt di Google Gemini nei tuoi Flows"
+    "en": "Control your home using natural language and AI-powered automations.",
+    "it": "Controlla la tua casa usando il linguaggio naturale e automazioni potenziate dall'IA."
   },
   "category": [
     "tools"
@@ -61,6 +61,10 @@
     "clearConversationHistory": {
       "method": "DELETE",
       "path": "/conversation-history"
+    },
+    "generateCustomPrompt": {
+      "method": "POST",
+      "path": "/generate-custom-prompt"
     }
   },
   "flow": {

@@ -98,5 +98,9 @@
   "2.7.2": {
     "en": "(i) Optimized chat history management for better continuity and reliability \n(ii) Implemented token usage optimization via advanced context caching \n(iii) Improved natural language responses for scheduled commands by including original request context \n(iv) Updated the list of available Gemini models",
     "it": "(i) Ottimizzata la gestione della cronologia della chat per una migliore continuità e affidabilità \n(ii) Implementata l'ottimizzazione del consumo dei token tramite caching avanzato del contesto \n(iii) Migliorate le risposte in linguaggio naturale per i comandi programmati includendo il contesto originale della richiesta \n(iv) Aggiornao l'elenco dei modelli Gemini utilizzabili"
+  },
+  "2.8.0": {
+    "en": "(i) Added Custom Instructions: you can set specific rules for your smart home that Gemini must follow when executing a command (e.g. \"When I ask for the temperature of the house, remember to always include the data of the air conditioners\") \n(ii) Complete UI restyling of the settings page for a more modern and organized experience",
+    "it": "(i) Aggiunte le Istruzioni Personalizzate: puoi impostare regole specifiche per la tua smart home che Gemini dovrà rispettare quando esegue un comando (es. \"Quando chiedo la temperatura di casa ricorda di includere sempre anche il dato dei condizionatori\") \n(ii) Restyling completo dell'interfaccia Impostazioni per un'esperienza più moderna e organizzata"
   }
 }
