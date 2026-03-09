@@ -102,5 +102,9 @@
   "2.8.0": {
     "en": "(i) Added Custom Instructions: you can set specific rules for your smart home that Gemini must follow when executing a command (e.g. \"When I ask for the temperature of the house, remember to always include the data of the air conditioners\") \n(ii) Complete UI restyling of the settings page for a more modern and organized experience",
     "it": "(i) Aggiunte le Istruzioni Personalizzate: puoi impostare regole specifiche per la tua smart home che Gemini dovrà rispettare quando esegue un comando (es. \"Quando chiedo la temperatura di casa ricorda di includere sempre anche il dato dei condizionatori\") \n(ii) Restyling completo dell'interfaccia Impostazioni per un'esperienza più moderna e organizzata"
+  },
+  "2.8.1": {
+    "en": "(i) Added Custom Instructions: you can set specific rules for your smart home that Gemini must follow when executing a command (e.g. \"When I ask for the temperature of the house, remember to always include the data of the air conditioners\") \n(ii) Complete UI restyling of the settings page for a more modern and organized experience \n(iii) Minor bug fixes",
+    "it": "(i) Aggiunte le Istruzioni Personalizzate: puoi impostare regole specifiche per la tua smart home che Gemini dovrà rispettare quando esegue un comando (es. \"Quando chiedo la temperatura di casa ricorda di includere sempre anche il dato dei condizionatori\") \n(ii) Restyling completo dell'interfaccia Impostazioni per un'esperienza più moderna e organizzata \n(iii) Correzione di bug minori"
   }
 }

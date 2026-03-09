@@ -8,16 +8,16 @@
             "it": "Aggiungi un messaggio alla memoria della conversazione in modo che Gemini sappia già di cosa stai parlando nel prossimo comando"
         },
         "titleFormatted": {
-            "en": "Add to conversation context: [[context]]",
-            "it": "Aggiungi al contesto della conversazione: [[context]]"
+            "en": "Add the message [[context]] to the conversation memory",
+            "it": "Aggiungi il messaggio [[context]] alla cronologia della chat"
         },
         "args": [
             {
                 "type": "text",
                 "name": "context",
                 "placeholder": {
-                    "en": "e.g. Do you want me to turn on the living room light?",
-                    "it": "es. Vuoi che accenda la luce del soggiorno?"
+                    "en": "Add a context message",
+                    "it": "Aggiungi un messaggio di contesto"
                 }
             }
         ],
