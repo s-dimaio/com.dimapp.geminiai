@@ -32,6 +32,14 @@
         "en": "Gemini answer",
         "it": "Risposta di Gemini"
       }
+    },
+    {
+      "name": "analyzed_image",
+      "type": "image",
+      "title": {
+        "en": "Analyzed Image",
+        "it": "Immagine analizzata"
+      }
     }
   ]
 }

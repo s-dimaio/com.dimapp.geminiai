@@ -16,8 +16,8 @@
                 "type": "text",
                 "name": "context",
                 "placeholder": {
-                    "en": "Add a context message",
-                    "it": "Aggiungi un messaggio di contesto"
+                    "en": "Text a context message",
+                    "it": "Scrivi un messaggio di contesto"
                 }
             }
         ],

@@ -143,7 +143,10 @@ module.exports = class GeminiApp extends Homey.App {
         const text = await this.geminiClient.generateTextWithImage(prompt, imageBuffer, mimeType);
         this.log(`[sendPromptWithImageActionCard] Response: ${text}`);
 
-        return { answer: text };
+        return {
+          answer: text,
+          analyzed_image: imageToken
+        };
 
       } catch (error) {
         return this.handleFlowError('[sendPromptWithImageActionCard]', error);

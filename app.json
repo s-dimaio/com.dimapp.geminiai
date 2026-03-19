@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.dimapp.geminiai",
-  "version": "2.8.0",
+  "version": "2.9.0",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -129,16 +129,16 @@
           "it": "Aggiungi un messaggio alla memoria della conversazione in modo che Gemini sappia già di cosa stai parlando nel prossimo comando"
         },
         "titleFormatted": {
-          "en": "Add to conversation context: [[context]]",
-          "it": "Aggiungi al contesto della conversazione: [[context]]"
+          "en": "Add the message [[context]] to the conversation memory",
+          "it": "Aggiungi il messaggio [[context]] alla cronologia della chat"
         },
         "args": [
           {
             "type": "text",
             "name": "context",
             "placeholder": {
-              "en": "e.g. Do you want me to turn on the living room light?",
-              "it": "es. Vuoi che accenda la luce del soggiorno?"
+              "en": "Text a context message",
+              "it": "Scrivi un messaggio di contesto"
             }
           }
         ],
@@ -279,6 +279,14 @@
             "title": {
               "en": "Gemini answer",
               "it": "Risposta di Gemini"
+            }
+          },
+          {
+            "name": "analyzed_image",
+            "type": "image",
+            "title": {
+              "en": "Analyzed Image",
+              "it": "Immagine analizzata"
             }
           }
         ],
