@@ -1,0 +1,22 @@
+{
+  "id": "gemini_response_ready",
+  "title": {
+    "en": "Gemini response ready",
+    "it": "La risposta di Gemini è pronta"
+  },
+  "hint": {
+    "en": "This card triggers when Gemini has finished analyzing the text prompt",
+    "it": "Questa carta si attiva quando Gemini ha terminato l'analisi del testo"
+  },
+  "tokens": [
+    {
+      "name": "response",
+      "type": "string",
+      "title": {
+        "en": "Response",
+        "it": "Risposta"
+      },
+      "example": "La capitale d'Italia è Roma."
+    }
+  ]
+}

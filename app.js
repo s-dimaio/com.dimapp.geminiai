@@ -31,12 +31,24 @@ module.exports = class GeminiApp extends Homey.App {
     };
     this.homey.settings.on('set', this._settingsListener);
 
+    // Register flow triggers
+    this.registerGeminiTriggers();
+
     // Register flow cards
     this.registerSendPromptActionCard();
     await this.registerSendPromptWithImageActionCard();
     this.registerMCPCommandActionCard();
     this.registerSeedConversationContextCard();
     //this.registerScheduledCommandExecutedTriggerCard();
+  }
+
+  /**
+   * Registers the Gemini response trigger cards
+   */
+  registerGeminiTriggers() {
+    this.geminiResponseReadyTrigger = this.homey.flow.getTriggerCard('gemini_response_ready');
+    this.geminiImageResponseReadyTrigger = this.homey.flow.getTriggerCard('gemini_image_response_ready');
+    this.log('[registerGeminiTriggers] Asynchronous response triggers registered');
   }
 
   /**
@@ -100,6 +112,10 @@ module.exports = class GeminiApp extends Homey.App {
 
         const text = await this.geminiClient.generateText(prompt);
         this.log(`[sendPromptActionCard] Response: ${text}`);
+
+        // Trigger the asynchronous event
+        this.geminiResponseReadyTrigger.trigger({ response: text })
+          .catch(err => this.error('[sendPromptActionCard] Error triggering gemini_response_ready:', err));
 
         return { answer: text };
 
@@ -167,6 +183,12 @@ module.exports = class GeminiApp extends Homey.App {
         // Generate response
         const text = await this.geminiClient.generateTextWithImage(prompt, imageBuffer, mimeType);
         this.log(`[sendPromptWithImageActionCard] Response: ${text}`);
+
+        // Trigger the asynchronous event with the persistent analyzed image
+        this.geminiImageResponseReadyTrigger.trigger({
+          response: text,
+          image: this._analyzedImage
+        }).catch(err => this.error('[sendPromptWithImageActionCard] Error triggering gemini_image_response_ready:', err));
 
         return {
           answer: text,

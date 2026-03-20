@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.dimapp.geminiai",
-  "version": "2.9.0",
+  "version": "2.9.1",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -69,6 +69,58 @@
   },
   "flow": {
     "triggers": [
+      {
+        "id": "gemini_image_response_ready",
+        "title": {
+          "en": "Gemini response ready (with image)",
+          "it": "La risposta di Gemini è pronta (con immagine)"
+        },
+        "hint": {
+          "en": "This card triggers when Gemini has finished analyzing the image",
+          "it": "Questa carta si attiva quando Gemini ha terminato l'analisi dell'immagine"
+        },
+        "tokens": [
+          {
+            "name": "response",
+            "type": "string",
+            "title": {
+              "en": "Response",
+              "it": "Risposta"
+            },
+            "example": "L'immagine mostra un gatto."
+          },
+          {
+            "name": "image",
+            "type": "image",
+            "title": {
+              "en": "Analyzed Image",
+              "it": "Immagine analizzata"
+            }
+          }
+        ]
+      },
+      {
+        "id": "gemini_response_ready",
+        "title": {
+          "en": "Gemini response ready",
+          "it": "La risposta di Gemini è pronta"
+        },
+        "hint": {
+          "en": "This card triggers when Gemini has finished analyzing the text prompt",
+          "it": "Questa carta si attiva quando Gemini ha terminato l'analisi del testo"
+        },
+        "tokens": [
+          {
+            "name": "response",
+            "type": "string",
+            "title": {
+              "en": "Response",
+              "it": "Risposta"
+            },
+            "example": "La capitale d'Italia è Roma."
+          }
+        ]
+      },
       {
         "id": "scheduled_command_executed",
         "title": {
