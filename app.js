@@ -1,6 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
+const { Readable } = require('stream');
 const { GeminiClient } = require('./lib/GeminiClient');
 
 module.exports = class GeminiApp extends Homey.App {
@@ -32,7 +33,7 @@ module.exports = class GeminiApp extends Homey.App {
 
     // Register flow cards
     this.registerSendPromptActionCard();
-    this.registerSendPromptWithImageActionCard();
+    await this.registerSendPromptWithImageActionCard();
     this.registerMCPCommandActionCard();
     this.registerSeedConversationContextCard();
     //this.registerScheduledCommandExecutedTriggerCard();
@@ -109,9 +110,19 @@ module.exports = class GeminiApp extends Homey.App {
   }
 
   /**
-   * Register the "Send Prompt with Image" action card (multimodal: text + image)
+   * Register the "Send Prompt with Image" action card (multimodal: text + image).
+   *
+   * A single persistent Homey Image object (`this._analyzedImage`) is created once
+   * at registration time and reused across all flow executions. On each run the
+   * image's stream is updated with the freshly captured buffer and `image.update()`
+   * is called to notify Homey that its content has changed. This avoids the memory
+   * leak that would result from calling `createImage()` on every run.
    */
-  registerSendPromptWithImageActionCard() {
+  async registerSendPromptWithImageActionCard() {
+    // Create the shared image object once. It will be reused across all flow runs.
+    this._analyzedImage = await this.homey.images.createImage();
+    this.log('[sendPromptWithImageActionCard] Persistent analyzed image created');
+
     this.sendPromptWithImageActionCard = this.homey.flow.getActionCard("send-prompt-with-image");
     this.sendPromptWithImageActionCard.registerRunListener(async (args) => {
       this.log(`[sendPromptWithImageActionCard] Args: ${JSON.stringify(args, null, 2)}`);
@@ -130,7 +141,12 @@ module.exports = class GeminiApp extends Homey.App {
         // Validate image token
         this.validateImageToken(imageToken);
 
-        // Get the image stream and convert to buffer
+        // Get the image stream and convert to buffer.
+        // The buffer is captured here, before the Gemini API call, to ensure the image
+        // that is later returned in the token is the exact same frame sent to the API.
+        // This prevents a race condition where cameras that overwrite snapshots at regular
+        // intervals could cause the returned token to show a different frame than the one
+        // Gemini analyzed.
         const imageStream = await imageToken.getStream();
         this.log(`[sendPromptWithImageActionCard] Image stream received - contentType: ${imageStream.contentType}, filename: ${imageStream.filename}`);
 
@@ -139,13 +155,22 @@ module.exports = class GeminiApp extends Homey.App {
 
         const mimeType = imageStream.contentType || 'image/jpeg';
 
+        // Update the shared image with the buffer captured above, then notify Homey
+        // that the image has changed. The next time Homey (or a downstream flow card)
+        // requests the image, the new buffer will be piped into the outgoing stream.
+        // Because this reuses the same object, no new image allocations accumulate in memory.
+        this._analyzedImage.setStream(async (outStream) => {
+          Readable.from(imageBuffer).pipe(outStream);
+        });
+        await this._analyzedImage.update();
+
         // Generate response
         const text = await this.geminiClient.generateTextWithImage(prompt, imageBuffer, mimeType);
         this.log(`[sendPromptWithImageActionCard] Response: ${text}`);
 
         return {
           answer: text,
-          analyzed_image: imageToken
+          analyzed_image: this._analyzedImage
         };
 
       } catch (error) {

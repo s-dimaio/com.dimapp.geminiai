@@ -110,5 +110,9 @@
   "2.9.0": {
     "en": "(i) Added image token support for 'Send Prompt with Image' action card, enabling the analyzed image to be used in subsequent flow cards \n(ii) Optimized smart home command processing to reduce token consumption",
     "it": "(i) Aggiunto un nuovo token immagine all'action card 'Invia Prompt con Immagine' per utilizzare l'immagine analizzata nei flow successivi \n(ii) Ottimizzazioni di codice per ridurre il consumo di token nella gestione della smart home"
+  },
+  "2.9.1": {
+    "en": "(i) Added image token support for 'Send Prompt with Image' action card, enabling the analyzed image to be used in subsequent flow cards \n(ii) Optimized smart home command processing to reduce token consumption",
+    "it": "(i) Aggiunto un nuovo token immagine all'action card 'Invia Prompt con Immagine' per utilizzare l'immagine analizzata nei flow successivi \n(ii) Ottimizzazioni di codice per ridurre il consumo di token nella gestione della smart home"
   }
 }
