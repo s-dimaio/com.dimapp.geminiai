@@ -128,16 +128,35 @@ module.exports = class GeminiApp extends Homey.App {
   /**
    * Register the "Send Prompt with Image" action card (multimodal: text + image).
    *
-   * A single persistent Homey Image object (`this._analyzedImage`) is created once
-   * at registration time and reused across all flow executions. On each run the
-   * image's stream is updated with the freshly captured buffer and `image.update()`
-   * is called to notify Homey that its content has changed. This avoids the memory
-   * leak that would result from calling `createImage()` on every run.
+   * To handle concurrent flow executions correctly, a fixed pool of Homey Image
+   * objects is pre-allocated once at registration time. The size of the pool is
+   * read from user settings (default 4). Each run selects a slot from the pool
+   * using an atomic round-robin counter (safe in Node.js single-threaded
+   * environment) and updates only that slot's stream. This guarantees:
+   *
+   * - **No race condition**: concurrent runs write to distinct slots and return distinct
+   *   image objects, so each token always serves the correct, isolated buffer.
+   * - **No memory leak**: the pool has a fixed size and is never grown at runtime.
+   * - **Backwards compatibility**: a single (non-concurrent) run behaves identically to
+   *   the previous single-image approach.
    */
   async registerSendPromptWithImageActionCard() {
-    // Create the shared image object once. It will be reused across all flow runs.
-    this._analyzedImage = await this.homey.images.createImage();
-    this.log('[sendPromptWithImageActionCard] Persistent analyzed image created');
+    // Read the pool size from settings, fallback to 4 if invalid or undefined.
+    const poolSizeSetting = this.homey.settings.get('gemini_image_pool_size');
+    let poolSize = parseInt(poolSizeSetting, 10);
+    if (isNaN(poolSize) || poolSize < 1) {
+      poolSize = 4;
+    }
+
+    // Pre-allocate the image pool. Each slot is a long-lived Homey Image object
+    // that is reused across all flow runs assigned to it.
+    this._imagePool = await Promise.all(
+      Array.from({ length: poolSize }, () => this.homey.images.createImage())
+    );
+    // Round-robin counter. Incremented synchronously before any await, so each
+    // concurrent run is guaranteed to receive a different slot index.
+    this._imagePoolIndex = 0;
+    this.log(`[sendPromptWithImageActionCard] Image pool ready (${poolSize} slots)`);
 
     this.sendPromptWithImageActionCard = this.homey.flow.getActionCard("send-prompt-with-image");
     this.sendPromptWithImageActionCard.registerRunListener(async (args) => {
@@ -157,6 +176,14 @@ module.exports = class GeminiApp extends Homey.App {
         // Validate image token
         this.validateImageToken(imageToken);
 
+        // Atomically claim a slot from the pool before the first await.
+        // Because this line is synchronous, no two concurrent runs can ever
+        // receive the same slotIndex in the same tick.
+        const slotIndex = this._imagePoolIndex % poolSize;
+        this._imagePoolIndex++;
+        const slotImage = this._imagePool[slotIndex];
+        this.log(`[sendPromptWithImageActionCard] Using image pool slot ${slotIndex}`);
+
         // Get the image stream and convert to buffer.
         // The buffer is captured here, before the Gemini API call, to ensure the image
         // that is later returned in the token is the exact same frame sent to the API.
@@ -171,28 +198,27 @@ module.exports = class GeminiApp extends Homey.App {
 
         const mimeType = imageStream.contentType || 'image/jpeg';
 
-        // Update the shared image with the buffer captured above, then notify Homey
-        // that the image has changed. The next time Homey (or a downstream flow card)
-        // requests the image, the new buffer will be piped into the outgoing stream.
-        // Because this reuses the same object, no new image allocations accumulate in memory.
-        this._analyzedImage.setStream(async (outStream) => {
+        // Update this run's dedicated slot with the captured buffer, then notify
+        // Homey that the slot's content has changed. Only this slot's stream
+        // callback is written — other concurrent runs' slots are untouched.
+        slotImage.setStream(async (outStream) => {
           Readable.from(imageBuffer).pipe(outStream);
         });
-        await this._analyzedImage.update();
+        await slotImage.update();
 
         // Generate response
         const text = await this.geminiClient.generateTextWithImage(prompt, imageBuffer, mimeType);
         this.log(`[sendPromptWithImageActionCard] Response: ${text}`);
 
-        // Trigger the asynchronous event with the persistent analyzed image
+        // Trigger the asynchronous event with this run's dedicated slot image
         this.geminiImageResponseReadyTrigger.trigger({
           response: text,
-          image: this._analyzedImage
+          image: slotImage
         }).catch(err => this.error('[sendPromptWithImageActionCard] Error triggering gemini_image_response_ready:', err));
 
         return {
           answer: text,
-          analyzed_image: this._analyzedImage
+          analyzed_image: slotImage
         };
 
       } catch (error) {

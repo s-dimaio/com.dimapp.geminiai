@@ -6,6 +6,7 @@
             "guide_back": "← Back to Settings",
             "error_generic": "Error saving Gemini configuration",
             "error_api": "Please insert a valid Gemini API Key",
+            "error_pool_size": "Please insert a valid number of images (minimum 1)",
             "unknown_error": "Unknown error"
         },
         "menu": {
@@ -39,7 +40,11 @@
                 "flash3_preview": "Gemini 3 Flash Preview (Next Gen Speed)",
                 "flash3_lite_preview": "Gemini 3.1 Flash-Lite Preview (Lightweight - Next Gen)",
                 "pro3_preview": "Gemini 3.1 Pro Preview (Most Capable)"
-            }
+            },
+            "pool_size_label": "Simultaneous Images",
+            "pool_size_help": "Number of images pre-allocated for simultaneous 'Send Prompt with Image' queries. A high number consumes a lot of memory with risk of app crash. Each change requires the app to be restarted to take effect.",
+            "section_text_gen": "Text Generation Functions",
+            "section_smart_home": "Smart Home Functions"
         },
         "scheduled_commands": {
             "title": "Scheduled Commands",

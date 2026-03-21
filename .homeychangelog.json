@@ -118,5 +118,9 @@
   "2.10.0": {
     "en": "Added new flow triggers that fire automatically when Gemini's response is ready, enabling better asynchronous flow management",
     "it": "Aggiunti nuovi trigger che si attivano automaticamente quando la risposta di Gemini è pronta, permettendo una migliore gestione asincrona dei flussi"
+  },
+  "2.10.1": {
+    "en": "Added new flow triggers that fire automatically when Gemini's response is ready, enabling better asynchronous flow management",
+    "it": "Aggiunti nuovi trigger che si attivano automaticamente quando la risposta di Gemini è pronta, permettendo una migliore gestione asincrona dei flussi"
   }
 }

@@ -6,6 +6,7 @@
             "guide_back": "← Torna alle Impostazioni",
             "error_generic": "Errore durante la configurazione di Gemini",
             "error_api": "Si prega di inserire una API Key di Gemini valida",
+            "error_pool_size": "Si prega di inserire un numero valido di immagini (minimo 1)",
             "unknown_error": "Errore sconosciuto"
         },
         "menu": {
@@ -39,7 +40,11 @@
                 "flash3_preview": "Gemini 3 Flash Preview (Velocità di Nuova Generazione)",
                 "flash3_lite_preview": "Gemini 3.1 Flash-Lite Preview (Leggero - Nuova Generazione)",
                 "pro3_preview": "Gemini 3.1 Pro Preview (Più Capace)"
-            }
+            },
+            "pool_size_label": "Numero Immagini Simultanee",
+            "pool_size_help": "Numero di immagini pre-allocate per richieste simultanee 'Invia Prompt con Immagine'. Un numero elevato assorbe molta memoria con rischio di crash dell'app. Ogni modifica richiede il riavvio dell'app per avere effetto.",
+            "section_text_gen": "Funzioni Generazione Testo",
+            "section_smart_home": "Funzioni Smart Home"
         },
         "scheduled_commands": {
             "title": "Automazioni",
