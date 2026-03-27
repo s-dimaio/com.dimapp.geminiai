@@ -95,8 +95,8 @@ THEN: Run a command for your smart home with the voice text
 ## Technical Details
 
 ### Main Dependencies
-- `@google/genai`: Official Google Generative AI SDK (v1.38.0+)
-- `homey-api`: Homey API Client (v3.16.0+)
+- `@google/genai`: Official Google Generative AI SDK (v1.46.0+)
+- `homey-api`: Homey API Client (v3.17.3+)
 - `homey`: Homey Apps SDK v3
 
 ### Flow Cards (Actions)
