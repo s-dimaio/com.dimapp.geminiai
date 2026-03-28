@@ -126,5 +126,9 @@
   "2.10.2": {
     "en": "Improved device discovery: added support for properly filtering grouped devices and UI-hidden devices",
     "it": "Migliorato il rilevamento dei dispositivi: aggiunto il supporto per il filtraggio dei gruppi e dei dispositivi nascosti"
+  },
+  "2.10.3": {
+    "en": "Gemini can now handle sequential commands more reliably",
+    "it": "Gemini è ora in grado di gestire correttamente i comandi in sequenza"
   }
 }
