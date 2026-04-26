@@ -130,5 +130,9 @@
   "2.10.3": {
     "en": "Gemini can now handle sequential commands more reliably",
     "it": "Gemini è ora in grado di gestire correttamente i comandi in sequenza"
+  },
+  "2.10.4": {
+    "en": "Improved error handling: added localized message and automatic retries for Gemini 'Service Unavailable' (503) errors during peak demand",
+    "it": "Migliorata la gestione degli errori: aggiunto messaggio localizzato e retry automatici per gli errori Gemini 'Servizio non disponibile' (503) durante i picchi di traffico"
   }
 }

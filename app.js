@@ -278,6 +278,15 @@ module.exports = class GeminiApp extends Homey.App {
       throw new Error(this.homey.__("prompt.error.rate_limit_exceeded"));
     }
 
+    // Service Unavailable / High Demand (503)
+    if (errorStr.includes('503') ||
+      errorStr.includes('service unavailable') ||
+      errorStr.includes('high demand') ||
+      errorDetails.includes('503') ||
+      errorDetails.includes('service_unavailable')) {
+      throw new Error(this.homey.__("prompt.error.service_unavailable"));
+    }
+
     // Content blocked by safety filters
     if (errorStr.includes('blocked') ||
       errorStr.includes('safety') ||
