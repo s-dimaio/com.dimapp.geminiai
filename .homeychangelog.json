@@ -134,5 +134,9 @@
   "2.10.4": {
     "en": "Improved error handling: added localized message and automatic retries for Gemini 'Service Unavailable' (503) errors during peak demand",
     "it": "Migliorata la gestione degli errori: aggiunto messaggio localizzato e retry automatici per gli errori Gemini 'Servizio non disponibile' (503) durante i picchi di traffico"
+  },
+  "2.10.5": {
+    "en": "Fixed a bug that caused hidden or grouped devices to appear in home status summaries",
+    "it": "Risolto un problema che causava la comparsa di dispositivi nascosti o raggruppati nei riepiloghi dello stato della casa"
   }
 }

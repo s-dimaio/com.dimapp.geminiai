@@ -1,13 +1,13 @@
 {
   "name": "com.dimapp.geminiforhomey",
-  "version": "2.10.4",
+  "version": "2.10.5",
   "main": "app.js",
   "scripts": {},
   "devDependencies": {
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.12"
   },
   "dependencies": {
-    "@google/genai": "^1.46.0",
-    "homey-api": "3.17.3"
+    "@google/genai": "^1.51.0",
+    "homey-api": "3.18.2"
   }
 }
