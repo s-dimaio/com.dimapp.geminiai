@@ -38,7 +38,7 @@
                 "flash": "Gemini 2.5 Flash (Bilanciato)",
                 "pro": "Gemini 2.5 Pro (Massima Qualità)",
                 "flash3_preview": "Gemini 3 Flash Preview (Velocità di Nuova Generazione)",
-                "flash3_lite_preview": "Gemini 3.1 Flash-Lite Preview (Leggero - Nuova Generazione)",
+                "flash3_lite": "Gemini 3.1 Flash-Lite (Leggero - Nuova Generazione)",
                 "pro3_preview": "Gemini 3.1 Pro Preview (Più Capace)"
             },
             "pool_size_label": "Numero Immagini Simultanee",

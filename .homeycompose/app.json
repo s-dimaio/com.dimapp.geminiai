@@ -1,6 +1,6 @@
 {
   "id": "com.dimapp.geminiai",
-  "version": "2.10.5",
+  "version": "2.10.6",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [

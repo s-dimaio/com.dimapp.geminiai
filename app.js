@@ -12,6 +12,16 @@ module.exports = class GeminiApp extends Homey.App {
   async onInit() {
     this.log('[onInit] GeminiApp has been initialized');
 
+    // Auto-migrate preview model to GA
+    if (this.homey.settings.get('gemini_model') === 'gemini-3.1-flash-lite-preview') {
+      this.homey.settings.set('gemini_model', 'gemini-3.1-flash-lite');
+      this.log('[onInit] Automatically migrated Smart Home model from preview to GA');
+    }
+    if (this.homey.settings.get('gemini_model_chat') === 'gemini-3.1-flash-lite-preview') {
+      this.homey.settings.set('gemini_model_chat', 'gemini-3.1-flash-lite');
+      this.log('[onInit] Automatically migrated Chat model from preview to GA');
+    }
+
     // Initialize the GeminiClient once at startup
     this.initializeGeminiClient();
 
