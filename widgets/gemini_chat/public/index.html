@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gemini Chat</title>
+  <style>
+    /* ─── Layout ─────────────────────────────────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Use .homey-widget-full so the layout extends to all edges, then we
+       control inner padding manually for the chat area vs. the input bar */
+    body {
+      display: flex;
+      flex-direction: column;
+      background-color: var(--homey-background-color);
+      color: var(--homey-text-color);
+    }
+
+    /* ─── Chat area ──────────────────────────────────────────────────────────── */
+    #chat-log {
+      flex: 1;
+      min-height: 0; /* Fix for flexbox scrolling issues */
+      overflow-y: auto;
+      /* Extra right padding leaves room for the scroll buttons */
+      padding: var(--homey-su-3) calc(var(--homey-su-3) + 28px) var(--homey-su-3) var(--homey-su-3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--homey-su-2); /* 8px between bubbles */
+      /* Hide scrollbar while maintaining scroll functionality */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    #chat-log::-webkit-scrollbar {
+      display: none; /* Chrome, Safari and Opera */
+    }
+
+    /* Placeholder shown before the first message */
+    #chat-placeholder {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--homey-text-color-light);
+      font-size: var(--homey-font-size-small);
+      line-height: var(--homey-line-height-small);
+      text-align: center;
+      padding: var(--homey-su-4);
+    }
+
+    /* ─── Message bubbles ────────────────────────────────────────────────────── */
+    .message {
+      max-width: 82%;
+      padding: var(--homey-su-2) var(--homey-su-3);
+      border-radius: var(--homey-border-radius-default);
+      font-size: var(--homey-font-size-small);
+      line-height: var(--homey-line-height-small);
+      word-break: break-word;
+    }
+
+    .message b {
+      font-weight: var(--homey-font-weight-bold, 700);
+    }
+
+    .message i {
+      font-style: italic;
+    }
+
+    /* Simple list styling for markdown bullets */
+    .message br + text {
+       margin-top: 4px;
+    }
+
+    /* User message — right-aligned, blue tint */
+    .message-user {
+      align-self: flex-end;
+      background-color: var(--homey-color-blue-500, var(--homey-color-blue));
+      color: var(--homey-text-color-white);
+    }
+
+    /* Gemini message — left-aligned, subtle background */
+    .message-gemini {
+      align-self: flex-start;
+      background-color: var(--homey-color-mono-100, rgba(128,128,128,0.12));
+      color: var(--homey-text-color);
+    }
+
+    /* Loading indicator — three animated dots */
+    .message-loading {
+      align-self: flex-start;
+      background-color: var(--homey-color-mono-100, rgba(128,128,128,0.12));
+      color: var(--homey-text-color-light);
+      font-size: var(--homey-font-size-small);
+      line-height: var(--homey-line-height-small);
+    }
+
+    .dots {
+      display: inline-block;
+      width: 1.5em; /* Fixed width to prevent jumping */
+      text-align: left;
+    }
+
+    .dots::after {
+      content: '.';
+      animation: dots 1.2s steps(3, end) infinite;
+    }
+
+    @keyframes dots {
+      0%   { content: '.'; }
+      33%  { content: '..'; }
+      66%  { content: '...'; }
+    }
+
+    /* ─── Scroll controls ────────────────────────────────────────────────────── */
+    #chat-wrapper {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #scroll-controls {
+      position: absolute;
+      right: var(--homey-su-2); /* 8px from right edge */
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--homey-su-2) 0;
+      pointer-events: none; /* let clicks fall through the gap between buttons */
+    }
+
+    .scroll-btn {
+      pointer-events: all;
+      width: 24px;
+      height: 24px;
+      border: none;
+      border-radius: 50%;
+      background-color: var(--homey-color-mono-200, rgba(128,128,128,0.25));
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      opacity: 0.75;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+
+    .scroll-btn:hover {
+      opacity: 1;
+    }
+
+    /* Hidden state — invisible but keep layout space so the flex stays stable */
+    .scroll-btn.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .scroll-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--homey-text-color);
+    }
+
+    /* ─── Input bar ──────────────────────────────────────────────────────────── */
+    #input-bar {
+      display: flex;
+      align-items: center;
+      gap: var(--homey-su-2);
+      padding: var(--homey-su-2) var(--homey-su-3);
+      border-top: var(--homey-line-light);
+      background-color: var(--homey-background-color);
+    }
+
+    #command-input {
+      /* Reuse Homey's official form-input styles */
+      flex: 1;
+      min-width: 0;
+      /* Inline the core styles from .homey-form-input since we can't rely
+         on the settings stylesheet being loaded in the widget context */
+      height: 32px;
+      padding: 0 var(--homey-su-2);
+      border: var(--homey-line);
+      border-radius: var(--homey-border-radius-small);
+      background-color: var(--homey-background-color);
+      color: var(--homey-text-color);
+      font-size: var(--homey-font-size-small);
+      line-height: var(--homey-line-height-small);
+      outline: none;
+    }
+
+    #command-input:focus {
+      border-color: var(--homey-color-blue);
+    }
+
+    #command-input::placeholder {
+      color: var(--homey-text-color-light);
+    }
+
+    /* Send button */
+    #send-btn {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: var(--homey-border-radius-small);
+      background-color: var(--homey-color-blue);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: opacity 0.15s ease;
+    }
+
+    #send-btn:hover:not(:disabled) {
+      opacity: 0.85;
+    }
+
+    #send-btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* SVG arrow icon inside the button */
+    #send-btn svg {
+      width: var(--homey-icon-size-regular, 16px);
+      height: var(--homey-icon-size-regular, 16px);
+      fill: var(--homey-text-color-white);
+    }
+  </style>
+</head>
+
+<body class="homey-widget-full">
+
+  <!-- Chat area + scroll controls wrapper -->
+  <div id="chat-wrapper">
+    <!-- Scrollable chat history -->
+    <div id="chat-log">
+      <div id="chat-placeholder"></div>
+    </div>
+
+    <!-- Scroll buttons — overlaid on the right side of the chat area -->
+    <div id="scroll-controls" aria-hidden="true">
+      <button id="scroll-up-btn" class="scroll-btn hidden" aria-label="Scroll up">
+        <!-- Chevron up -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+        </svg>
+      </button>
+      <button id="scroll-down-btn" class="scroll-btn hidden" aria-label="Scroll down">
+        <!-- Chevron down -->
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Input area -->
+  <div id="input-bar">
+    <input
+      id="command-input"
+      type="text"
+      autocomplete="off"
+      autocorrect="off"
+      spellcheck="false"
+    />
+    <button id="send-btn" disabled aria-label="Send">
+      <!-- Arrow-up icon (inline SVG, no external dependency) -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+      </svg>
+    </button>
+  </div>
+
+  <script src="./index.js"></script>
+</body>
+</html>

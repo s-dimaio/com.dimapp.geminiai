@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.dimapp.geminiai",
-  "version": "2.10.6",
+  "version": "2.11.0",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -345,5 +345,26 @@
         "id": "send-prompt-with-image"
       }
     ]
+  },
+  "widgets": {
+    "gemini_chat": {
+      "name": {
+        "en": "Gemini Chat",
+        "it": "Gemini Chat"
+      },
+      "height": 300,
+      "api": {
+        "sendCommand": {
+          "method": "POST",
+          "path": "/command"
+        },
+        "getHistory": {
+          "method": "GET",
+          "path": "/history"
+        }
+      },
+      "id": "gemini_chat",
+      "settings": []
+    }
   }
 }

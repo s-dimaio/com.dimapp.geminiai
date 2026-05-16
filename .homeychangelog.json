@@ -142,5 +142,9 @@
   "2.10.6": {
     "en": "(i) Updated Gemini 3.1 Flash Lite model identifier to General Availability (GA) version with automatic migration for existing configurations \n(ii) Gemini can now handle sequential commands more reliably",
     "it": "(i) Aggiornato l'identificativo del modello Gemini 3.1 Flash Lite alla versione definitiva (GA) con migrazione automatica per le configurazioni esistenti \n(ii) Gemini è ora in grado di gestire correttamente i comandi in sequenza"
+  },
+  "2.11.0": {
+    "en": "(i) Added Gemini Chat Widget for direct interaction with Gemini AI from the Homey app interface \n(ii) Improved settings page UI style with new navigation and animations",
+    "it": "(i) Aggiunto il Widget Gemini Chat per interagire direttamente con Gemini AI dalla Home dell'app Homey \n(ii) Revisione dello stile dell'interfaccia impostazioni con nuova navigazione e animazioni"
   }
 }

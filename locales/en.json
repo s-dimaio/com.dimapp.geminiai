@@ -3,6 +3,7 @@
         "common": {
             "save": "Save",
             "saved": "Configuration saved successfully!",
+            "back": "Back to Settings",
             "guide_back": "← Back to Settings",
             "error_generic": "Error saving Gemini configuration",
             "error_api": "Please insert a valid Gemini API Key",
@@ -130,5 +131,20 @@
         "executed": "Scheduled command executed: {command}",
         "failed": "Scheduled command failed: {error}",
         "limit_exceeded": "Scheduling limit exceeded. Maximum delay is 24 days."
+    },
+    "widget": {
+        "chat": {
+            "placeholder": "Ask Gemini to control your home.",
+            "loading": "Thinking",
+            "input": {
+                "placeholder": "Ask Gemini…"
+            },
+            "error": {
+                "no_api": "Gemini API key not configured. Please check app settings.",
+                "empty_command": "Please type a command before sending.",
+                "no_response": "No response received. Please try again.",
+                "generic": "An error occurred. Please try again."
+            }
+        }
     }
 }

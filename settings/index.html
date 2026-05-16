@@ -262,17 +262,18 @@
       align-items: center;
       justify-content: space-between;
       border: 1px solid rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
+      border-radius: 12px;
       padding: 16px;
       background-color: rgba(255, 255, 255, 0.5);
       cursor: pointer;
-      transition: background-color 0.2s, transform 0.1s;
+      transition: background-color 0.2s, transform 0.1s, border-color 0.2s;
       text-decoration: none;
       color: inherit;
     }
 
     .menu-item:hover {
       background-color: rgba(0, 0, 0, 0.04);
+      border-color: #1f6ac1;
     }
 
     .menu-item:active {
@@ -317,6 +318,23 @@
       color: #999;
       font-size: 20px;
       font-weight: bold;
+    }
+
+    /* Back Item Style */
+    .back-item {
+      margin-bottom: 25px;
+      border-color: rgba(0,0,0,0.05);
+      background-color: #fff;
+      justify-content: flex-start;
+      gap: 10px;
+    }
+
+    .back-item .menu-item-title {
+      color: #1f6ac1;
+    }
+
+    .back-item .menu-item-arrow {
+      color: #1f6ac1;
     }
 
     .subtitle {
@@ -431,6 +449,12 @@
 
     <!-- View 1: Settings -->
     <div id="view-settings" class="view">
+      <div class="menu-item back-item back-btn">
+        <div class="menu-item-arrow">‹</div>
+        <div class="menu-item-text">
+          <span class="menu-item-title" data-i18n="settings.common.back"></span>
+        </div>
+      </div>
       <form class="homey-form">
         <!-- Section 1: API Configuration -->
         <fieldset class="homey-form-fieldset">
@@ -500,15 +524,17 @@
           <button id="save" class="homey-button-primary-full" data-i18n="settings.common.save" type="button"></button>
         </div>
 
-        <div class="homey-form-group" style="margin-top: 20px;">
-          <button id="back_from_config" class="homey-button-transparent" style="padding-left: 0;"
-            data-i18n="settings.common.guide_back" type="button"></button>
-        </div>
       </form>
     </div>
 
     <!-- View 2: Scheduled Commands -->
     <div id="view-timers" class="view">
+      <div class="menu-item back-item back-btn">
+        <div class="menu-item-arrow">‹</div>
+        <div class="menu-item-text">
+          <span class="menu-item-title" data-i18n="settings.common.back"></span>
+        </div>
+      </div>
       <form class="homey-form">
         <fieldset class="homey-form-fieldset">
           <div class="scheduled-commands-section">
@@ -522,16 +548,18 @@
             </div>
           </div>
 
-          <div class="homey-form-group" style="margin-top: 20px;">
-            <button id="back_from_timers" class="homey-button-transparent" style="padding-left: 0;"
-              data-i18n="settings.common.guide_back" type="button"></button>
-          </div>
         </fieldset>
       </form>
     </div>
 
     <!-- View 3: Conversation History -->
     <div id="view-history" class="view">
+      <div class="menu-item back-item back-btn">
+        <div class="menu-item-arrow">‹</div>
+        <div class="menu-item-text">
+          <span class="menu-item-title" data-i18n="settings.common.back"></span>
+        </div>
+      </div>
       <form class="homey-form">
         <fieldset class="homey-form-fieldset">
           <!-- Section 1: Memory Configuration -->
@@ -569,16 +597,18 @@
               data-i18n="settings.history.btn_clear" type="button"></button>
           </div>
 
-          <div class="homey-form-group" style="margin-top: 20px;">
-            <button id="back_from_history" class="homey-button-transparent" style="padding-left: 0;"
-              data-i18n="settings.common.guide_back" type="button"></button>
-          </div>
         </fieldset>
       </form>
     </div>
 
     <!-- View 4: Setup Guide -->
     <div id="view-guide" class="view">
+      <div class="menu-item back-item back-btn">
+        <div class="menu-item-arrow">‹</div>
+        <div class="menu-item-text">
+          <span class="menu-item-title" data-i18n="settings.common.back"></span>
+        </div>
+      </div>
       <header class="homey-header">
         <h1 class="homey-title" data-i18n="settings.guide.title"></h1>
       </header>
@@ -603,15 +633,17 @@
           </div>
         </fieldset>
 
-        <div class="homey-form-group" style="margin-top: 20px;">
-          <button id="back_from_guide" class="homey-button-transparent" style="padding-left: 0;"
-            data-i18n="settings.common.guide_back" type="button"></button>
-        </div>
       </form>
     </div>
 
     <!-- View 5: Custom Instructions -->
     <div id="view-custom-instructions" class="view">
+      <div class="menu-item back-item back-btn">
+        <div class="menu-item-arrow">‹</div>
+        <div class="menu-item-text">
+          <span class="menu-item-title" data-i18n="settings.common.back"></span>
+        </div>
+      </div>
       <form class="homey-form">
         <fieldset class="homey-form-fieldset">
           <header class="homey-header" style="margin-top: 20px; margin-bottom: 20px;">
@@ -654,10 +686,6 @@
               type="button"></button>
           </div>
 
-          <div class="homey-form-group" style="margin-top: 20px;">
-            <button id="back_from_custom_instructions" class="homey-button-transparent" style="padding-left: 0;"
-              data-i18n="settings.common.guide_back" type="button"></button>
-          </div>
         </fieldset>
       </form>
     </div>
@@ -739,11 +767,9 @@
         switchView(viewGuide);
       });
 
-      document.getElementById('back_from_config').addEventListener('click', (e) => { e.preventDefault(); switchView(viewMenu); });
-      document.getElementById('back_from_custom_instructions').addEventListener('click', (e) => { e.preventDefault(); switchView(viewMenu); });
-      document.getElementById('back_from_timers').addEventListener('click', (e) => { e.preventDefault(); switchView(viewMenu); });
-      document.getElementById('back_from_history').addEventListener('click', (e) => { e.preventDefault(); switchView(viewMenu); });
-      document.getElementById('back_from_guide').addEventListener('click', (e) => { e.preventDefault(); switchView(viewMenu); });
+      document.querySelectorAll('.back-btn').forEach(btn => {
+        btn.addEventListener('click', () => switchView(viewMenu));
+      });
 
       // External Links
       document.body.addEventListener('click', function (e) {

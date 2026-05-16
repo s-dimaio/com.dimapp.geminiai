@@ -1,0 +1,17 @@
+{
+  "name": {
+    "en": "Gemini Chat",
+    "it": "Gemini Chat"
+  },
+  "height": 300,
+  "api": {
+    "sendCommand": {
+      "method": "POST",
+      "path": "/command"
+    },
+    "getHistory": {
+      "method": "GET",
+      "path": "/history"
+    }
+  }
+}

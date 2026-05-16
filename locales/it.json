@@ -3,6 +3,7 @@
         "common": {
             "save": "Salva",
             "saved": "Configurazione salvata con successo!",
+            "back": "Torna alle impostazioni",
             "guide_back": "← Torna alle Impostazioni",
             "error_generic": "Errore durante la configurazione di Gemini",
             "error_api": "Si prega di inserire una API Key di Gemini valida",
@@ -130,5 +131,20 @@
         "executed": "Comando programmato eseguito: {command}",
         "failed": "Comando programmato fallito: {error}",
         "limit_exceeded": "Limite di programmazione superato. Il ritardo massimo è di 24 giorni."
+    },
+    "widget": {
+        "chat": {
+            "placeholder": "Chiedi a Gemini di controllare la tua casa.",
+            "loading": "Sto pensando",
+            "input": {
+                "placeholder": "Chiedi a Gemini…"
+            },
+            "error": {
+                "no_api": "API Key di Gemini non configurata. Controlla le impostazioni dell’app.",
+                "empty_command": "Inserisci un comando prima di inviare.",
+                "no_response": "Nessuna risposta ricevuta. Riprova.",
+                "generic": "Si è verificato un errore. Riprova."
+            }
+        }
     }
 }
