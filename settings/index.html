@@ -1028,7 +1028,7 @@
             table += '<span class="execution-time">⏰ ' + escapeHtml(cmd.executeAtLocal) + '</span>';
             table += '<span class="status-badge">' + escapeHtml(cmd.status) + '</span>';
             table += '</div>';
-            table += '<button class="homey-button-danger-shadow homey-button-small cancel-btn" data-schedule-id="' + escapeHtml(cmd.scheduleId) + '">' + Homey.__("settings.scheduled_commands.btn_cancel") + '</button>';
+            table += '<button type="button" class="homey-button-danger-shadow homey-button-small cancel-btn" data-schedule-id="' + escapeHtml(cmd.scheduleId) + '">' + Homey.__("settings.scheduled_commands.btn_cancel") + '</button>';
             table += '</div>';
             table += '</td>';
             table += '</tr>';
@@ -1042,7 +1042,8 @@
           console.log('[loadScheduledCommands] Found', cancelButtons.length, 'cancel buttons');
 
           cancelButtons.forEach(function (btn) {
-            btn.addEventListener('click', function () {
+            btn.addEventListener('click', function (e) {
+              e.preventDefault();
               var scheduleId = this.getAttribute('data-schedule-id');
               console.log('[Cancel button] Clicked, scheduleId:', scheduleId);
               cancelScheduledCommand(scheduleId);
