@@ -1,16 +1,16 @@
 # Gemini AI
 
-**Send prompts to Google Gemini from Homey Flows and use the AI's responses in your automations.**
+**Chat directly with Gemini AI using the Homey Dashboard Widget, or integrate it into your Flows as a powerful smart home assistant.**
 
-This Homey app integrates Google's Gemini AI into your smart home ecosystem, allowing you to create intelligent automations. Send text-only or multimodal prompts (text + image) to Gemini directly from Flows, or use conversational commands to control your entire home using natural language.
+This Homey app bridges the gap between your smart home and advanced artificial intelligence, allowing you to interact with your home using natural language. Use the Dashboard Widget to chat directly with Gemini to ask about your home's status, control devices without rigid commands, or naturally schedule tasks. Additionally, integrate Gemini into your existing Flows to analyze images, process text, or generate intelligent responses.
 
 ## Features
 
-- **Text Prompts**: "Send a prompt" action card that accepts text and returns AI-generated responses.
-- **Image Analysis**: "Send a prompt with image" action card for multimodal prompts (image + text).
-- **Smart Home Control (Function Calling)**: "Run a command for your smart home" action card for conversational control - ask Gemini to control devices, trigger flows, and query the state of your home.
-- **History Management**: Persistent conversation memory for coherent multi-turn sessions.
-- **Custom Instructions (Memory)**: Define general rules or specific context that Gemini must always follow during smart home control.
+- **Dashboard Chat Widget**: Chat directly with Gemini AI from your Homey interface to control devices, query status, or schedule tasks naturally.
+- **Smart Home Assistant**: Gemini acts as an intelligent assistant within your existing Flows. It can control devices, query the state of your home, and trigger your existing automations.
+- **Text Prompts**: "Send a prompt" action card that accepts text and returns AI-generated responses for custom automations.
+- **Image Analysis**: "Send a prompt with image" action card for multimodal prompts (image + text). Perfect for security camera analysis.
+- **Custom Instructions**: Define specific rules or context that Gemini must always follow when interpreting smart home commands.
 - **Conversation Context**: "Set conversation context" action card to inject context for follow-up commands across flows.
 - **Scheduled Automations**: Schedule commands to run in the future (e.g., "Turn off the lights in 10 minutes").
 - **Retry Logic**: Intelligent quota limit handling (429 errors) with automatic retries.
@@ -60,6 +60,10 @@ This Homey app integrates Google's Gemini AI into your smart home ecosystem, all
 4. Click "Save".
 
 ## Usage Examples
+
+### Direct Chat via Dashboard Widget
+Simply add the Gemini Chat widget to your Homey dashboard to instantly ask questions like "Did I leave any windows open?" or give commands like "Start the vacuum cleaner when I leave."
+
 
 ### Conversational Device Control
 ```

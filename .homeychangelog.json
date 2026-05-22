@@ -146,5 +146,9 @@
   "2.11.1": {
     "en": "(i) Added Gemini Chat Widget for direct interaction with Gemini AI from the Homey app interface \n(ii) Improved settings page UI style with new navigation, animations, and fixed a page reload issue when canceling scheduled commands",
     "it": "(i) Aggiunto il Widget Gemini Chat per interagire direttamente con Gemini AI dalla Home dell'app Homey \n(ii) Revisione dello stile dell'interfaccia impostazioni con nuova navigazione, animazioni e risoluzione di un problema di caricamento pagina alla cancellazione delle automazioni"
+  },
+  "3.0.0": {
+    "en": "(i) Added standard flow management, allowing Gemini to create, edit, or delete standard automation flows \n(ii) Optimized smart home toolset: redesigned resource discovery for multilingual keyword queries, and improved schedule management \n(iii) Improved privacy and safety: added a mandatory safety confirmation step before deleting flows or schedules \n(iv) Minor bug fixes",
+    "it": "(i) Aggiunta la gestione dei flow standard, che permette a Gemini di creare, modificare o eliminare i flussi di automazione standard \n(ii) Ottimizzazione dei comandi smart home: riprogettata la ricerca dei dispositivi per supportare parole chiave in più lingue e migliorata la pianificazione dei timer \n(iii) Maggiore sicurezza e privacy: introdotta la conferma obbligatoria prima di cancellare un flow o un timer \n(iv) Correzione di bug minori"
   }
 }

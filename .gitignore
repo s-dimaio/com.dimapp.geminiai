@@ -4,6 +4,7 @@
 /img/
 bck/
 /.agent/
+/flows/
 **/*.bck
 *.code-workspace
 *.ps1

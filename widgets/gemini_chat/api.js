@@ -49,11 +49,14 @@ module.exports = {
 
       let text = textPart.text.trim();
 
-      // Strip internal context prefix from user messages if present
+      // Strip internal context prefixes from user messages if present.
       // Example: "[GENERAL CONTEXT: 2026-05-15T22:05:14 | TZ: Europe/Rome UTC+02:00 | Lang: it] Turn on the light"
       if (role === 'user') {
+        // Skip scheduled commands executed in background (they contain [COMMAND CONTEXT:])
+        if (text.includes('[COMMAND CONTEXT:')) continue;
+
         text = text.replace(/^\[GENERAL CONTEXT:.*?\]\s*/i, '');
-        
+
         // Skip dummy context injection messages used by flow cards
         if (text.toLowerCase() === '[context]') continue;
       }
