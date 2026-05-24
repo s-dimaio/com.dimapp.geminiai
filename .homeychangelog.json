@@ -150,5 +150,9 @@
   "3.0.0": {
     "en": "(i) Added standard flow management, allowing Gemini to create, edit, or delete standard automation flows \n(ii) Optimized smart home toolset: redesigned resource discovery for multilingual keyword queries, and improved schedule management \n(iii) Improved privacy and safety: added a mandatory safety confirmation step before deleting flows or schedules \n(iv) Minor bug fixes",
     "it": "(i) Aggiunta la gestione dei flow standard, che permette a Gemini di creare, modificare o eliminare i flussi di automazione standard \n(ii) Ottimizzazione dei comandi smart home: riprogettata la ricerca dei dispositivi per supportare parole chiave in più lingue e migliorata la pianificazione dei timer \n(iii) Maggiore sicurezza e privacy: introdotta la conferma obbligatoria prima di cancellare un flow o un timer \n(iv) Correzione di bug minori"
+  },
+  "3.1.0": {
+    "en": "(i) Added Google Search Grounding for real-time web searches to answer general questions and reduce hallucinations \n(ii) Added support for the new Gemini 3.5 Flash (GA) model optimized for complex agentic workflows",
+    "it": "(i) Aggiunto il Google Search Grounding per ricerche web in tempo reale in modo da rispondere a domande generali e ridurre le allucinazioni \n(ii) Aggiunto il supporto all'ultimo modello Gemini 3.5 Flash (GA) ottimizzato per flussi di lavoro complessi e agentici"
   }
 }

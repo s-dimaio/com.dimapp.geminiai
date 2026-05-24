@@ -34,7 +34,7 @@ module.exports = class GeminiApp extends Homey.App {
     // Store the reference so it can be removed in onUninit() to avoid
     // accessing a destroyed app instance after a ready_timeout crash.
     this._settingsListener = (key) => {
-      if (key === 'gemini_api_key' || key === 'gemini_model' || key === 'gemini_model_chat' || key === 'gemini_custom_instructions') {
+      if (key === 'gemini_api_key' || key === 'gemini_model' || key === 'gemini_model_chat' || key === 'gemini_custom_instructions' || key === 'gemini_enable_google_search') {
         this.log(`[onInit] Setting ${key} changed, re-initializing GeminiClient`);
         this.initializeGeminiClient();
       }
@@ -66,9 +66,10 @@ module.exports = class GeminiApp extends Homey.App {
    */
   initializeGeminiClient() {
     const apiKey = this.homey.settings.get('gemini_api_key');
-    const modelName = this.homey.settings.get('gemini_model') || 'gemini-2.5-flash';
-    const chatModelName = this.homey.settings.get('gemini_model_chat');
+    const smartHomeModel = this.homey.settings.get('gemini_model') || 'gemini-3.1-flash-lite';
+    const chatModel = this.homey.settings.get('gemini_model_chat') || 'gemini-2.5-flash-lite';
     const customInstructions = this.homey.settings.get('gemini_custom_instructions');
+    const enableGoogleSearch = this.homey.settings.get('gemini_enable_google_search') !== false;
 
     if (!apiKey) {
       this.log('[initializeGeminiClient] API key not found in settings - app will function but Gemini flows will fail until API key is configured');
@@ -77,11 +78,12 @@ module.exports = class GeminiApp extends Homey.App {
 
     this.geminiClient = new GeminiClient(apiKey, {
       homey: this.homey,
-      smartHomeModel: modelName,
-      chatModel: chatModelName,
-      customInstructions: customInstructions
+      smartHomeModel: smartHomeModel,
+      chatModel: chatModel,
+      customInstructions: customInstructions,
+      enableGoogleSearch: enableGoogleSearch
     });
-    this.log(`[initializeGeminiClient] GeminiClient initialized successfully. Smart Home: ${modelName}, Chat: ${chatModelName || 'Default (' + modelName + ')'}`);
+    this.log(`[initializeGeminiClient] GeminiClient initialized successfully. Smart Home: ${smartHomeModel}, Chat: ${chatModel}`);
   }
 
   /**

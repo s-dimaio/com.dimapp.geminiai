@@ -38,6 +38,7 @@
                 "flash_lite": "Gemini 2.5 Flash-Lite (Leggero - Predefinito)",
                 "flash": "Gemini 2.5 Flash (Bilanciato)",
                 "pro": "Gemini 2.5 Pro (Massima Qualità)",
+                "flash35": "Gemini 3.5 Flash (GA - Consigliato)",
                 "flash3_preview": "Gemini 3 Flash Preview (Velocità di Nuova Generazione)",
                 "flash3_lite": "Gemini 3.1 Flash-Lite (Leggero - Nuova Generazione)",
                 "pro3_preview": "Gemini 3.1 Pro Preview (Più Capace)"
@@ -45,7 +46,10 @@
             "pool_size_label": "Numero Immagini Simultanee",
             "pool_size_help": "Numero di immagini pre-allocate per richieste simultanee 'Invia Prompt con Immagine'. Un numero elevato assorbe molta memoria con rischio di crash dell'app. Ogni modifica richiede il riavvio dell'app per avere effetto.",
             "section_text_gen": "Funzioni Generazione Testo",
-            "section_smart_home": "Funzioni Smart Home"
+            "section_smart_home": "Funzioni Smart Home",
+            "enable_google_search_label": "Google Search Grounding",
+            "enable_google_search_checkbox_text": "Abilita ricerche in tempo reale",
+            "enable_google_search_help": "Consente a Gemini di effettuare ricerche sul Web in tempo reale per rispondere a domande generali (es. meteo, notizie) ed evitare allucinazioni."
         },
         "scheduled_commands": {
             "title": "Automazioni",
