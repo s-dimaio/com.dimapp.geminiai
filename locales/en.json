@@ -117,7 +117,7 @@
             "multipleimages": "Only one image is currently supported. Please provide a single image.",
             "generic": "Error sending Gemini prompt: __error__",
             "mcp": "Error executing command: __error__",
-            "rate_limit_exceeded": "You have exceeded your daily quota. Please try again later or upgrade your plan. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit.",
+            "rate_limit_exceeded": "You have exceeded your daily quota for this Gemini model. Try selecting another model from the app settings. You can check your usage limits at: https://ai.dev/rate-limit",
             "content_blocked": "Content blocked by safety filters. Please try rephrasing your request. For more information, visit: https://ai.google.dev/gemini-api/docs/safety-settings.",
             "api_key_invalid": "Invalid API key. Please check your Gemini API key in the app settings. For more information, visit: https://ai.google.dev/gemini-api/docs/api-key.",
             "service_unavailable": "Gemini servers are currently experiencing high demand and are temporarily unavailable. Please try again in a few moments.",

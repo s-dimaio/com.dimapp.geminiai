@@ -8,6 +8,7 @@ This Homey app bridges the gap between your smart home and advanced artificial i
 
 - **Dashboard Chat Widget**: Chat directly with Gemini AI from your Homey interface to control devices, query status, or schedule tasks naturally.
 - **Smart Home Assistant**: Gemini acts as an intelligent assistant within your existing Flows. It can control devices, query the state of your home, and trigger your existing automations.
+- **Standard Flow Management**: Create, edit, or delete standard Homey automation flows using natural language, with a built-in safety confirmation step.
 - **Text Prompts**: "Send a prompt" action card that accepts text and returns AI-generated responses for custom automations.
 - **Image Analysis**: "Send a prompt with image" action card for multimodal prompts (image + text). Perfect for security camera analysis.
 - **Custom Instructions**: Define specific rules or context that Gemini must always follow when interpreting smart home commands.
@@ -125,6 +126,7 @@ This action uses the Model Context Protocol (MCP) to interact with Homey. Gemini
 - `search_devices`: Advanced (fuzzy) search for devices by keywords.
 - `schedule_command`: Schedules future command execution.
 - `list_flows` / `get_flow_info`: Discovery and details of existing automations.
+- `create_flow` / `update_flow` / `delete_flow`: Dynamic creation, modification, and deletion of standard automation flows.
 - `list_device_actions` / `run_action_card`: Execution of specific (Action Cards) non-standard actions.
 
 **Technical Notes:**

@@ -12,6 +12,14 @@
     "getHistory": {
       "method": "GET",
       "path": "/history"
+    },
+    "logClientError": {
+      "method": "POST",
+      "path": "/log-error"
+    },
+    "getCommandStatus": {
+      "method": "POST",
+      "path": "/command-status"
     }
   }
 }

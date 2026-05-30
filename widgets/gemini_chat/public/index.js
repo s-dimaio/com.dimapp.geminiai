@@ -100,21 +100,126 @@ function _sendCommand() {
   // Show animated loading bubble
   const loadingBubble = _appendLoadingBubble();
 
-  // Call the widget API (POST /command)
+  // POST /command returns immediately with { pending: true, taskId } to avoid
+  // the 10-second crossframe bridge timeout imposed by Homey's crossframe.js.
   _Homey.api('POST', '/command', { command })
     .then((result) => {
-      loadingBubble.remove();
-      _appendMessage(result.response, 'gemini');
+      if (result.pending && result.taskId) {
+        // Start polling — the actual response will be fetched asynchronously
+        _pollCommandStatus(result.taskId, loadingBubble);
+      } else {
+        // Fallback: backend responded synchronously (e.g. validation error before task creation)
+        loadingBubble.remove();
+        _appendMessage(result.response, 'gemini');
+        _setLoading(false);
+      }
     })
     .catch((err) => {
       loadingBubble.remove();
+      console.error('[gemini_chat widget] POST /command failed. Error details:', {
+        message: err.message,
+        stack: err.stack,
+        statusCode: err.statusCode,
+        status: err.status
+      });
+
+      // Forward error to the backend so it appears in the Homey terminal
+      _Homey.api('POST', '/log-error', {
+        message: err.message,
+        stack: err.stack,
+        statusCode: err.statusCode,
+        status: err.status
+      }).catch((logErr) => {
+        console.warn('[gemini_chat widget] Could not forward error to backend:', logErr.message);
+      });
+
       const errorText = _Homey.__('widget.chat.error.generic') || `Error: ${err.message}`;
       _appendMessage(errorText, 'gemini');
-    })
-    .finally(() => {
       _setLoading(false);
     });
 }
+
+/**
+ * Polls the POST /command-status endpoint at regular intervals until the background
+ * Gemini task with the given taskId is resolved (status 'done' or 'error').
+ *
+ * Each individual polling call is extremely fast (< 1ms round trip) and will never
+ * approach the 10-second crossframe bridge timeout. The polling will stop automatically
+ * after MAX_POLL_ATTEMPTS attempts (approximately 90 seconds), showing an error message
+ * if Gemini takes too long to respond.
+ *
+ * NOTE: POST is used instead of GET because Homey's crossframe.js bridge does not
+ * reliably forward the third argument of Homey.api('GET', ...) as query parameters.
+ *
+ * @private
+ * @param {string} taskId - The unique identifier of the background task returned by POST /command.
+ * @param {HTMLElement} loadingBubble - The animated loading bubble element, removed when polling ends.
+ * @returns {void}
+ * @example
+ * // Invoked internally by _sendCommand after receiving a pending response:
+ * _pollCommandStatus('task-1716678900000-x7f3k', loadingBubbleElement);
+ */
+function _pollCommandStatus(taskId, loadingBubble) {
+  const POLL_INTERVAL_MS = 1500;  // Poll every 1.5 seconds
+  const MAX_POLL_ATTEMPTS = 60;   // Maximum ~90 seconds total wait time
+
+  let attempts = 0;
+  let pollTimer = null;
+
+  function _executePoll() {
+    attempts++;
+
+    if (attempts > MAX_POLL_ATTEMPTS) {
+      clearTimeout(pollTimer);
+      loadingBubble.remove();
+      const errorText = _Homey.__('widget.chat.error.generic') || 'Gemini took too long to respond. Please try again.';
+      _appendMessage(errorText, 'gemini');
+      _setLoading(false);
+      return;
+    }
+
+    _Homey.api('POST', '/command-status', { taskId })
+      .then((result) => {
+        if (result.status === 'pending') {
+          // Not ready yet — schedule next poll
+          pollTimer = setTimeout(_executePoll, POLL_INTERVAL_MS);
+          return;
+        }
+
+        // Task completed: stop polling and render result
+        clearTimeout(pollTimer);
+        loadingBubble.remove();
+        _appendMessage(result.response, 'gemini');
+        _setLoading(false);
+      })
+      .catch((err) => {
+        console.error('[gemini_chat widget] GET /command-status failed. Error details:', {
+          message: err.message,
+          stack: err.stack,
+          statusCode: err.statusCode,
+          status: err.status
+        });
+
+        // Forward error to the backend so it appears in the Homey terminal
+        _Homey.api('POST', '/log-error', {
+          message: err.message,
+          stack: err.stack,
+          statusCode: err.statusCode,
+          status: err.status
+        }).catch((logErr) => {
+          console.warn('[gemini_chat widget] Could not forward poll error to backend:', logErr.message);
+        });
+
+        // A single poll failure is non-fatal — retry after interval
+        pollTimer = setTimeout(_executePoll, POLL_INTERVAL_MS);
+      });
+  }
+
+  // Start the first poll immediately
+  _executePoll();
+}
+
+
 
 /* ─── UI helpers ──────────────────────────────────────────────────────────── */
 
@@ -126,6 +231,21 @@ function _sendCommand() {
  * @returns {HTMLElement} The created bubble element.
  */
 function _appendMessage(text, role, animate = true) {
+  if (!text) return null;
+
+  // Filter out system maximum turn injection that models sometimes echo
+  if (role === 'gemini' && text.includes('[System: maximum tool call attempts reached]')) {
+    // Remove the system injection text, preserving anything Gemini appended after it
+    text = text.replace(/\[System: maximum tool call attempts reached\][\s\S]*?(?:Do NOT call any function or tool\.\*?\*?|repeat the request trying to be more precise\.)/gi, '').trim();
+    
+    // Fallback if the string was truncated differently
+    if (text.includes('[System: maximum tool call attempts reached]')) {
+       text = text.replace(/\[System: maximum tool call attempts reached\][^\n]*/gi, '').trim();
+    }
+    
+    if (!text) return null;
+  }
+
   const log    = document.getElementById('chat-log');
   const bubble = document.createElement('div');
   bubble.classList.add('message', role === 'user' ? 'message-user' : 'message-gemini');

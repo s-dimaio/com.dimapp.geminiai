@@ -117,7 +117,7 @@
             "multipleimages": "È attualmente supportata solo una immagine. Fornisci una singola immagine.",
             "generic": "Errore durante l'invio del prompt di Gemini: __error__",
             "mcp": "Errore durante l'esecuzione del comando: __error__",
-            "rate_limit_exceeded": "Hai superato la quota giornaliera. Riprova più tardi o aggiorna il tuo piano. Per maggiori informazioni su questo errore, visita: https://ai.google.dev/gemini-api/docs/rate-limits. Per monitorare il tuo utilizzo corrente, visita: https://ai.dev/rate-limit.",
+            "rate_limit_exceeded": "Hai esaurito la tua quota giornaliera per questo modello di Gemini. Prova a selezionare un altro modello dalle impostazioni dell'app. Puoi verificare le tue soglie di utilizzo su: https://ai.dev/rate-limit",
             "content_blocked": "Contenuto bloccato dai filtri di sicurezza. Prova a riformulare la richiesta. Per maggiori informazioni, visita: https://ai.google.dev/gemini-api/docs/safety-settings.",
             "api_key_invalid": "API Key non valida. Controlla la tua API Key di Gemini nelle impostazioni dell'app. Per maggiori informazioni, visita: https://ai.google.dev/gemini-api/docs/api-key.",
             "service_unavailable": "I server di Gemini stanno registrando un traffico elevato e sono temporaneamente non disponibili. Riprova tra qualche istante.",

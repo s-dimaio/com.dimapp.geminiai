@@ -154,5 +154,9 @@
   "3.1.0": {
     "en": "(i) Added Google Search Grounding for real-time web searches to answer general questions and reduce hallucinations \n(ii) Added support for the new Gemini 3.5 Flash (GA) model optimized for complex agentic workflows",
     "it": "(i) Aggiunto il Google Search Grounding per ricerche web in tempo reale in modo da rispondere a domande generali e ridurre le allucinazioni \n(ii) Aggiunto il supporto all'ultimo modello Gemini 3.5 Flash (GA) ottimizzato per flussi di lavoro complessi e agentici"
+  },
+  "3.1.1": {
+    "en": "(i) Fixed a bug that prevented using smart home commands with Gemini Free API keys. Due to low daily token limits, we highly recommend using the 'gemini-2.5-flash-lite' model for free keys. \n(ii) Minor bug fixes and improved error messaging in the Chat Widget.",
+    "it": "(i) Risolto un bug che impediva l'uso dei comandi smart home con le API Key gratuite di Gemini. A causa del basso limite giornaliero di token, in caso di utilizzo delle API Key gratuite consigliamo di usare il modello 'gemini-2.5-flash-lite'. \n(ii) Correzione di bug minori e miglioramento dei messaggi di errore nel Widget Chat."
   }
 }
