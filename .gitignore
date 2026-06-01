@@ -5,6 +5,7 @@
 bck/
 /.agent/
 /flows/
+/code/
 **/*.bck
 *.code-workspace
 *.ps1

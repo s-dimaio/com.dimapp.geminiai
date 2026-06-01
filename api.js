@@ -149,7 +149,7 @@ module.exports = {
     try {
       const metaPrompt = `Translate and format the following user instruction into one or more concise directive rules in ENGLISH, **formatted natively in Markdown** (use \`-\`, \`**\`, etc. where necessary for maximum clarity).
 These rules will be injected into the System Prompt of a Smart Home assistant for the Homey app.
-You must extract ONLY the rule or behavior that the user describes. Do not add preambles, do not greet, do not provide explanations. Return EXCLUSIVELY the final ready-to-use Markdown content.
+You must **ALWAYS** extract ONLY the rule or behavior that the user describes. You must **❌ NEVER** add preambles, **❌ NEVER** greet, and **❌ NEVER** provide explanations. You must **ALWAYS** return EXCLUSIVELY the final ready-to-use Markdown content.
 
 USER TEXT:
 ${body.text}`;
