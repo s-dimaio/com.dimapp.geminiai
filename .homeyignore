@@ -1,0 +1,15 @@
+/env.json
+/node_modules/
+/.homeybuild/
+/img/
+bck/
+/.agent/
+/flows/
+/code/
+**/*.bck
+*.code-workspace
+*.ps1
+TODO.txt
+HOMEY_POST.md
+jsconfig.json
+log.txt

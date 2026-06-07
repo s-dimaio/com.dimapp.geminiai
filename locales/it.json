@@ -26,30 +26,35 @@
         },
         "api": {
             "title": "Configurazione",
-            "description": "Configura qui la tua Chiave API di Gemini e le preferenze per i modelli.",
+            "description": "Configura qui la tua Chiave API di Gemini.",
             "guide_link": "Come ottenere una Gemini API Key?",
             "key_label": "API Key",
             "key_placeholder": "Inserisci qui la tua API Key di Google Gemini",
-            "model_sh_label": "Modello per Smart Home",
-            "model_sh_help": "Utilizzato per i comandi Smart Home ed il ragionamento complesso.",
-            "model_chat_label": "Modello per Generazione Testo",
-            "model_chat_help": "Utilizzato per le carte \"Invia Prompt\" e \"Invia Prompt con Immagine\".",
+            "model_chat_label": "IA Conversazionale",
+            "model_chat_help": "Utilizzato per le domande generali, per le funzioni di testo e per l'analisi delle immagini.",
+            "model_sh_generic_label": "Domotica di Base",
+            "model_sh_generic_help": "Utilizzato per l'interrogazione ed il controllo dei dispositivi smart.",
+            "model_sh_flow_label": "Gestione Flow e Automazioni",
+            "model_sh_flow_help": "Utilizzato per la creazione e la modifica di Flow standard e advanced.",
             "models": {
-                "flash_lite": "Gemini 2.5 Flash-Lite (Leggero - Predefinito)",
-                "flash": "Gemini 2.5 Flash (Bilanciato)",
-                "pro": "Gemini 2.5 Pro (Massima Qualità)",
-                "flash35": "Gemini 3.5 Flash (GA - Consigliato)",
-                "flash3_preview": "Gemini 3 Flash Preview (Velocità di Nuova Generazione)",
-                "flash3_lite": "Gemini 3.1 Flash-Lite (Leggero - Nuova Generazione)",
-                "pro3_preview": "Gemini 3.1 Pro Preview (Più Capace)"
+                "flash_lite": "Gemini 2.5 Flash-Lite",
+                "flash": "Gemini 2.5 Flash",
+                "pro": "Gemini 2.5 Pro",
+                "flash35": "Gemini 3.5 Flash",
+                "flash3_preview": "Gemini 3 Flash Preview",
+                "flash3_lite": "Gemini 3.1 Flash-Lite",
+                "pro3_preview": "Gemini 3.1 Pro Preview"
             },
             "pool_size_label": "Numero Immagini Simultanee",
             "pool_size_help": "Numero di immagini pre-allocate per richieste simultanee 'Invia Prompt con Immagine'. Un numero elevato assorbe molta memoria con rischio di crash dell'app. Ogni modifica richiede il riavvio dell'app per avere effetto.",
-            "section_text_gen": "Funzioni Generazione Testo",
-            "section_smart_home": "Funzioni Smart Home",
+            "section_text_gen": "IA Conversazionale",
+            "section_sh_generic": "Domotica di base",
+            "section_sh_flow": "Gestione delle automazioni",
+            "models_title": "Modelli",
+            "other_settings_title": "Altre Impostazioni",
             "enable_google_search_label": "Google Search Grounding",
             "enable_google_search_checkbox_text": "Abilita ricerche in tempo reale",
-            "enable_google_search_help": "Consente a Gemini di effettuare ricerche sul Web in tempo reale per rispondere a domande generali (es. meteo, notizie) ed evitare allucinazioni."
+            "enable_google_search_help": "Consente a Gemini di effettuare ricerche sul Web in tempo reale per rispondere a domande generali (es. meteo, notizie)."
         },
         "scheduled_commands": {
             "title": "Automazioni",
@@ -125,6 +130,18 @@
             "no_device_image": "Nessuna immagine disponibile per questo dispositivo",
             "image_too_large": "Immagine troppo grande (max 5MB)",
             "fetch_image_failed": "Errore nel recupero dell'immagine del dispositivo"
+        },
+        "firmware": {
+            "zigbee_verified": "Firmware Zigbee verificato.",
+            "zigbee_flashing": "Avvio della scrittura del firmware del controller Zigbee in corso.",
+            "matter_available": "Aggiornamento firmware disponibile.",
+            "matter_not_available": "Nessun aggiornamento firmware disponibile.",
+            "matter_initiated": "Avvio dell'aggiornamento firmware Matter per la versione __version__ in corso.",
+            "energy_available": "Aggiornamento firmware disponibile per l'Energy Dongle.",
+            "energy_not_available": "Nessun aggiornamento disponibile per l'Energy Dongle.",
+            "energy_initiated": "Avvio dell'aggiornamento firmware dell'Energy Dongle in corso.",
+            "not_supported": "Il dispositivo \"__name__\" non supporta gli aggiornamenti programmatici del firmware tramite questo strumento. Gli aggiornamenti programmabili tramite questo strumento sono supportati solo per i dispositivi Matter.",
+            "missing_software_version": "Parametro obbligatorio 'softwareVersion' mancante per l'installazione del firmware Matter. Controlla prima gli aggiornamenti per ottenere la softwareVersion di destinazione."
         }
     },
     "context": {

@@ -11,6 +11,5 @@ bck/
 *.ps1
 TODO.txt
 HOMEY_POST.md
-.homeyignore
 jsconfig.json
 log.txt
