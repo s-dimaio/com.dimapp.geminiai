@@ -129,7 +129,8 @@
             "max_turns_reached": "Dopo diversi tentativi non sono riuscito a completare la richiesta. Puoi essere più preciso?",
             "no_device_image": "Nessuna immagine disponibile per questo dispositivo",
             "image_too_large": "Immagine troppo grande (max 5MB)",
-            "fetch_image_failed": "Errore nel recupero dell'immagine del dispositivo"
+            "fetch_image_failed": "Errore nel recupero dell'immagine del dispositivo",
+            "not_answerable": "Gemini non può valutare questa condizione: __explanation__"
         },
         "firmware": {
             "zigbee_verified": "Firmware Zigbee verificato.",
@@ -146,6 +147,26 @@
     },
     "context": {
         "injected": "Contesto della conversazione impostato con successo."
+    },
+    "condition": {
+        "evaluate_prompt": {
+            "title": "Valuta Prompt",
+            "title_formatted": "Valuta [[prompt]]",
+            "hint": "Poni a Gemini una domanda con risposta sì/no. La condizione è vera se Gemini risponde sì.",
+            "placeholder": "Fai una domanda sì/no..."
+        },
+        "evaluate_prompt_with_image": {
+            "title": "Valuta Prompt con Immagine",
+            "title_formatted": "Valuta [[prompt]] con immagine [[droptoken]]",
+            "hint": "Poni a Gemini una domanda con risposta sì/no su un'immagine. La condizione è vera se Gemini risponde sì.",
+            "placeholder": "Fai una domanda sì/no sull'immagine..."
+        },
+        "evaluate_mcp_command": {
+            "title": "Valuta Comando Smart Home",
+            "title_formatted": "Valuta [[prompt]] usando la Smart Home",
+            "hint": "Poni a Gemini una domanda con risposta sì/no che può richiedere di verificare lo stato dei dispositivi smart. La condizione è vera se Gemini risponde sì.",
+            "placeholder": "Es. C'è qualche luce accesa in camera?"
+        }
     },
     "scheduled_commands": {
         "scheduled": "Comando programmato per le {time}",

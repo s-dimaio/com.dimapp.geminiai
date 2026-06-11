@@ -1,13 +1,18 @@
 {
   "name": "com.dimapp.geminiforhomey",
-  "version": "3.2.1",
+  "version": "3.3.0",
   "main": "app.js",
-  "scripts": {},
-  "devDependencies": {
-    "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.12"
+  "scripts": {
+    "build": "ncc build app.src.js -o dist -e homey --minify",
+    "debug": "npm run build && homey app run --r",
+    "install": "npm run build && homey app install",
+    "publish": "npm run build && homey app publish"
   },
-  "dependencies": {
+  "devDependencies": {
+    "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.12",
+    "@vercel/ncc": "^0.38.4",
     "@google/genai": "^2.7.0",
     "homey-api": "3.19.0"
-  }
+  },
+  "dependencies": {}
 }

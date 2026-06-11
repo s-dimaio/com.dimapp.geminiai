@@ -11,6 +11,7 @@ This Homey app bridges the gap between your smart home and advanced artificial i
 - **Standard & Advanced Flow Management**: Design, create, connect, or delete both Standard and Advanced Homey automation flows using natural language, with a built-in safety confirmation step and automatic visual graph auto-layout.
 - **Text Prompts**: "Send a prompt" action card that accepts text and returns AI-generated responses for custom automations.
 - **Image Analysis**: "Send a prompt with image" action card for multimodal prompts (image + text). Perfect for security camera analysis.
+- **Condition Cards**: "Ask Gemini" (text), "Ask Gemini with Image" (multimodal), and "Ask Gemini using Smart Home" (MCP) condition cards that evaluate yes/no questions to dynamically route Flow execution.
 - **Custom Instructions**: Define specific rules or context that Gemini must always follow when interpreting smart home commands.
 - **Conversation Context**: "Set conversation context" action card to inject context for follow-up commands across flows.
 - **Scheduled Automations**: Schedule commands to run in the future (e.g., "Turn off the lights in 10 minutes").
@@ -36,7 +37,9 @@ This Homey app bridges the gap between your smart home and advanced artificial i
 ### For Development
 1. Clone this repository
 2. Install dependencies: `npm install`
-3. Use Homey CLI to run: `homey app run`
+3. Use the preconfigured scripts to build and run the app:
+   - Build & run in debug mode (with `--r` automatic flag): `npm run debug`
+   - Build & install: `npm run install`
 
 ## Google Gemini API Key Configuration
 
@@ -87,6 +90,14 @@ THEN: Run a command for your smart home "Which lights are on in the kitchen?"
 AND: Log the response
 ```
 
+### Conditional Automation (e.g. Turn off TV if no kids are watching)
+```
+WHEN: Motion stopped in the living room
+AND: Ask Gemini "Is anyone still watching the TV?" using Smart Home
+  [Inverted (Not)]
+THEN: Turn off the TV
+```
+
 ### Contextual Follow-up
 ```
 WHEN: Motion detected at front door
@@ -133,6 +144,20 @@ This action uses the Model Context Protocol (MCP) to interact with Homey. Gemini
 **Technical Notes:**
 - Requires `homey:manager:api` permission.
 - Works only on local Homey installations (not Homey Cloud).
+
+### Flow Cards (Conditions)
+
+#### Ask Gemini a yes/no question (Text Only)
+- **Input**: Yes/no text question
+- **Output**: Boolean flow execution (passes on YES, stops on NO or throws a descriptive error if unanswerable)
+
+#### Ask Gemini a yes/no question about an image (Multimodal)
+- **Input**: Image token + Yes/no text question
+- **Output**: Boolean flow execution (passes on YES, stops on NO or throws a descriptive error if unanswerable)
+
+#### Ask Gemini a smart home yes/no question (MCP)
+- **Input**: Yes/no smart home text question
+- **Output**: Boolean flow execution (passes on YES, stops on NO or throws a descriptive error if unanswerable). Integrates with the persistent conversation history for contextual follow-ups.
 
 ## Privacy and Security
 

@@ -129,7 +129,8 @@
             "max_turns_reached": "After several attempts, I couldn't complete the request. Can you be more specific?",
             "no_device_image": "No image available for this device",
             "image_too_large": "Image too large (max 5MB)",
-            "fetch_image_failed": "Failed to fetch device image"
+            "fetch_image_failed": "Failed to fetch device image",
+            "not_answerable": "Gemini cannot evaluate this condition: __explanation__"
         },
         "firmware": {
             "zigbee_verified": "Zigbee firmware verified.",
@@ -146,6 +147,26 @@
     },
     "context": {
         "injected": "Conversation context set successfully."
+    },
+    "condition": {
+        "evaluate_prompt": {
+            "title": "Evaluate Prompt",
+            "title_formatted": "Evaluate [[prompt]]",
+            "hint": "Ask Gemini a yes/no question. The condition is true if Gemini answers yes.",
+            "placeholder": "Ask a yes/no question..."
+        },
+        "evaluate_prompt_with_image": {
+            "title": "Evaluate Prompt with Image",
+            "title_formatted": "Evaluate [[prompt]] with image [[droptoken]]",
+            "hint": "Ask Gemini a yes/no question about an image. The condition is true if Gemini answers yes.",
+            "placeholder": "Ask a yes/no question about the image..."
+        },
+        "evaluate_mcp_command": {
+            "title": "Evaluate Smart Home Command",
+            "title_formatted": "Evaluate [[prompt]] using Smart Home",
+            "hint": "Ask Gemini a yes/no question that may require checking the state of your smart home devices. The condition is true if Gemini answers yes.",
+            "placeholder": "e.g. Is any light on in the bedroom?"
+        }
     },
     "scheduled_commands": {
         "scheduled": "Command scheduled for {time}",

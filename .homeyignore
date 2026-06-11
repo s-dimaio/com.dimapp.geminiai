@@ -13,3 +13,6 @@ TODO.txt
 HOMEY_POST.md
 jsconfig.json
 log.txt
+/dist-test/
+/lib/
+app.src.js

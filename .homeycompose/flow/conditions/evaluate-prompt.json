@@ -1,0 +1,24 @@
+{
+  "title": {
+    "en": "Ask Gemini !{{|not}} a yes/no question",
+    "it": "Fai a Gemini !{{|non}} una domanda sì/no"
+  },
+  "titleFormatted": {
+    "en": "Ask Gemini !{{|not}} [[prompt]]",
+    "it": "Chiedi a Gemini !{{|non}} [[prompt]]"
+  },
+  "hint": {
+    "en": "Ask Gemini a question. If the answer is yes, the condition is true. If the answer is no, the condition is false. If the question is not answerable with yes/no the card will return an error.",
+    "it": "Poni a Gemini una domanda. Se la risposta è sì, la condizione è vera. Se la risposta è no, la condizione è falsa. Se la domanda non è rispondibile con sì/no la scheda restituirà un errore."
+  },
+  "args": [
+    {
+      "type": "text",
+      "name": "prompt",
+      "placeholder": {
+        "en": "Ask a yes/no question",
+        "it": "Fai una domanda sì/no"
+      }
+    }
+  ]
+}
