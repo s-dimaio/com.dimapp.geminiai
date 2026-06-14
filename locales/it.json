@@ -54,7 +54,10 @@
             "other_settings_title": "Altre Impostazioni",
             "enable_google_search_label": "Google Search Grounding",
             "enable_google_search_checkbox_text": "Abilita ricerche in tempo reale",
-            "enable_google_search_help": "Consente a Gemini di effettuare ricerche sul Web in tempo reale per rispondere a domande generali (es. meteo, notizie)."
+            "enable_google_search_help": "Consente a Gemini di effettuare ricerche sul Web in tempo reale per rispondere a domande generali (es. meteo, notizie).",
+            "include_hidden_grouped_label": "Dispositivi Nascosti e Raggruppati",
+            "include_hidden_grouped_checkbox_text": "Includi dispositivi nascosti e membri di gruppi",
+            "include_hidden_grouped_help": "Consente a Gemini di vedere e controllare anche i dispositivi contrassegnati come nascosti o che fanno parte di un gruppo virtuale (di default disattivato)."
         },
         "scheduled_commands": {
             "title": "Automazioni",

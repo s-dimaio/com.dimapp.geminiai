@@ -34,7 +34,7 @@ module.exports = class GeminiApp extends Homey.App {
     // Store the reference so it can be removed in onUninit() to avoid
     // accessing a destroyed app instance after a ready_timeout crash.
     this._settingsListener = (key) => {
-      if (key === 'gemini_api_key' || key === 'gemini_model' || key === 'gemini_model_chat' || key === 'gemini_model_sh_generic' || key === 'gemini_model_sh_flow' || key === 'gemini_custom_instructions' || key === 'gemini_enable_google_search') {
+      if (key === 'gemini_api_key' || key === 'gemini_model' || key === 'gemini_model_chat' || key === 'gemini_model_sh_generic' || key === 'gemini_model_sh_flow' || key === 'gemini_custom_instructions' || key === 'gemini_enable_google_search' || key === 'gemini_include_hidden_grouped') {
         this.log(`[onInit] Setting ${key} changed, re-initializing GeminiClient`);
         this.initializeGeminiClient();
       }

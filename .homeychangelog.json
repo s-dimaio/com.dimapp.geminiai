@@ -174,5 +174,9 @@
   "3.3.0": {
     "en": "(i) Added three new conditional Flow cards (true/false): Ask Gemini a question (text), Ask Gemini a question about an image (multimodal), and Ask Gemini a question using smart home devices (MCP) \n(ii) Minor bug fixes and performance improvements.",
     "it": "(i) Aggiunte tre nuove schede condizionali (sì/no) per i Flow: Fai a Gemini una domanda (testo), Fai a Gemini una domanda su un'immagine (multimodale) e Fai a Gemini una domanda sulla smart home (MCP) \n(ii) Correzione di bug minori e miglioramenti alle prestazioni."
+  },
+  "3.3.1": {
+    "en": "(i) Added three new conditional Flow cards (true/false): Ask Gemini a question (text), Ask Gemini a question about an image (multimodal), and Ask Gemini a question using smart home devices \n(ii) Added a setting to configure whether Gemini can access hidden or grouped smart home devices by default \n(iii) Added the ability to explicitly ask Gemini to include or exclude hidden/grouped devices, temporarily overriding the general app setting. \n(iv) Minor bug fixes and performance improvements.",
+    "it": "(i) Aggiunte tre nuove schede condizionali (sì/no) per i Flow: Fai a Gemini una domanda (testo), Fai a Gemini una domanda su un'immagine (multimodale) e Fai a Gemini una domanda sulla smart home \n(ii) Aggiunta un'impostazione per configurare se Gemini può accedere di default ai dispositivi smart home nascosti o raggruppati \n(iii) Aggiunta la possibilità di chiedere espressamente a Gemini di includere o escludere i dispositivi nascosti/raggruppati così da sovrascrivere temporaneamente l'impostazione generale dell'app \n(iv) Correzione di bug minori e miglioramenti alle prestazioni."
   }
 }

@@ -544,6 +544,18 @@
               data-i18n="settings.api.enable_google_search_help"></small>
           </div>
 
+          <!-- Hidden & Grouped Devices checkbox -->
+          <div class="homey-form-group" style="margin-top: 20px;">
+            <label class="homey-form-label" data-i18n="settings.api.include_hidden_grouped_label"></label>
+            <label class="homey-form-checkbox" style="margin-top: 8px;">
+              <input class="homey-form-checkbox-input" id="includeHiddenGrouped" type="checkbox" />
+              <span class="homey-form-checkbox-checkmark"></span>
+              <span class="homey-form-checkbox-text" data-i18n="settings.api.include_hidden_grouped_checkbox_text"></span>
+            </label>
+            <small class="homey-form-help" style="display:block; margin-top:5px; opacity:0.8;"
+              data-i18n="settings.api.include_hidden_grouped_help"></small>
+          </div>
+
           <!-- Simultaneous Image Pool Size -->
           <div class="homey-form-group" style="margin-top: 20px;">
             <label class="homey-form-label" for="imagePoolSize" data-i18n="settings.api.pool_size_label"></label>
@@ -817,6 +829,7 @@
       apiKeyElement.placeholder = Homey.__("settings.api.key_placeholder");
 
       var enableGoogleSearchElement = document.getElementById("enableGoogleSearch");
+      var enableHiddenGroupedElement = document.getElementById("includeHiddenGrouped");
 
       var saveElement = document.getElementById("save");
       var commandsContainer = document.getElementById("commandsContainer");
@@ -833,6 +846,12 @@
       Homey.get("gemini_enable_google_search", function (err, enableGoogleSearch) {
         if (err) return console.error("Error loading Google Search Grounding preference:", err);
         enableGoogleSearchElement.checked = enableGoogleSearch !== false;
+      });
+
+      // Load saved Hidden & Grouped preference
+      Homey.get("gemini_include_hidden_grouped", function (err, includeHiddenGrouped) {
+        if (err) return console.error("Error loading Hidden & Grouped preference:", err);
+        enableHiddenGroupedElement.checked = includeHiddenGrouped === true;
       });
 
       var modelSelectShGenericElement = document.getElementById("modelSelectShGeneric");
@@ -975,15 +994,24 @@
                   return;
                 }
 
-                // Save Google Search Grounding preference
-                var enableGoogleSearch = enableGoogleSearchElement.checked;
-                Homey.set("gemini_enable_google_search", enableGoogleSearch, function (err) {
+                // Save Hidden & Grouped preference
+                var includeHiddenGrouped = enableHiddenGroupedElement.checked;
+                Homey.set("gemini_include_hidden_grouped", includeHiddenGrouped, function (err) {
                   if (err) {
                     showToast(Homey.__("settings.common.error_generic") + ": " + err, 'error');
                     return;
                   }
 
-                  showToast(Homey.__("settings.common.saved"), 'success');
+                  // Save Google Search Grounding preference
+                  var enableGoogleSearch = enableGoogleSearchElement.checked;
+                  Homey.set("gemini_enable_google_search", enableGoogleSearch, function (err) {
+                    if (err) {
+                      showToast(Homey.__("settings.common.error_generic") + ": " + err, 'error');
+                      return;
+                    }
+
+                    showToast(Homey.__("settings.common.saved"), 'success');
+                  });
                 });
               });
             });
