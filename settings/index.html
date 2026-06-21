@@ -542,6 +542,9 @@
             </label>
             <small class="homey-form-help" style="display:block; margin-top:5px; opacity:0.8;"
               data-i18n="settings.api.enable_google_search_help"></small>
+            <small id="googleSearchWarningGemini25" class="homey-form-help"
+              style="display:none; margin-top:8px; color: #b45309;"
+              data-i18n="settings.api.enable_google_search_warning_gemini25"></small>
           </div>
 
           <!-- Hidden & Grouped Devices checkbox -->
@@ -860,6 +863,28 @@
       var customInstructionsElement = document.getElementById("customInstructions");
       customInstructionsElement.placeholder = Homey.__("settings.custom_instructions.placeholder");
 
+      /**
+       * Updates the visibility of the Gemini 2.5 compatibility warning for Google Search Grounding.
+       * The warning is shown when at least one Smart Home model (Generic or Flow) belongs to the
+       * Gemini 2.5 family, which does not support combining Function Calling and Built-in Tools
+       * (google_search) in the same API request.
+       *
+       * @private
+       * @returns {void}
+       */
+      function updateGoogleSearchWarning() {
+        var shGenericValue = modelSelectShGenericElement.value || '';
+        var shFlowValue = modelSelectShFlowElement.value || '';
+        var isGemini25 = shGenericValue.indexOf('gemini-2.5') !== -1 || shFlowValue.indexOf('gemini-2.5') !== -1;
+        var warningElement = document.getElementById('googleSearchWarningGemini25');
+        if (warningElement) {
+          warningElement.style.display = isGemini25 ? 'block' : 'none';
+        }
+      }
+
+      modelSelectShGenericElement.addEventListener('change', updateGoogleSearchWarning);
+      modelSelectShFlowElement.addEventListener('change', updateGoogleSearchWarning);
+
       // Load the saved Generic Smart Home Model from Homey settings
       Homey.get("gemini_model_sh_generic", function (err, modelGeneric) {
         if (err) return console.error("Error loading Generic Model:", err);
@@ -873,8 +898,10 @@
              } else {
                  modelSelectShGenericElement.value = "gemini-3.1-flash-lite";
              }
+             updateGoogleSearchWarning();
           });
         }
+        updateGoogleSearchWarning();
       });
 
       // Load the saved Flow Smart Home Model from Homey settings
@@ -890,8 +917,10 @@
              } else {
                  modelSelectShFlowElement.value = "gemini-3.5-flash";
              }
+             updateGoogleSearchWarning();
           });
         }
+        updateGoogleSearchWarning();
       });
 
       // Load the saved Chat Model from Homey settings

@@ -55,6 +55,7 @@
             "enable_google_search_label": "Google Search Grounding",
             "enable_google_search_checkbox_text": "Abilita ricerche in tempo reale",
             "enable_google_search_help": "Consente a Gemini di effettuare ricerche sul Web in tempo reale per rispondere a domande generali (es. meteo, notizie).",
+            "enable_google_search_warning_gemini25": "Attenzione: uno o più modelli Smart Home selezionati appartengono alla famiglia Gemini 2.5. Questi modelli non supportano Google Search combinato con i comandi Smart Home. Google Search verrà disabilitato automaticamente solo per le richieste Smart Home.",
             "include_hidden_grouped_label": "Dispositivi Nascosti e Raggruppati",
             "include_hidden_grouped_checkbox_text": "Includi dispositivi nascosti e membri di gruppi",
             "include_hidden_grouped_help": "Consente a Gemini di vedere e controllare anche i dispositivi contrassegnati come nascosti o che fanno parte di un gruppo virtuale (di default disattivato)."
