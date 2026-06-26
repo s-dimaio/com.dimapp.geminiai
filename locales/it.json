@@ -145,7 +145,14 @@
             "energy_available": "Aggiornamento firmware disponibile per l'Energy Dongle.",
             "energy_not_available": "Nessun aggiornamento disponibile per l'Energy Dongle.",
             "energy_initiated": "Avvio dell'aggiornamento firmware dell'Energy Dongle in corso.",
-            "not_supported": "Il dispositivo \"__name__\" non supporta gli aggiornamenti programmatici del firmware tramite questo strumento. Gli aggiornamenti programmabili tramite questo strumento sono supportati solo per i dispositivi Matter.",
+            "universal_available": "È disponibile un aggiornamento del firmware (versione __version__).",
+            "universal_not_available": "Nessun aggiornamento del firmware disponibile (il dispositivo è aggiornato).",
+            "universal_initiated": "Aggiornamento del firmware avviato per il dispositivo __name__ (versione __version__).",
+            "requires_wake_hint": "Il dispositivo è alimentato a batteria. Risveglialo (ad es. premendo il pulsante fisico di associazione/configurazione) per avviare il trasferimento.",
+            "universal_error": "L'ultimo tentativo di aggiornamento del firmware è fallito. È necessario riprovare manualmente tramite l'app o il portale web di Homey.",
+            "not_authorized": "Le applicazioni di terze parti non sono autorizzate ad avviare aggiornamenti firmware per dispositivi non-Matter (Zigbee/Z-Wave/generici) a causa di restrizioni di sicurezza di Homey Pro. Si prega di eseguire l'aggiornamento manualmente dall'app o dal portale web di Homey.",
+            "missing_version_string": "Parametro obbligatorio 'versionString' mancante per l'installazione del firmware. Controlla prima gli aggiornamenti per ottenere la versionString di destinazione.",
+            "not_supported": "Il dispositivo \"__name__\" non supporta gli aggiornamenti del firmware. Verifica se il dispositivo supporta gli aggiornamenti del firmware.",
             "missing_software_version": "Parametro obbligatorio 'softwareVersion' mancante per l'installazione del firmware Matter. Controlla prima gli aggiornamenti per ottenere la softwareVersion di destinazione."
         }
     },

@@ -145,7 +145,14 @@
             "energy_available": "Firmware update available for Energy Dongle.",
             "energy_not_available": "No update available for Energy Dongle.",
             "energy_initiated": "Energy Dongle firmware update initiated.",
-            "not_supported": "Device \"__name__\" does not support programmatic firmware updates via this tool. Programmatic updates via this tool are only supported for Matter devices.",
+            "universal_available": "A firmware update is available (version __version__).",
+            "universal_not_available": "No firmware update available (device is up to date).",
+            "universal_initiated": "Firmware update initiated for device __name__ (version __version__).",
+            "requires_wake_hint": "The device is a battery-powered device. Please wake it up (e.g. by pressing the physical pairing/setup button) to start the transfer.",
+            "universal_error": "The last firmware update attempt failed. You need to retry manually via the Homey app or web dashboard.",
+            "not_authorized": "Third-party apps are not authorized to start firmware updates for non-Matter (Zigbee/Z-Wave/generic) devices due to Homey Pro security restrictions. Please perform the update manually from the Homey app or web dashboard.",
+            "missing_version_string": "Missing required parameter 'versionString' for firmware installation. Check for updates first to get the target versionString.",
+            "not_supported": "Device \"__name__\" does not support firmware updates. Verify if the device supports firmware updates.",
             "missing_software_version": "Missing required parameter 'softwareVersion' for Matter firmware installation. Check for updates first to get the target softwareVersion."
         }
     },
