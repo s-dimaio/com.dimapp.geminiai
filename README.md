@@ -12,16 +12,17 @@ This Homey app bridges your smart home with Google's Generative AI models (`@goo
 - **Smart Home Assistant (MCP Engine)**: Autonomous function calling powered by the Model Context Protocol (MCP). Gemini discovers resources, queries device status, and executes actions across your smart home.
 - **Multi-Role Model Routing**: Dedicated model assignment for each operational role:
   - **Conversational AI (`chat`)**: Fast, lightweight models (e.g. `gemini-3.1-flash-lite`, `gemini-3.5-flash-lite`) for general questions, condition cards, and vision analysis.
-  - **Basic Smart Home (`shGeneric`)**: High-efficiency model for querying and controlling smart home devices.
-  - **Automation & Flows (`shFlow`)**: Advanced reasoning model (e.g. `gemini-3.7-flash`) specialized in designing, creating, and modifying Homey Standard and Advanced Flows.
+  - **Basic Smart Home (`shGeneric`)**: High-efficiency model for querying and controlling smart home devices (defaults to `gemini-3.8-flash`).
+  - **Automation & Flows (`shFlow`)**: Advanced reasoning model specialized in designing, creating, and modifying Homey Standard and Advanced Flows (defaults to `gemini-3.8-flash`, with support up to `gemini-4-argon`).
   - **Image Generation (`image`)**: Model dedicated to generating images (`gemini-3.1-flash-image`).
-- **Context Caching**: Static system instructions and MCP tool schemas (~19,500 tokens) are cached in Google GenAI memory, reducing prompt token costs by up to 88% and providing ultra-fast response times.
+- **Google Gemini Interactions API & Native Context Caching**: Fully migrated to Google's next-generation `interactions.create` API. Static system instructions and MCP tool schemas (~20,000 tokens) are cached directly in Google GenAI server-side memory, reducing latency and prompt token costs by up to 88% across multi-turn sessions.
 - **Standard & Advanced Flow Management**: Natural language creation, modification, connection, deletion, and rollback restoration of both Standard and visual DAG Advanced Flows, complete with automatic spatial auto-layout computation.
-- **Intelligent Condition Cards**: Three boolean condition cards (`Ask Gemini`, `Ask Gemini with Image`, `Ask Gemini using Smart Home`) to dynamically branch Flows based on real-world reasoning.
+- **Intelligent Structured Condition Cards**: Three boolean condition cards (`Ask Gemini`, `Ask Gemini with Image`, `Ask Gemini using Smart Home`) backed by native JSON schemas with multi-language guardrails that reliably evaluate polar conditions while cleanly rejecting open-ended questions.
+- **Real-time Token Usage Logging**: Detailed logging of input tokens, output tokens, thinking tokens, and cached tokens on every request for complete operational transparency.
 - **Sensor History & Device Logs**: Query past sensor trends, averages, and historical time-series data (temperature, energy consumption, etc.).
 - **Matter OTA Firmware Management**: Check firmware availability for all devices and trigger over-the-air updates for Matter devices.
-- **Multi-Turn Memory & Pruning**: Remembers conversational context across interactions with automatic idle timeout cleanup and uncached token management.
-- **Scheduled Automations**: Schedule commands with natural language (e.g., *"Turn off living room lights at 11 PM"* or *"in 15 minutes"*), persisted across app restarts.
+- **Multi-Turn Memory & Pruning**: Remembers conversational context across interactions via server-side session tracking (`previous_interaction_id`) with automatic idle timeout cleanup.
+- **Scheduled Automations**: Schedule commands with natural language (e.g., *"Turn off living room lights at 11 PM"* or *"in 15 minutes"*), persisted across app restarts with trigger card activation.
 - **Custom Instructions & AI Prompt Generator**: Write natural rules (e.g., *"Always check the bedroom Daikin when I ask for temperature"*) and convert them automatically into formatted Markdown system prompts.
 - **Hidden & Grouped Devices Control**: Configurable access to devices marked as hidden or grouped in Homey.
 
@@ -142,8 +143,8 @@ When executing smart home requests, Gemini autonomously selects from 15 canonica
 
 ## 📦 Technical Stack & Architecture
 
-- **AI SDK**: `@google/genai` (v2.7.0+)
-- **Homey API**: `homey-api` (v3.19.1 - Local API v3)
+- **AI SDK**: `@google/genai` (^2.30.0 - Google Gemini Interactions API)
+- **Homey API**: `homey-api` (^3.20.1 - Local API v3)
 - **Compiler**: `@vercel/ncc` (v0.38.4)
 - **Runtime**: Homey Pro Apps SDK v3 (Node.js)
 

@@ -18,6 +18,25 @@ module.exports = class GeminiApp extends Homey.App {
   }
 
   /**
+   * Exposes the FlowManager instance for Web API endpoints and backup management.
+   * Lazily instantiates a standalone HomeyMCPAdapter if GeminiClient is not yet initialized.
+   *
+   * @public
+   * @type {import('./lib/managers/FlowManager')}
+   */
+  get flowManager() {
+    if (this.geminiClient?.mcpAdapter?.flowManager) {
+      return this.geminiClient.mcpAdapter.flowManager;
+    }
+    if (!this._standaloneFlowManager) {
+      const { HomeyMCPAdapter } = require('./lib/HomeyMCPAdapter');
+      this._standaloneMcpAdapter = new HomeyMCPAdapter(this.homey);
+      this._standaloneFlowManager = this._standaloneMcpAdapter.flowManager;
+    }
+    return this._standaloneFlowManager;
+  }
+
+  /**
    * onInit is called when the app is initialized.
    */
   async onInit() {

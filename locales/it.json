@@ -21,6 +21,8 @@
             "timers_desc": "Gestisci comandi programmati",
             "history_title": "Cronologia",
             "history_desc": "Gestisci la cronologia delle chat",
+            "flow_backups_title": "Backup Flow",
+            "flow_backups_desc": "Visualizza, ripristina o cancella i backup dei tuoi flow creati da Gemini",
             "guide_title": "Guida alla configurazione",
             "guide_desc": "Istruzioni per l'app"
         },
@@ -46,7 +48,9 @@
                 "flash35_lite": "Gemini 3.5 Flash-Lite",
                 "flash35": "Gemini 3.5 Flash",
                 "flash36": "Gemini 3.6 Flash",
-                "flash37": "Gemini 3.7 Flash"
+                "flash37": "Gemini 3.7 Flash",
+                "flash38": "Gemini 3.8 Flash",
+                "argon4": "Gemini 4 Argon"
             },
             "pool_size_label": "Numero Immagini Simultanee",
             "pool_size_help": "Numero di immagini pre-allocate per richieste simultanee 'Invia Prompt con Immagine'. Un numero elevato assorbe molta memoria con rischio di crash dell'app. Ogni modifica richiede il riavvio dell'app per avere effetto.",
@@ -108,6 +112,28 @@
             "error_clear": "Errore durante la cancellazione della cronologia",
             "error_timeout": "Errore durante il salvataggio della durata memoria",
             "error_invalid_timeout": "Inserisci un valore compreso tra 10 e 240 minuti."
+        },
+        "flow_backups": {
+            "title": "Backup Flow",
+            "subtitle": "Visualizza, ripristina o cancella i backup dei tuoi flow creati da Gemini",
+            "search_placeholder": "Cerca backup per nome flow...",
+            "no_backups": "Nessun backup di flow presente sul dispositivo.",
+            "no_match": "Nessun backup corrisponde alla ricerca.",
+            "type_standard": "Standard Flow",
+            "type_advanced": "Advanced Flow",
+            "status_active": "Attivo su Homey",
+            "status_deleted": "Eliminato da Homey",
+            "btn_open": "Apri",
+            "btn_restore": "Ripristina",
+            "btn_delete": "Elimina",
+            "confirm_restore_active": "Il flow \"{name}\" esiste già su Homey. Ripristinandolo, la versione attuale verrà sovrascritta con quella del backup. Vuoi continuare?",
+            "confirm_restore_deleted": "Il flow \"{name}\" è stato eliminato da Homey. Vuoi ricrearlo a partire dal backup?",
+            "confirm_delete": "Sei sicuro di voler eliminare definitivamente il backup per il flow \"{name}\"?",
+            "msg_restored": "Flow ripristinato con successo!",
+            "msg_deleted": "Backup eliminato con successo!",
+            "error_load": "Errore durante il caricamento dei backup",
+            "error_restore": "Errore durante il ripristino del flow",
+            "error_delete": "Errore durante l'eliminazione del backup"
         },
         "guide": {
             "title": "Guida alla configurazione",

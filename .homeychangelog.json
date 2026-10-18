@@ -210,5 +210,13 @@
   "3.3.9": {
     "en": "(i) Improved flow discovery and health auditing to detect automations with unavailable cards, missing devices, or uninstalled apps \n(ii) Enhanced error handling and user status messages \n(iii) Minor bug fixes and performance improvements.",
     "it": "(i) Migliorata la gestione e l'individuazione di flow con schede non disponibili, dispositivi mancanti o app disinstallate \n(ii) Migliorata la gestione degli errori e dei messaggi di stato per l'utente \n(iii) Correzione di bug minori e miglioramenti alle prestazioni."
+  },
+  "3.4.0": {
+    "en": "(i) Added \"Backup Flow\" section in app settings to view, restore, delete, and inspect flow backups created by Gemini; \n(ii) Added instant search by flow name and direct browser opening for backup files; \n(iii) Minor bug fixes and performance improvements.",
+    "it": "(i) Aggiunta la sezione \"Backup Flow\" nelle impostazioni dell'app per visualizzare, ripristinare, eliminare e ispezionare i backup dei flow creati da Gemini; \n(ii) Aggiunta la ricerca rapida per nome flow e l'apertura diretta dei file di backup nel browser; \n(iii) Correzione di bug minori e miglioramenti alle prestazioni."
+  },
+  "3.4.1": {
+    "en": "(i) Migrated to Google Gemini Interactions API with native server-side Context Caching for lower latency and token usage; \n(ii) Added support for Gemini 3.8 Flash as default smart home and flow automation model; \n(iii) Enhanced condition cards with structured JSON schemas and robust multi-language rejection for open-ended prompts; \n(iv) Token usage logging and performance improvements.",
+    "it": "(i) Migrazione a Google Gemini Interactions API con Context Caching nativo lato server per ridurre consumi e latenza; \n(ii) Aggiunto il supporto a Gemini 3.8 Flash come modello predefinito per la domotica e le automazioni; \n(iii) Perfezionate le schede condizione con schema JSON strutturato e rifiuto multilingue delle domande aperte; \n(iv) Tracciamento dettagliato dei token consumati e miglioramenti generali alle prestazioni."
   }
 }

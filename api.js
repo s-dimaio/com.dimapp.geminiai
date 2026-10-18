@@ -195,5 +195,141 @@ ${body.text}`;
       supportedModels: modelConfig.supportedModels || modelConfig.SUPPORTED_MODELS,
       modelI18nKeys: modelConfig.modelI18nKeys || modelConfig.MODEL_I18N_KEYS
     };
+  },
+
+  /**
+   * GET /api/app/com.dimapp.geminiai/flow-backups
+   * Get all flow backups stored on the device
+   *
+   * @public
+   * @param {object} context
+   * @param {import('homey')} context.homey
+   * @returns {Promise<{ success: boolean, backups?: Array<object>, error?: string }>}
+   */
+  async getFlowBackups({ homey }) {
+    try {
+      const flowManager = homey.app?.flowManager;
+      if (!flowManager) {
+        return {
+          success: false,
+          error: 'FlowManager not available'
+        };
+      }
+
+      const result = await flowManager.listBackups();
+      if (!result.success) {
+        return result;
+      }
+
+      const userTimezone = homey?.clock?.getTimezone?.() || 'UTC';
+      const userLanguage = homey?.i18n?.getLanguage?.() || 'en';
+
+      const backupsWithLocal = (result.backups || []).map(b => {
+        let backedUpAtLocal = b.backedUpAt;
+        try {
+          backedUpAtLocal = new Date(b.backedUpAt).toLocaleString(userLanguage, {
+            timeZone: userTimezone,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+          });
+        } catch (e) {
+          // Keep raw string if formatting fails
+        }
+        return {
+          ...b,
+          backedUpAtLocal
+        };
+      });
+
+      return {
+        success: true,
+        backups: backupsWithLocal,
+        count: backupsWithLocal.length
+      };
+    } catch (error) {
+      if (homey?.error) {
+        homey.error('[API:getFlowBackups] Error:', error.message || error);
+      }
+      return {
+        success: false,
+        error: error.message || 'Error loading flow backups'
+      };
+    }
+  },
+
+  /**
+   * POST /api/app/com.dimapp.geminiai/flow-backups/:id/restore
+   * Restore a flow from its backup
+   *
+   * @public
+   * @param {object} context
+   * @param {import('homey')} context.homey
+   * @param {object} context.params
+   * @param {string} context.params.id - The flow ID to restore.
+   * @returns {Promise<{ success: boolean, flow?: object, message?: string, error?: string }>}
+   */
+  async restoreFlowBackup({ homey, params }) {
+    try {
+      const flowId = params?.id;
+      if (!flowId) {
+        return { success: false, error: 'Flow ID is required' };
+      }
+
+      const flowManager = homey.app?.flowManager;
+      if (!flowManager) {
+        return { success: false, error: 'FlowManager not available' };
+      }
+
+      return await flowManager.restoreBackup(flowId);
+    } catch (error) {
+      if (homey?.error) {
+        homey.error('[API:restoreFlowBackup] Error:', error.message || error);
+      }
+      return {
+        success: false,
+        error: error.message || 'Error restoring flow'
+      };
+    }
+  },
+
+  /**
+   * DELETE /api/app/com.dimapp.geminiai/flow-backups/:id
+   * Delete a flow backup
+   *
+   * @public
+   * @param {object} context
+   * @param {import('homey')} context.homey
+   * @param {object} context.params
+   * @param {string} context.params.id - The flow ID of the backup to delete.
+   * @returns {Promise<{ success: boolean, error?: string }>}
+   */
+  async deleteFlowBackup({ homey, params }) {
+    try {
+      const flowId = params?.id;
+      if (!flowId) {
+        return { success: false, error: 'Flow ID is required' };
+      }
+
+      const flowManager = homey.app?.flowManager;
+      if (!flowManager) {
+        return { success: false, error: 'FlowManager not available' };
+      }
+
+      return await flowManager.deleteBackup(flowId);
+    } catch (error) {
+      if (homey?.error) {
+        homey.error('[API:deleteFlowBackup] Error:', error.message || error);
+      }
+      return {
+        success: false,
+        error: error.message || 'Error deleting backup'
+      };
+    }
   }
 };
+

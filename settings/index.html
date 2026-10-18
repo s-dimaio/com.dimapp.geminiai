@@ -231,6 +231,174 @@
       }
     }
 
+    /* Flow Backups Styles */
+    .flow-backups-section {
+      margin-top: 10px;
+    }
+
+    .search-container {
+      margin-top: 15px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 10px 14px 10px 36px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 13px;
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--brand-color);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .backup-item {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 12px;
+      padding: 14px;
+      background-color: var(--bg-card);
+      transition: background-color 0.2s;
+    }
+
+    .backup-item:hover {
+      background-color: var(--bg-card-hover);
+    }
+
+    .backup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .backup-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      word-break: break-word;
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .backup-badges {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .badge-type {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      background-color: rgba(31, 106, 193, 0.12);
+      color: var(--brand-color);
+    }
+
+    .badge-type.advanced {
+      background-color: rgba(147, 51, 234, 0.12);
+      color: #9333ea;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .badge-type.advanced {
+        background-color: rgba(192, 132, 252, 0.15);
+        color: #c084fc;
+      }
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge-status.active {
+      background-color: rgba(34, 197, 94, 0.12);
+      color: #16a34a;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .badge-status.active {
+        background-color: rgba(34, 197, 94, 0.18);
+        color: #4ade80;
+      }
+    }
+
+    .badge-status.deleted {
+      background-color: rgba(239, 68, 68, 0.12);
+      color: #dc2626;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .badge-status.deleted {
+        background-color: rgba(239, 68, 68, 0.18);
+        color: #f87171;
+      }
+    }
+
+    .backup-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 2px;
+    }
+
+    .backup-date {
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .backup-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 480px) {
+      .backup-footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .backup-actions {
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+
     /* SPA view management */
     .view {
       display: none;
@@ -454,6 +622,24 @@
                 <div class="menu-item-text">
                   <span class="menu-item-title" data-i18n="settings.menu.history_title"></span>
                   <span class="menu-item-subtitle" data-i18n="settings.menu.history_desc"></span>
+                </div>
+              </div>
+              <div class="menu-item-arrow">›</div>
+            </div>
+
+            <div id="nav_flow_backups" class="menu-item" role="button" tabindex="0">
+              <div class="menu-item-content">
+                <div class="menu-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                    <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                    <polyline points="7 3 7 8 15 8"></polyline>
+                  </svg>
+                </div>
+                <div class="menu-item-text">
+                  <span class="menu-item-title" data-i18n="settings.menu.flow_backups_title"></span>
+                  <span class="menu-item-subtitle" data-i18n="settings.menu.flow_backups_desc"></span>
                 </div>
               </div>
               <div class="menu-item-arrow">›</div>
@@ -748,6 +934,43 @@
       </form>
     </div>
 
+    <!-- View 6: Flow Backups -->
+    <div id="view-flow-backups" class="view">
+      <div class="menu-item back-item back-btn">
+        <div class="menu-item-arrow">‹</div>
+        <div class="menu-item-text">
+          <span class="menu-item-title" data-i18n="settings.common.back"></span>
+        </div>
+      </div>
+      <form class="homey-form">
+        <fieldset class="homey-form-fieldset">
+          <div class="flow-backups-section">
+            <header class="homey-header" style="margin-top: 20px; margin-bottom: 20px;">
+              <h1 class="homey-title" data-i18n="settings.flow_backups.title"></h1>
+            </header>
+            <p class="subtitle" data-i18n="settings.flow_backups.subtitle"></p>
+
+            <div class="search-container">
+              <span class="search-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </span>
+              <input class="search-input" id="searchFlowBackups" type="text" placeholder="" />
+            </div>
+
+            <div id="flowBackupsContainer">
+              <div style="text-align: center; padding: 20px;">
+                <div class="loading-spinner"></div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
   </div>
 
   <!-- Toast notification -->
@@ -797,6 +1020,7 @@
       const viewCustomInstructions = document.getElementById('view-custom-instructions');
       const viewTimers = document.getElementById('view-timers');
       const viewHistory = document.getElementById('view-history');
+      const viewFlowBackups = document.getElementById('view-flow-backups');
       const viewGuide = document.getElementById('view-guide');
 
       /**
@@ -831,6 +1055,10 @@
       document.getElementById('nav_history').addEventListener('click', () => {
         _loadHistoryTimeout();
         _switchView(viewHistory);
+      });
+      document.getElementById('nav_flow_backups').addEventListener('click', () => {
+        _loadFlowBackups();
+        _switchView(viewFlowBackups);
       });
       document.getElementById('open_guide_menu').addEventListener('click', () => _switchView(viewGuide));
       document.getElementById('link_to_guide').addEventListener('click', (e) => {
@@ -1386,6 +1614,244 @@
           _showToast(Homey.__("settings.history.msg_timeout_saved"), 'success');
         });
       });
+
+      // Flow Backups
+      var searchFlowBackupsElement = document.getElementById("searchFlowBackups");
+      var flowBackupsContainer = document.getElementById("flowBackupsContainer");
+      var _cachedBackups = [];
+
+      searchFlowBackupsElement.placeholder = Homey.__("settings.flow_backups.search_placeholder");
+
+      /**
+       * Loads all flow backups from the backend API and renders the list.
+       *
+       * @private
+       * @returns {void}
+       */
+      function _loadFlowBackups() {
+        flowBackupsContainer.innerHTML = '<div style="text-align: center; padding: 20px;"><div class="loading-spinner"></div></div>';
+        searchFlowBackupsElement.value = '';
+
+        Homey.api("GET", "/flow-backups", null, function (err, result) {
+          if (err) {
+            console.error('[Settings:loadFlowBackups] Error loading backups:', err);
+            flowBackupsContainer.innerHTML = '<div class="no-commands">' + Homey.__("settings.flow_backups.error_load") + ': ' + _escapeHtml(err.message || err.toString()) + '</div>';
+            return;
+          }
+
+          _cachedBackups = (result && result.backups) || [];
+          _renderFlowBackups(_cachedBackups);
+        });
+      }
+
+      /**
+       * Renders the flow backups list to the DOM based on provided array.
+       *
+       * @private
+       * @param {Array<Object>} backups - Array of backup items.
+       * @returns {void}
+       */
+      function _renderFlowBackups(backups) {
+        if (!backups || backups.length === 0) {
+          var isSearching = searchFlowBackupsElement.value.trim().length > 0;
+          var msg = isSearching ? Homey.__("settings.flow_backups.no_match") : Homey.__("settings.flow_backups.no_backups");
+          flowBackupsContainer.innerHTML = '<div class="no-commands">' + _escapeHtml(msg) + '</div>';
+          return;
+        }
+
+        var html = '';
+        backups.forEach(function (b) {
+          var typeLabel = b.type === 'advanced' ? Homey.__("settings.flow_backups.type_advanced") : Homey.__("settings.flow_backups.type_standard");
+          var typeClass = b.type === 'advanced' ? 'advanced' : '';
+          var statusLabel = b.flowExists ? Homey.__("settings.flow_backups.status_active") : Homey.__("settings.flow_backups.status_deleted");
+          var statusClass = b.flowExists ? 'active' : 'deleted';
+          var displayDate = b.backedUpAtLocal || b.backedUpAt;
+
+          html += '<div class="backup-item" data-flow-id="' + _escapeHtml(b.flowId) + '">';
+          // Header: Title & Badges
+          html += '<div class="backup-header">';
+          html += '<div class="backup-title">' + _escapeHtml(b.name) + '</div>';
+          html += '<div class="backup-badges">';
+          html += '<span class="badge-type ' + typeClass + '">' + _escapeHtml(typeLabel) + '</span>';
+          html += '<span class="badge-status ' + statusClass + '">' + _escapeHtml(statusLabel) + '</span>';
+          html += '</div>';
+          html += '</div>';
+
+          // Footer: Date & Actions
+          html += '<div class="backup-footer">';
+          html += '<div class="backup-date">📅 ' + _escapeHtml(displayDate) + '</div>';
+          html += '<div class="backup-actions">';
+
+          if (b.url) {
+            html += '<button type="button" class="homey-button-secondary-shadow homey-button-small btn-open-backup" data-url="' + _escapeHtml(b.url) + '">' + Homey.__("settings.flow_backups.btn_open") + '</button>';
+          }
+
+          html += '<button type="button" class="homey-button-secondary-shadow homey-button-small btn-restore-backup" data-flow-id="' + _escapeHtml(b.flowId) + '" data-flow-name="' + _escapeHtml(b.name) + '" data-flow-exists="' + (b.flowExists ? 'true' : 'false') + '">' + Homey.__("settings.flow_backups.btn_restore") + '</button>';
+          html += '<button type="button" class="homey-button-danger-shadow homey-button-small btn-delete-backup" data-flow-id="' + _escapeHtml(b.flowId) + '" data-flow-name="' + _escapeHtml(b.name) + '">' + Homey.__("settings.flow_backups.btn_delete") + '</button>';
+          html += '</div>';
+          html += '</div>';
+
+          html += '</div>';
+        });
+
+        flowBackupsContainer.innerHTML = html;
+
+        // Attach event listeners
+        flowBackupsContainer.querySelectorAll('.btn-open-backup').forEach(function (btn) {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var url = this.getAttribute('data-url');
+            _openFlowBackup(url);
+          });
+        });
+
+        flowBackupsContainer.querySelectorAll('.btn-restore-backup').forEach(function (btn) {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var flowId = this.getAttribute('data-flow-id');
+            var flowName = this.getAttribute('data-flow-name');
+            var flowExists = this.getAttribute('data-flow-exists') === 'true';
+            _restoreFlowBackup(flowId, flowName, flowExists);
+          });
+        });
+
+        flowBackupsContainer.querySelectorAll('.btn-delete-backup').forEach(function (btn) {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var flowId = this.getAttribute('data-flow-id');
+            var flowName = this.getAttribute('data-flow-name');
+            _deleteFlowBackup(flowId, flowName);
+          });
+        });
+      }
+
+      /**
+       * Filters cached flow backups based on the search input query.
+       *
+       * @private
+       * @returns {void}
+       */
+      function _filterFlowBackups() {
+        var query = searchFlowBackupsElement.value.trim().toLowerCase();
+        if (!query) {
+          _renderFlowBackups(_cachedBackups);
+          return;
+        }
+
+        var filtered = _cachedBackups.filter(function (b) {
+          return (b.name && b.name.toLowerCase().indexOf(query) !== -1) ||
+                 (b.flowId && b.flowId.toLowerCase().indexOf(query) !== -1);
+        });
+
+        _renderFlowBackups(filtered);
+      }
+
+      searchFlowBackupsElement.addEventListener('input', _filterFlowBackups);
+
+      /**
+       * Opens the flow backup JSON URL in a new browser tab/window.
+       * Uses Homey.openURL when available with anchor click fallback.
+       *
+       * @private
+       * @param {string} url - The HTTP URL of the backup file.
+       * @returns {void}
+       */
+      function _openFlowBackup(url) {
+        if (!url) return;
+        try {
+          if (typeof Homey.openURL === 'function') {
+            Homey.openURL(url);
+          }
+        } catch (openErr) {
+          console.warn('[openFlowBackup] Homey.openURL failed, falling back to window.open/link:', openErr);
+        }
+
+        var a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+
+      /**
+       * Prompts confirmation and restores a flow from its backup.
+       *
+       * @private
+       * @param {string} flowId - Identifier of the flow to restore.
+       * @param {string} flowName - Display name of the flow.
+       * @param {boolean} flowExists - Whether the flow currently exists in Homey.
+       * @returns {void}
+       */
+      function _restoreFlowBackup(flowId, flowName, flowExists) {
+        var confirmTemplate = flowExists
+          ? Homey.__("settings.flow_backups.confirm_restore_active")
+          : Homey.__("settings.flow_backups.confirm_restore_deleted");
+        var confirmMsg = confirmTemplate.replace('{name}', flowName);
+
+        Homey.confirm(confirmMsg, 'warning', function (err, result) {
+          if (err) {
+            console.error('[Settings:restoreFlowBackup] Error showing confirm dialog:', err);
+            return;
+          }
+
+          if (!result) return;
+
+          Homey.api("POST", "/flow-backups/" + flowId + "/restore", null, function (err, res) {
+            if (err) {
+              console.error('[Settings:restoreFlowBackup] API error:', err);
+              _showToast(Homey.__("settings.flow_backups.error_restore") + ': ' + (err.message || err), 'error');
+              return;
+            }
+
+            if (res && res.success) {
+              _showToast(Homey.__("settings.flow_backups.msg_restored"), 'success');
+              _loadFlowBackups();
+            } else {
+              console.error('[Settings:restoreFlowBackup] Restore failed:', res?.error);
+              _showToast(Homey.__("settings.flow_backups.error_restore") + ': ' + (res?.error || Homey.__("settings.common.unknown_error")), 'error');
+            }
+          });
+        });
+      }
+
+      /**
+       * Prompts confirmation and deletes a flow backup.
+       *
+       * @private
+       * @param {string} flowId - Identifier of the flow backup to delete.
+       * @param {string} flowName - Display name of the flow.
+       * @returns {void}
+       */
+      function _deleteFlowBackup(flowId, flowName) {
+        var confirmMsg = Homey.__("settings.flow_backups.confirm_delete").replace('{name}', flowName);
+
+        Homey.confirm(confirmMsg, 'warning', function (err, result) {
+          if (err) {
+            console.error('[Settings:deleteFlowBackup] Error showing confirm dialog:', err);
+            return;
+          }
+
+          if (!result) return;
+
+          Homey.api("DELETE", "/flow-backups/" + flowId, null, function (err, res) {
+            if (err) {
+              console.error('[Settings:deleteFlowBackup] API error:', err);
+              _showToast(Homey.__("settings.flow_backups.error_delete") + ': ' + (err.message || err), 'error');
+              return;
+            }
+
+            if (res && res.success) {
+              _showToast(Homey.__("settings.flow_backups.msg_deleted"), 'success');
+              _loadFlowBackups();
+            } else {
+              console.error('[Settings:deleteFlowBackup] Deletion failed:', res?.error);
+              _showToast(Homey.__("settings.flow_backups.error_delete") + ': ' + (res?.error || Homey.__("settings.common.unknown_error")), 'error');
+            }
+          });
+        });
+      }
 
     }
   </script>

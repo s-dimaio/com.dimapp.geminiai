@@ -21,6 +21,8 @@
             "timers_desc": "Manage scheduled commands",
             "history_title": "Conversation History",
             "history_desc": "Manage chat history",
+            "flow_backups_title": "Backup Flow",
+            "flow_backups_desc": "View, restore or delete backups of your flows created by Gemini",
             "guide_title": "Setup Guide",
             "guide_desc": "Instructions to configure the app"
         },
@@ -46,7 +48,9 @@
                 "flash35_lite": "Gemini 3.5 Flash-Lite",
                 "flash35": "Gemini 3.5 Flash",
                 "flash36": "Gemini 3.6 Flash",
-                "flash37": "Gemini 3.7 Flash"
+                "flash37": "Gemini 3.7 Flash",
+                "flash38": "Gemini 3.8 Flash",
+                "argon4": "Gemini 4 Argon"
             },
             "pool_size_label": "Simultaneous Images",
             "pool_size_help": "Number of images pre-allocated for simultaneous 'Send Prompt with Image' queries. A high number consumes a lot of memory with risk of app crash. Each change requires the app to be restarted to take effect.",
@@ -108,6 +112,28 @@
             "error_clear": "Error clearing conversation history",
             "error_timeout": "Error saving memory duration",
             "error_invalid_timeout": "Please enter a value between 10 and 240 minutes."
+        },
+        "flow_backups": {
+            "title": "Backup Flow",
+            "subtitle": "View, restore or delete backups of your flows created by Gemini",
+            "search_placeholder": "Search backup by flow name...",
+            "no_backups": "No flow backups saved on the device.",
+            "no_match": "No flow backups match your search.",
+            "type_standard": "Standard Flow",
+            "type_advanced": "Advanced Flow",
+            "status_active": "Active on Homey",
+            "status_deleted": "Deleted from Homey",
+            "btn_open": "Open",
+            "btn_restore": "Restore",
+            "btn_delete": "Delete",
+            "confirm_restore_active": "Flow \"{name}\" already exists on Homey. Restoring will overwrite the current version with this backup. Do you want to proceed?",
+            "confirm_restore_deleted": "Flow \"{name}\" was deleted from Homey. Do you want to recreate it from this backup?",
+            "confirm_delete": "Are you sure you want to permanently delete the backup for flow \"{name}\"?",
+            "msg_restored": "Flow restored successfully!",
+            "msg_deleted": "Backup deleted successfully!",
+            "error_load": "Error loading flow backups",
+            "error_restore": "Error restoring flow",
+            "error_delete": "Error deleting backup"
         },
         "guide": {
             "title": "Setup Guide",
