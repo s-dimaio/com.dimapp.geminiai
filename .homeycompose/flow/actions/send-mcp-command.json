@@ -8,16 +8,34 @@
     "it": "Invia un comando in linguaggio naturale a Gemini per controllare i tuoi dispositivi smart"
   },
   "titleFormatted": {
-    "en": "Send the command [[command]] to your smart home",
-    "it": "Invia il comando [[command]] alla tua smart home"
+    "en": "Send saved prompt [[saved_prompt]] or custom command [[command]] to your smart home",
+    "it": "Invia prompt salvato [[saved_prompt]] o comando [[command]] alla tua smart home"
   },
   "args": [
     {
+      "type": "autocomplete",
+      "name": "saved_prompt",
+      "required": false,
+      "title": {
+        "en": "Saved Prompt",
+        "it": "Prompt Salvato"
+      },
+      "placeholder": {
+        "en": "Select a saved prompt...",
+        "it": "Seleziona un prompt salvato..."
+      }
+    },
+    {
       "type": "text",
       "name": "command",
+      "required": false,
+      "title": {
+        "en": "Custom Command",
+        "it": "Comando Manuale"
+      },
       "placeholder": {
-        "en": "Text a Gemini prompt",
-        "it": "Scrivi un prompt per Gemini"
+        "en": "Or write a command...",
+        "it": "Oppure scrivi un comando..."
       }
     }
   ],

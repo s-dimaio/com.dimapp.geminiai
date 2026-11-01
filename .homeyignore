@@ -15,5 +15,6 @@ jsconfig.json
 log.txt
 /dist-test/
 /lib/
+/log/
 app.src.js
 /AI_PROJECT_HANDBOOK.md

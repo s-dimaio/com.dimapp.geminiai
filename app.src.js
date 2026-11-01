@@ -4,8 +4,43 @@ const Homey = require('homey');
 const { Readable } = require('stream');
 const { GeminiClient } = require('./lib/GeminiClient');
 const ModelConfig = require('./lib/ModelConfig');
+const { PromptManager } = require('./lib/managers/PromptManager');
+const LogManager = require('./lib/LogManager');
 
 module.exports = class GeminiApp extends Homey.App {
+
+  /**
+   * Exposes the PromptManager instance for Web API endpoints and Flow cards.
+   *
+   * @public
+   * @type {PromptManager}
+   */
+  get promptManager() {
+    if (!this._promptManager) {
+      this._promptManager = new PromptManager(this.homey);
+    }
+    return this._promptManager;
+  }
+
+  /**
+   * Exposes the LogManager instance for Web API endpoints and diagnostic logging.
+   *
+   * @public
+   * @type {LogManager}
+   */
+  get logManager() {
+    return this._logManager;
+  }
+
+  /**
+   * Returns the LogManager instance for Web API endpoints.
+   *
+   * @public
+   * @returns {LogManager}
+   */
+  getLogManager() {
+    return this._logManager;
+  }
 
   /**
    * Exposes the ModelConfig module for Web API endpoints and UI configuration.
@@ -40,10 +75,17 @@ module.exports = class GeminiApp extends Homey.App {
    * onInit is called when the app is initialized.
    */
   async onInit() {
+    // Initialize LogManager first to capture all startup logs
+    this._logManager = new LogManager(this);
+    await this._logManager.init();
+
     this.log('[onInit] GeminiApp has been initialized');
 
     // Automatically migrate any deprecated or preview models in settings
     ModelConfig.migrateSettings(this.homey);
+
+    // Initialize PromptManager
+    this._promptManager = new PromptManager(this.homey);
 
     // Initialize the GeminiClient once at startup
     this.initializeGeminiClient();
@@ -57,6 +99,11 @@ module.exports = class GeminiApp extends Homey.App {
     // Store the reference so it can be removed in onUninit() to avoid
     // accessing a destroyed app instance after a ready_timeout crash.
     this._settingsListener = (key) => {
+      if (key === 'debug_logging_enabled') {
+        const isEnabled = Boolean(this.homey.settings.get('debug_logging_enabled'));
+        this._logManager.setDebugEnabled(isEnabled);
+        return;
+      }
       if (key === 'gemini_api_key' || key === 'gemini_model' || key === 'gemini_model_chat' || key === 'gemini_model_sh_generic' || key === 'gemini_model_sh_flow' || key === 'gemini_custom_instructions' || key === 'gemini_enable_google_search' || key === 'gemini_include_hidden_grouped') {
         this.log(`[onInit] Setting ${key} changed, re-initializing GeminiClient`);
         this.initializeGeminiClient();
@@ -138,6 +185,12 @@ module.exports = class GeminiApp extends Homey.App {
     if (this.geminiClient && this.geminiClient.mcpAdapter) {
       await this.geminiClient.mcpAdapter.cleanup();
     }
+
+    // Teardown LogManager and restore original console methods
+    if (this._logManager) {
+      this._logManager.destroy();
+      this._logManager = null;
+    }
   }
 
   /**
@@ -145,17 +198,22 @@ module.exports = class GeminiApp extends Homey.App {
    */
   registerSendPromptActionCard() {
     this.sendPromptActionCard = this.homey.flow.getActionCard("send-prompt");
+
+    this.sendPromptActionCard.registerArgumentAutocompleteListener('saved_prompt', async (query) => {
+      return this.promptManager.getAutocompleteOptions(query);
+    });
+
     this.sendPromptActionCard.registerRunListener(async (args) => {
       this.log(`[sendPromptActionCard] Args: ${JSON.stringify(args, null, 2)}`);
 
       try {
+        const prompt = this.promptManager.resolveFlowPrompt(args, 'prompt');
+        this.log(`[sendPromptActionCard] Prompt: ${prompt}`);
+
         // Check if GeminiClient is initialized
         if (!this.geminiClient) {
           throw new Error(this.homey.__("prompt.error.noapi") || 'Gemini API key not configured in app settings');
         }
-
-        const prompt = args['prompt'];
-        this.log(`[sendPromptActionCard] Prompt: ${prompt}`);
 
         const text = await this.geminiClient.generateText(prompt);
         this.log(`[sendPromptActionCard] Response: ${text}`);
@@ -206,19 +264,24 @@ module.exports = class GeminiApp extends Homey.App {
     this.log(`[sendPromptWithImageActionCard] Image pool ready (${poolSize} slots)`);
 
     this.sendPromptWithImageActionCard = this.homey.flow.getActionCard("send-prompt-with-image");
+
+    this.sendPromptWithImageActionCard.registerArgumentAutocompleteListener('saved_prompt', async (query) => {
+      return this.promptManager.getAutocompleteOptions(query);
+    });
+
     this.sendPromptWithImageActionCard.registerRunListener(async (args) => {
       this.log(`[sendPromptWithImageActionCard] Args: ${JSON.stringify(args, null, 2)}`);
 
       try {
+        const prompt = this.promptManager.resolveFlowPrompt(args, 'prompt');
+        const imageToken = args.droptoken;
+
+        this.log(`[sendPromptWithImageActionCard] Prompt: ${prompt}`);
+
         // Check if GeminiClient is initialized
         if (!this.geminiClient) {
           throw new Error(this.homey.__("prompt.error.noapi") || 'Gemini API key not configured in app settings');
         }
-
-        const prompt = args['prompt'];
-        const imageToken = args.droptoken;
-
-        this.log(`[sendPromptWithImageActionCard] Prompt: ${prompt}`);
 
         // Validate image token
         this.validateImageToken(imageToken);
@@ -329,6 +392,13 @@ module.exports = class GeminiApp extends Homey.App {
     }
 
     this.error(`${context} Error details: ${cleanMessage}`);
+
+    // If error is already a specific validation message from PromptManager, preserve it directly
+    if (rawMessage === this.homey.__("prompt.error.both_prompts_provided") ||
+      rawMessage === this.homey.__("prompt.error.empty_prompt") ||
+      rawMessage === this.homey.__("prompt.error.saved_prompt_not_found")) {
+      throw error;
+    }
 
     // Check for specific error types and provide conversational localized messages
     const errorStr = (rawMessage + ' ' + (error.stack || '')).toLowerCase();
@@ -461,17 +531,22 @@ module.exports = class GeminiApp extends Homey.App {
    */
   registerMCPCommandActionCard() {
     this.mcpCommandCard = this.homey.flow.getActionCard("send-mcp-command");
+
+    this.mcpCommandCard.registerArgumentAutocompleteListener('saved_prompt', async (query) => {
+      return this.promptManager.getAutocompleteOptions(query);
+    });
+
     this.mcpCommandCard.registerRunListener(async (args) => {
-      this.log(`[mcpCommandCard] Command: ${args.command}`);
+      this.log(`[mcpCommandCard] Args: ${JSON.stringify(args, null, 2)}`);
 
       try {
+        const command = this.promptManager.resolveFlowPrompt(args, 'command');
+        this.log(`[mcpCommandCard] Executing MCP command: ${command}`);
+
         // Check if GeminiClient is initialized
         if (!this.geminiClient) {
           throw new Error(this.homey.__("prompt.error.noapi") || 'Gemini API key not configured in app settings');
         }
-
-        const command = args.command;
-        this.log(`[mcpCommandCard] Executing MCP command: ${command}`);
 
         // Generate response with MCP function calling
         const result = await this.geminiClient.generateTextWithMCP(command);
@@ -503,16 +578,24 @@ module.exports = class GeminiApp extends Homey.App {
    */
   registerEvaluatePromptConditionCard() {
     this.evaluatePromptConditionCard = this.homey.flow.getConditionCard('evaluate-prompt');
+
+    this.evaluatePromptConditionCard.registerArgumentAutocompleteListener('saved_prompt', async (query) => {
+      return this.promptManager.getAutocompleteOptions(query);
+    });
+
     this.evaluatePromptConditionCard.registerRunListener(async (args) => {
-      this.log(`[evaluatePromptConditionCard] Prompt: ${args.prompt}`);
+      this.log(`[evaluatePromptConditionCard] Args: ${JSON.stringify(args, null, 2)}`);
 
       try {
+        const prompt = this.promptManager.resolveFlowPrompt(args, 'prompt');
+        this.log(`[evaluatePromptConditionCard] Prompt: ${prompt}`);
+
         if (!this.geminiClient) {
           throw new Error(this.homey.__('prompt.error.noapi'));
         }
 
-        const result = await this.geminiClient.evaluateCondition(args.prompt);
-        this.log(`[evaluatePromptConditionCard] isAnswerable=${result.isAnswerable}, result=${result.result}`);
+        const result = await this.geminiClient.evaluateCondition(prompt);
+        this.log(`[evaluatePromptConditionCard] isAnswerable=${result.isAnswerable}, result=${result.result}, explanation="${result.explanation || ''}"`);
 
         if (!result.isAnswerable) {
           throw new Error(
@@ -552,10 +635,18 @@ module.exports = class GeminiApp extends Homey.App {
     this.log(`[evaluatePromptWithImageConditionCard] Image pool ready (${poolSize} slots)`);
 
     this.evaluatePromptWithImageConditionCard = this.homey.flow.getConditionCard('evaluate-prompt-with-image');
+
+    this.evaluatePromptWithImageConditionCard.registerArgumentAutocompleteListener('saved_prompt', async (query) => {
+      return this.promptManager.getAutocompleteOptions(query);
+    });
+
     this.evaluatePromptWithImageConditionCard.registerRunListener(async (args) => {
-      this.log(`[evaluatePromptWithImageConditionCard] Prompt: ${args.prompt}`);
+      this.log(`[evaluatePromptWithImageConditionCard] Args: ${JSON.stringify(args, null, 2)}`);
 
       try {
+        const prompt = this.promptManager.resolveFlowPrompt(args, 'prompt');
+        this.log(`[evaluatePromptWithImageConditionCard] Prompt: ${prompt}`);
+
         if (!this.geminiClient) {
           throw new Error(this.homey.__('prompt.error.noapi'));
         }
@@ -574,8 +665,8 @@ module.exports = class GeminiApp extends Homey.App {
 
         this.log(`[evaluatePromptWithImageConditionCard] Image buffer: ${imageBuffer.length} bytes, slot: ${slotIndex}`);
 
-        const result = await this.geminiClient.evaluateConditionWithImage(args.prompt, imageBuffer, mimeType);
-        this.log(`[evaluatePromptWithImageConditionCard] isAnswerable=${result.isAnswerable}, result=${result.result}`);
+        const result = await this.geminiClient.evaluateConditionWithImage(prompt, imageBuffer, mimeType);
+        this.log(`[evaluatePromptWithImageConditionCard] isAnswerable=${result.isAnswerable}, result=${result.result}, explanation="${result.explanation || ''}"`);
 
         if (!result.isAnswerable) {
           throw new Error(
@@ -604,16 +695,24 @@ module.exports = class GeminiApp extends Homey.App {
    */
   registerEvaluateMcpCommandConditionCard() {
     this.evaluateMcpCommandConditionCard = this.homey.flow.getConditionCard('evaluate-mcp-command');
+
+    this.evaluateMcpCommandConditionCard.registerArgumentAutocompleteListener('saved_prompt', async (query) => {
+      return this.promptManager.getAutocompleteOptions(query);
+    });
+
     this.evaluateMcpCommandConditionCard.registerRunListener(async (args) => {
-      this.log(`[evaluateMcpCommandConditionCard] Prompt: ${args.prompt}`);
+      this.log(`[evaluateMcpCommandConditionCard] Args: ${JSON.stringify(args, null, 2)}`);
 
       try {
+        const prompt = this.promptManager.resolveFlowPrompt(args, 'prompt');
+        this.log(`[evaluateMcpCommandConditionCard] Prompt: ${prompt}`);
+
         if (!this.geminiClient) {
           throw new Error(this.homey.__('prompt.error.noapi'));
         }
 
-        const result = await this.geminiClient.evaluateConditionWithMCP(args.prompt);
-        this.log(`[evaluateMcpCommandConditionCard] isAnswerable=${result.isAnswerable}, result=${result.result}`);
+        const result = await this.geminiClient.evaluateConditionWithMCP(prompt);
+        this.log(`[evaluateMcpCommandConditionCard] isAnswerable=${result.isAnswerable}, result=${result.result}, explanation="${result.explanation || ''}"`);
 
         if (!result.isAnswerable) {
           throw new Error(

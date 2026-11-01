@@ -13,5 +13,6 @@ TODO.txt
 HOMEY_POST.md
 jsconfig.json
 log.txt
+/log/
 /dist/
 /AI_PROJECT_HANDBOOK.md

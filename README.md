@@ -24,6 +24,8 @@ This Homey app bridges your smart home with Google's Generative AI models (`@goo
 - **Multi-Turn Memory & Pruning**: Remembers conversational context across interactions via server-side session tracking (`previous_interaction_id`) with automatic idle timeout cleanup.
 - **Scheduled Automations**: Schedule commands with natural language (e.g., *"Turn off living room lights at 11 PM"* or *"in 15 minutes"*), persisted across app restarts with trigger card activation.
 - **Custom Instructions & AI Prompt Generator**: Write natural rules (e.g., *"Always check the bedroom Daikin when I ask for temperature"*) and convert them automatically into formatted Markdown system prompts.
+- **Saved Prompt Library & Assisted AI Generator**: Create, organize, duplicate, and edit complex multi-section Markdown prompts in the app settings. Use the integrated "Genera con Gemini AI" assist button to describe your intent in simple natural language; Gemini queries your smart home devices via MCP in real time and automatically authors a comprehensive, structured Markdown prompt. Select any saved prompt directly inside all 6 Flow cards via autocomplete with strict mutual exclusion validation.
+- **Persistent Diagnostic Logging**: On-demand diagnostic file logging with decoupled asynchronous write queue, file rotation (3 backups x 2 MB), automatic masking of credentials/PII, and in-app status/download management.
 - **Hidden & Grouped Devices Control**: Configurable access to devices marked as hidden or grouped in Homey.
 
 ---
@@ -79,6 +81,9 @@ This Homey app bridges your smart home with Google's Generative AI models (`@goo
 ---
 
 ## 💡 Flow Cards Reference
+
+> [!NOTE]
+> All Action and Condition prompt cards support selecting a saved prompt from the **Prompt Library** (`autocomplete`) or entering a custom manual prompt (`text`). Both fields are optional, but exactly one must be provided per card (mutual exclusion validation).
 
 ### 🎬 Action Cards
 
@@ -155,11 +160,12 @@ com.dimapp.geminiai/
 ├── lib/
 │   ├── GeminiClient.js   # GenAI orchestrator, caching, conversation memory, tool calling loop
 │   ├── HomeyMCPAdapter.js# Bridge between Gemini function declarations and Homey Local API
+│   ├── LogManager.js     # Rotating diagnostic logger with credential masking and async write queue
 │   ├── ModelConfig.js    # Model routing definitions, deprecation fallbacks, settings migration
 │   ├── Scheduler.js      # Short (<24h) and long (>=24h) timer engine with settings persistence
 │   ├── SystemInstruction.js # Dynamic ISO date/time, timezone, and locale context injector
 │   ├── ToolSchema.js     # Function declaration schemas for Gemini tools
-│   └── managers/         # Domain managers: DeviceManager, DiscoveryManager, FlowManager
+│   └── managers/         # Domain managers: DeviceManager, DiscoveryManager, FlowManager, PromptManager
 ├── settings/             # Settings SPA view (index.html)
 └── widgets/gemini_chat/  # Dashboard Chat Widget (non-blocking task queue)
 ```

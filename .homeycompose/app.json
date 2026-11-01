@@ -1,6 +1,6 @@
 {
   "id": "com.dimapp.geminiai",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -80,6 +80,46 @@
     "deleteFlowBackup": {
       "method": "DELETE",
       "path": "/flow-backups/:id"
+    },
+    "getSavedPrompts": {
+      "method": "GET",
+      "path": "/saved-prompts"
+    },
+    "saveSavedPrompt": {
+      "method": "POST",
+      "path": "/saved-prompts"
+    },
+    "updateSavedPrompt": {
+      "method": "PUT",
+      "path": "/saved-prompts/:id"
+    },
+    "deleteSavedPrompt": {
+      "method": "DELETE",
+      "path": "/saved-prompts/:id"
+    },
+    "duplicateSavedPrompt": {
+      "method": "POST",
+      "path": "/saved-prompts/:id/duplicate"
+    },
+    "generateSavedPrompt": {
+      "method": "POST",
+      "path": "/saved-prompts/generate"
+    },
+    "getLogStatus": {
+      "method": "GET",
+      "path": "/log/status"
+    },
+    "getLogDownloadFile": {
+      "method": "GET",
+      "path": "/log/download/:index"
+    },
+    "deleteAllLogs": {
+      "method": "DELETE",
+      "path": "/log/all"
+    },
+    "deleteLogFile": {
+      "method": "DELETE",
+      "path": "/log/:index"
     }
   }
 }

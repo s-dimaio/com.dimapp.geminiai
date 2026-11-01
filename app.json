@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.dimapp.geminiai",
-  "version": "3.4.1",
+  "version": "3.4.2",
   "compatibility": ">=12.4.0",
   "sdk": 3,
   "platforms": [
@@ -81,6 +81,46 @@
     "deleteFlowBackup": {
       "method": "DELETE",
       "path": "/flow-backups/:id"
+    },
+    "getSavedPrompts": {
+      "method": "GET",
+      "path": "/saved-prompts"
+    },
+    "saveSavedPrompt": {
+      "method": "POST",
+      "path": "/saved-prompts"
+    },
+    "updateSavedPrompt": {
+      "method": "PUT",
+      "path": "/saved-prompts/:id"
+    },
+    "deleteSavedPrompt": {
+      "method": "DELETE",
+      "path": "/saved-prompts/:id"
+    },
+    "duplicateSavedPrompt": {
+      "method": "POST",
+      "path": "/saved-prompts/:id/duplicate"
+    },
+    "generateSavedPrompt": {
+      "method": "POST",
+      "path": "/saved-prompts/generate"
+    },
+    "getLogStatus": {
+      "method": "GET",
+      "path": "/log/status"
+    },
+    "getLogDownloadFile": {
+      "method": "GET",
+      "path": "/log/download/:index"
+    },
+    "deleteAllLogs": {
+      "method": "DELETE",
+      "path": "/log/all"
+    },
+    "deleteLogFile": {
+      "method": "DELETE",
+      "path": "/log/:index"
     }
   },
   "flow": {
@@ -193,8 +233,8 @@
           "it": "Fai a Gemini !{{|non}} una domanda sì/no sulla tua casa"
         },
         "titleFormatted": {
-          "en": "Ask Gemini !{{|not}} [[prompt]] about your Smart Home",
-          "it": "Chiedi a Gemini !{{|non}} [[prompt]] sulla tua Smart Home"
+          "en": "Ask Gemini !{{|not}} [[saved_prompt]] or [[prompt]] about your Smart Home",
+          "it": "Chiedi a Gemini !{{|non}}  [[saved_prompt]] o [[prompt]] sulla tua Smart Home"
         },
         "hint": {
           "en": "Ask Gemini a question that requires checking the state of your smart home. If the answer is yes, the condition is true. If the answer is no, the condition is false. If the question is not answerable with yes/no the card will return an error.",
@@ -202,11 +242,29 @@
         },
         "args": [
           {
+            "type": "autocomplete",
+            "name": "saved_prompt",
+            "required": false,
+            "title": {
+              "en": "Select a Prompt",
+              "it": "Scegli un Prompt"
+            },
+            "placeholder": {
+              "en": "Select a saved prompt...",
+              "it": "Seleziona un prompt salvato..."
+            }
+          },
+          {
             "type": "text",
             "name": "prompt",
+            "required": false,
+            "title": {
+              "en": "Ask a question",
+              "it": "Fai una domanda"
+            },
             "placeholder": {
-              "en": "Ask a yes/no question",
-              "it": "Fai una domanda sì/no"
+              "en": "Ask a yes/no question...",
+              "it": "Fai una domanda sì/no..."
             }
           }
         ],
@@ -218,8 +276,8 @@
           "it": "Fai a Gemini !{{|non}} una domanda sì/no"
         },
         "titleFormatted": {
-          "en": "Ask Gemini !{{|not}} [[prompt]]",
-          "it": "Chiedi a Gemini !{{|non}} [[prompt]]"
+          "en": "Ask Gemini !{{|not}} saved prompt [[saved_prompt]] or [[prompt]]",
+          "it": "Chiedi a Gemini !{{|non}} prompt salvato [[saved_prompt]] o [[prompt]]"
         },
         "hint": {
           "en": "Ask Gemini a question. If the answer is yes, the condition is true. If the answer is no, the condition is false. If the question is not answerable with yes/no the card will return an error.",
@@ -227,11 +285,29 @@
         },
         "args": [
           {
+            "type": "autocomplete",
+            "name": "saved_prompt",
+            "required": false,
+            "title": {
+              "en": "Saved Prompt",
+              "it": "Prompt Salvato"
+            },
+            "placeholder": {
+              "en": "Select a saved prompt...",
+              "it": "Seleziona un prompt salvato..."
+            }
+          },
+          {
             "type": "text",
             "name": "prompt",
+            "required": false,
+            "title": {
+              "en": "Custom Question",
+              "it": "Domanda Manuale"
+            },
             "placeholder": {
-              "en": "Ask a yes/no question",
-              "it": "Fai una domanda sì/no"
+              "en": "Or ask a yes/no question...",
+              "it": "Oppure fai una domanda sì/no..."
             }
           }
         ],
@@ -243,8 +319,8 @@
           "it": "Fai a Gemini !{{|non}} una domanda sì/no su un'immagine"
         },
         "titleFormatted": {
-          "en": "Ask Gemini !{{|not}} [[prompt]] about the image [[droptoken]]",
-          "it": "Chiedi a Gemini !{{|non}} [[prompt]] sull'immagine [[droptoken]]"
+          "en": "Ask Gemini !{{|not}} saved prompt [[saved_prompt]] or [[prompt]] about the image [[droptoken]]",
+          "it": "Chiedi a Gemini !{{|non}} prompt salvato [[saved_prompt]] o [[prompt]] sull'immagine [[droptoken]]"
         },
         "hint": {
           "en": "Ask Gemini a question about an image. If the answer is yes, the condition is true. If the answer is no, the condition is false. If the question is not answerable with yes/no the card will return an error.",
@@ -255,11 +331,29 @@
         ],
         "args": [
           {
+            "type": "autocomplete",
+            "name": "saved_prompt",
+            "required": false,
+            "title": {
+              "en": "Saved Prompt",
+              "it": "Prompt Salvato"
+            },
+            "placeholder": {
+              "en": "Select a saved prompt...",
+              "it": "Seleziona un prompt salvato..."
+            }
+          },
+          {
             "type": "text",
             "name": "prompt",
+            "required": false,
+            "title": {
+              "en": "Custom Question",
+              "it": "Domanda Manuale"
+            },
             "placeholder": {
-              "en": "Ask a yes/no question",
-              "it": "Fai una domanda sì/no"
+              "en": "Or ask a yes/no question...",
+              "it": "Oppure fai una domanda sì/no..."
             }
           }
         ],
@@ -313,16 +407,34 @@
           "it": "Invia un comando in linguaggio naturale a Gemini per controllare i tuoi dispositivi smart"
         },
         "titleFormatted": {
-          "en": "Send the command [[command]] to your smart home",
-          "it": "Invia il comando [[command]] alla tua smart home"
+          "en": "Send saved prompt [[saved_prompt]] or custom command [[command]] to your smart home",
+          "it": "Invia prompt salvato [[saved_prompt]] o comando [[command]] alla tua smart home"
         },
         "args": [
           {
+            "type": "autocomplete",
+            "name": "saved_prompt",
+            "required": false,
+            "title": {
+              "en": "Saved Prompt",
+              "it": "Prompt Salvato"
+            },
+            "placeholder": {
+              "en": "Select a saved prompt...",
+              "it": "Seleziona un prompt salvato..."
+            }
+          },
+          {
             "type": "text",
             "name": "command",
+            "required": false,
+            "title": {
+              "en": "Custom Command",
+              "it": "Comando Manuale"
+            },
             "placeholder": {
-              "en": "Text a Gemini prompt",
-              "it": "Scrivi un prompt per Gemini"
+              "en": "Or write a command...",
+              "it": "Oppure scrivi un comando..."
             }
           }
         ],
@@ -369,16 +481,34 @@
           "it": "Invia un prompt a Gemini"
         },
         "titleFormatted": {
-          "en": "Send the prompt [[prompt]]",
-          "it": "Invia il prompt [[prompt]]"
+          "en": "Send saved prompt [[saved_prompt]] or prompt [[prompt]]",
+          "it": "Invia prompt salvato [[saved_prompt]] o prompt [[prompt]]"
         },
         "args": [
           {
+            "type": "autocomplete",
+            "name": "saved_prompt",
+            "required": false,
+            "title": {
+              "en": "Saved Prompt",
+              "it": "Prompt Salvato"
+            },
+            "placeholder": {
+              "en": "Select a saved prompt...",
+              "it": "Seleziona un prompt salvato..."
+            }
+          },
+          {
             "type": "text",
             "name": "prompt",
+            "required": false,
+            "title": {
+              "en": "Custom Prompt",
+              "it": "Prompt Manuale"
+            },
             "placeholder": {
-              "en": "Text a Gemini prompt",
-              "it": "Scrivi un prompt per Gemini"
+              "en": "Or write a prompt...",
+              "it": "Oppure scrivi un prompt..."
             }
           }
         ],
@@ -404,19 +534,37 @@
           "it": "Invia un prompt multimodale a Gemini (testo + immagine)"
         },
         "titleFormatted": {
-          "en": "Send a prompt [[prompt]] with image [[droptoken]]",
-          "it": "Invia un prompt [[prompt]] con immagine [[droptoken]]"
+          "en": "Send saved prompt [[saved_prompt]] or prompt [[prompt]] with image [[droptoken]]",
+          "it": "Invia prompt salvato [[saved_prompt]] o prompt [[prompt]] con immagine [[droptoken]]"
         },
         "droptoken": [
           "image"
         ],
         "args": [
           {
+            "type": "autocomplete",
+            "name": "saved_prompt",
+            "required": false,
+            "title": {
+              "en": "Saved Prompt",
+              "it": "Prompt Salvato"
+            },
+            "placeholder": {
+              "en": "Select a saved prompt...",
+              "it": "Seleziona un prompt salvato..."
+            }
+          },
+          {
             "type": "text",
             "name": "prompt",
+            "required": false,
+            "title": {
+              "en": "Custom Prompt",
+              "it": "Prompt Manuale"
+            },
             "placeholder": {
-              "en": "Text a Gemini prompt",
-              "it": "Scrivi un prompt per Gemini"
+              "en": "Or write a prompt...",
+              "it": "Oppure scrivi un prompt..."
             }
           }
         ],

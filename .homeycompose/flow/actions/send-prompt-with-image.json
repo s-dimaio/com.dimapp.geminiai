@@ -8,19 +8,37 @@
     "it": "Invia un prompt multimodale a Gemini (testo + immagine)"
   },
   "titleFormatted": {
-    "en": "Send a prompt [[prompt]] with image [[droptoken]]",
-    "it": "Invia un prompt [[prompt]] con immagine [[droptoken]]"
+    "en": "Send saved prompt [[saved_prompt]] or prompt [[prompt]] with image [[droptoken]]",
+    "it": "Invia prompt salvato [[saved_prompt]] o prompt [[prompt]] con immagine [[droptoken]]"
   },
   "droptoken": [
     "image"
   ],
   "args": [
     {
+      "type": "autocomplete",
+      "name": "saved_prompt",
+      "required": false,
+      "title": {
+        "en": "Saved Prompt",
+        "it": "Prompt Salvato"
+      },
+      "placeholder": {
+        "en": "Select a saved prompt...",
+        "it": "Seleziona un prompt salvato..."
+      }
+    },
+    {
       "type": "text",
       "name": "prompt",
+      "required": false,
+      "title": {
+        "en": "Custom Prompt",
+        "it": "Prompt Manuale"
+      },
       "placeholder": {
-        "en": "Text a Gemini prompt",
-        "it": "Scrivi un prompt per Gemini"
+        "en": "Or write a prompt...",
+        "it": "Oppure scrivi un prompt..."
       }
     }
   ],

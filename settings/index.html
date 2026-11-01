@@ -231,37 +231,94 @@
       }
     }
 
-    /* Flow Backups Styles */
+    /* Flow Backups & Search Bar Styles */
     .flow-backups-section {
       margin-top: 10px;
     }
 
     .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
       margin-top: 15px;
       margin-bottom: 15px;
       position: relative;
     }
 
-    .search-input {
+    .search-container .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px;
+      height: 16px;
+      color: var(--text-secondary);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .search-container .search-icon svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Force high specificity and !important to override Homey default form input padding/margin */
+    .homey-form .search-container input.search-input,
+    .search-container .search-input {
       width: 100%;
       box-sizing: border-box;
-      padding: 10px 14px 10px 36px;
+      height: 38px;
+      line-height: 38px;
+      margin: 0 !important;
+      padding: 0 14px 0 40px !important;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+
+      font-size: 13px;
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .homey-form .search-container input.search-input:focus,
+    .search-container .search-input:focus {
+      border-color: var(--brand-color);
+    }
+
+    .homey-form .search-container input.search-input::placeholder,
+    .search-container .search-input::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.8;
+    }
+    /* obsolete old styles */
+    .obsolete-search-styles { /*
+
+
+      width: 100%;
+      box-sizing: border-box;
+
       border: 1px solid var(--border-color);
       border-radius: 8px;
       font-size: 13px;
       background-color: var(--bg-card);
       color: var(--text-primary);
       outline: none;
-      transition: border-color 0.2s;
+
     }
 
-    .search-input:focus {
+
       border-color: var(--brand-color);
     }
 
-    .search-icon {
+
       position: absolute;
-      left: 10px;
+
       top: 50%;
       transform: translateY(-50%);
       color: var(--text-secondary);
@@ -269,6 +326,8 @@
       display: flex;
       align-items: center;
     }
+
+    */ }
 
     .backup-item {
       display: flex;
@@ -397,6 +456,87 @@
         width: 100%;
         justify-content: flex-end;
       }
+    }
+
+    /* Prompt Library Styles */
+    .prompt-library-section {
+      margin-top: 10px;
+    }
+
+    .prompt-item {
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 12px;
+      background-color: var(--bg-card);
+      transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .prompt-item:hover {
+      background-color: var(--bg-card-hover);
+      border-color: var(--brand-color);
+    }
+
+    .prompt-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .prompt-item-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .prompt-item-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .prompt-item-preview {
+      font-family: monospace;
+      font-size: 12px;
+      background-color: rgba(0, 0, 0, 0.03);
+      padding: 8px 10px;
+      border-radius: 6px;
+      color: var(--text-secondary);
+      max-height: 60px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: pre-wrap;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .prompt-item-preview {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+    }
+
+    .prompt-item-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .prompt-item-date {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .prompt-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
     }
 
     /* SPA view management */
@@ -542,6 +682,131 @@
       margin-top: 10px;
       margin-bottom: 15px;
     }
+    /* Diagnostic Logs Styles */
+    .setting-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 8px 0;
+    }
+
+    .setting-toggle-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .setting-toggle-label {
+      font-weight: 500;
+      font-size: 14px;
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+
+    .setting-toggle-help {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 24px;
+    }
+
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .toggle-switch input:checked + .toggle-slider {
+      background-color: #34c759;
+    }
+
+    .toggle-switch input:focus + .toggle-slider {
+      box-shadow: 0 0 1px #34c759;
+    }
+
+    .toggle-switch input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+
+    .log-files-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .log-file-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-card);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+      gap: 12px;
+    }
+
+    .log-file-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .log-file-title {
+      font-family: monospace;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .log-file-meta {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      white-space: nowrap;
+    }
+
+    .log-file-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 
@@ -640,6 +905,42 @@
                 <div class="menu-item-text">
                   <span class="menu-item-title" data-i18n="settings.menu.flow_backups_title"></span>
                   <span class="menu-item-subtitle" data-i18n="settings.menu.flow_backups_desc"></span>
+                </div>
+              </div>
+              <div class="menu-item-arrow">›</div>
+            </div>
+
+            <div id="nav_prompt_library" class="menu-item" role="button" tabindex="0">
+              <div class="menu-item-content">
+                <div class="menu-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    <line x1="8" y1="6" x2="16" y2="6"></line>
+                    <line x1="8" y1="10" x2="16" y2="10"></line>
+                  </svg>
+                </div>
+                <div class="menu-item-text">
+                  <span class="menu-item-title" data-i18n="settings.menu.prompt_library_title"></span>
+                  <span class="menu-item-subtitle" data-i18n="settings.menu.prompt_library_desc"></span>
+                </div>
+              </div>
+              <div class="menu-item-arrow">›</div>
+            </div>
+
+            <div id="nav_diagnostic_logs" class="menu-item" role="button" tabindex="0">
+              <div class="menu-item-content">
+                <div class="menu-item-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="4 17 10 11 4 5"></polyline>
+                    <line x1="12" y1="19" x2="20" y2="19"></line>
+                  </svg>
+                </div>
+                <div class="menu-item-text">
+                  <span class="menu-item-title" data-i18n="settings.menu.diagnostic_logs_title"></span>
+                  <span class="menu-item-subtitle" data-i18n="settings.menu.diagnostic_logs_desc"></span>
                 </div>
               </div>
               <div class="menu-item-arrow">›</div>
@@ -971,6 +1272,163 @@
       </form>
     </div>
 
+    <!-- View 7: Prompt Library -->
+    <div id="view-prompt-library" class="view">
+      <div class="menu-item back-item back-btn">
+        <div class="menu-item-arrow">‹</div>
+        <div class="menu-item-text">
+          <span class="menu-item-title" data-i18n="settings.common.back"></span>
+        </div>
+      </div>
+      <form class="homey-form">
+        <fieldset class="homey-form-fieldset">
+          <div class="prompt-library-section">
+            <header class="homey-header" style="margin-top: 20px; margin-bottom: 20px;">
+              <h1 class="homey-title" data-i18n="settings.prompt_library.title"></h1>
+            </header>
+            <p class="subtitle" data-i18n="settings.prompt_library.subtitle"></p>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
+              <div class="search-container" style="flex: 1; min-width: 200px; margin: 0;">
+                <span class="search-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </span>
+                <input class="search-input" id="searchPrompts" type="text" placeholder="" />
+              </div>
+              <button id="btnNewPrompt" type="button" class="homey-button-primary-shadow homey-button-small" style="margin: 0; white-space: nowrap;">
+                <span data-i18n="settings.prompt_library.btn_new"></span>
+              </button>
+            </div>
+
+            <div id="promptsContainer">
+              <div style="text-align: center; padding: 20px;">
+                <div class="loading-spinner"></div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+    <!-- View 8: Prompt Editor -->
+    <div id="view-prompt-editor" class="view">
+      <div id="btnBackToLibrary" class="menu-item back-item">
+        <div class="menu-item-arrow">‹</div>
+        <div class="menu-item-text">
+          <span class="menu-item-title" data-i18n="settings.prompt_library.title"></span>
+        </div>
+      </div>
+      <form class="homey-form">
+        <fieldset class="homey-form-fieldset">
+          <header class="homey-header" style="margin-top: 20px; margin-bottom: 20px;">
+            <h1 class="homey-title" id="editorHeaderTitle" data-i18n="settings.prompt_library.modal_title_new"></h1>
+          </header>
+
+          <input type="hidden" id="promptEditorId" value="" />
+
+          <!-- Title Input -->
+          <div class="homey-form-group">
+            <label class="homey-form-label" for="promptEditorTitle" data-i18n="settings.prompt_library.label_title"></label>
+            <input class="homey-form-input" id="promptEditorTitle" type="text" placeholder="" />
+          </div>
+
+          <!-- Description Input -->
+          <div class="homey-form-group" style="margin-top: 15px;">
+            <label class="homey-form-label" for="promptEditorDescription" data-i18n="settings.prompt_library.label_description"></label>
+            <input class="homey-form-input" id="promptEditorDescription" type="text" placeholder="" />
+          </div>
+
+          <!-- AI Assist Card / Box ("Genera con Gemini AI") -->
+          <div class="ai-assist-box" style="margin-top: 25px; padding: 16px; border: 1px solid var(--border-color); border-radius: 10px; background-color: var(--bg-card);">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--brand-color);">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <strong style="font-size: 14px;" data-i18n="settings.prompt_library.ai_assist_title"></strong>
+            </div>
+            <p style="font-size: 12px; color: var(--text-secondary); margin: 0 0 12px 0; line-height: 1.4;" data-i18n="settings.prompt_library.ai_assist_desc"></p>
+
+            <div style="margin-bottom: 10px;">
+              <label class="homey-form-label" for="aiPromptType" data-i18n="settings.prompt_library.ai_assist_type_label" style="font-size: 12px;"></label>
+              <select class="homey-form-select" id="aiPromptType" style="margin-top: 4px;">
+                <option value="command" data-i18n="settings.prompt_library.ai_assist_type_command"></option>
+                <option value="condition" data-i18n="settings.prompt_library.ai_assist_type_condition"></option>
+                <option value="text" data-i18n="settings.prompt_library.ai_assist_type_text"></option>
+              </select>
+            </div>
+
+            <div>
+              <textarea class="homey-form-input" id="aiPromptIntent" style="width: 100%; box-sizing: border-box; min-height: 70px; resize: vertical;" placeholder=""></textarea>
+            </div>
+
+            <div style="margin-top: 10px; display: flex; justify-content: flex-end;">
+              <button id="btnGenerateWithGemini" class="homey-button-secondary homey-button-small" type="button" style="margin: 0;">
+                <span class="btn-text" data-i18n="settings.prompt_library.btn_generate_ai"></span>
+                <span class="loading-spinner" style="display: none; border-top-color: #1f6ac1; margin-left: 6px;"></span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Prompt Content (Markdown) Textarea -->
+          <div class="homey-form-group" style="margin-top: 25px;">
+            <label class="homey-form-label" for="promptEditorContent" data-i18n="settings.prompt_library.label_content"></label>
+            <textarea class="homey-form-input" id="promptEditorContent" style="width: 100%; box-sizing: border-box; min-height: 200px; font-family: monospace; font-size: 13px; line-height: 1.45; resize: vertical;" placeholder=""></textarea>
+          </div>
+
+          <!-- Action Buttons (Save / Cancel) -->
+          <div style="display: flex; gap: 12px; margin-top: 25px; flex-wrap: wrap;">
+            <button id="btnSavePrompt" class="homey-button-primary-shadow" type="button" style="flex: 1; min-width: 140px;" data-i18n="settings.prompt_library.btn_save"></button>
+            <button id="btnCancelPrompt" class="homey-button-secondary-shadow" type="button" style="flex: 1; min-width: 140px;" data-i18n="settings.prompt_library.btn_cancel"></button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+
+  
+    <!-- View: Diagnostic Logs -->
+    <div id="view-diagnostic-logs" class="view">
+      <div class="menu-item back-item back-btn">
+        <div class="menu-item-arrow">‹</div>
+        <div class="menu-item-text">
+          <span class="menu-item-title" data-i18n="settings.common.back"></span>
+        </div>
+      </div>
+      <form class="homey-form">
+        <header class="homey-header" style="margin-top: 20px; margin-bottom: 20px;">
+          <h1 class="homey-title" data-i18n="settings.logs.title"></h1>
+        </header>
+
+        <!-- Section 1: Logging Status & Toggle -->
+        <fieldset class="homey-form-fieldset">
+          <legend class="homey-form-legend" data-i18n="settings.logs.legend_status"></legend>
+          <div class="setting-toggle-row">
+            <div class="setting-toggle-info">
+              <label class="setting-toggle-label" for="enableDebugLogging" data-i18n="settings.logs.enable_label"></label>
+              <span class="setting-toggle-help" data-i18n="settings.logs.enable_help"></span>
+            </div>
+            <label class="toggle-switch">
+              <input type="checkbox" id="enableDebugLogging">
+              <span class="toggle-slider"></span>
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Section 2: Log Files Management -->
+        <fieldset class="homey-form-fieldset" style="margin-top: 20px;">
+          <legend class="homey-form-legend" data-i18n="settings.logs.legend_files"></legend>
+          <div style="display: flex; justify-content: flex-end; gap: 8px; margin-bottom: 12px;">
+            <button id="btnRefreshFileList" type="button" class="homey-button-secondary-shadow homey-button-small" data-i18n="settings.logs.btn_refresh"></button>
+            <button id="btnClearAllFiles" type="button" class="homey-button-danger-shadow homey-button-small" data-i18n="settings.logs.btn_clear_all"></button>
+          </div>
+          <div id="logsFileList" class="log-files-list"></div>
+        </fieldset>
+      </form>
+    </div>
+
   </div>
 
   <!-- Toast notification -->
@@ -1021,6 +1479,8 @@
       const viewTimers = document.getElementById('view-timers');
       const viewHistory = document.getElementById('view-history');
       const viewFlowBackups = document.getElementById('view-flow-backups');
+      const viewPromptLibrary = document.getElementById('view-prompt-library');
+      const viewPromptEditor = document.getElementById('view-prompt-editor');
       const viewGuide = document.getElementById('view-guide');
 
       /**
@@ -1059,6 +1519,21 @@
       document.getElementById('nav_flow_backups').addEventListener('click', () => {
         _loadFlowBackups();
         _switchView(viewFlowBackups);
+      });
+      document.getElementById('nav_prompt_library').addEventListener('click', () => {
+        _loadPrompts();
+        _switchView(viewPromptLibrary);
+      });
+      document.getElementById('btnBackToLibrary').addEventListener('click', () => {
+        _switchView(viewPromptLibrary);
+      });
+      document.getElementById('btnCancelPrompt').addEventListener('click', () => {
+        _switchView(viewPromptLibrary);
+      });
+      const viewDiagnosticLogs = document.getElementById('view-diagnostic-logs');
+      document.getElementById('nav_diagnostic_logs').addEventListener('click', function () {
+        _fetchLogFiles();
+        _switchView(viewDiagnosticLogs);
       });
       document.getElementById('open_guide_menu').addEventListener('click', () => _switchView(viewGuide));
       document.getElementById('link_to_guide').addEventListener('click', (e) => {
@@ -1852,6 +2327,587 @@
           });
         });
       }
+
+      // ── Prompt Library Logic ────────────────────────────────────────────────
+      var searchPromptsElement = document.getElementById("searchPrompts");
+      var promptsContainer = document.getElementById("promptsContainer");
+      var btnNewPrompt = document.getElementById("btnNewPrompt");
+      var promptEditorId = document.getElementById("promptEditorId");
+      var promptEditorTitle = document.getElementById("promptEditorTitle");
+      var promptEditorDescription = document.getElementById("promptEditorDescription");
+      var promptEditorContent = document.getElementById("promptEditorContent");
+      var aiPromptIntent = document.getElementById("aiPromptIntent");
+      var aiPromptType = document.getElementById("aiPromptType");
+      var btnGenerateWithGemini = document.getElementById("btnGenerateWithGemini");
+      var btnSavePrompt = document.getElementById("btnSavePrompt");
+      var editorHeaderTitle = document.getElementById("editorHeaderTitle");
+      var _cachedPrompts = [];
+
+      searchPromptsElement.placeholder = Homey.__("settings.prompt_library.search_placeholder");
+      promptEditorTitle.placeholder = Homey.__("settings.prompt_library.placeholder_title");
+      promptEditorDescription.placeholder = Homey.__("settings.prompt_library.placeholder_description");
+      promptEditorContent.placeholder = Homey.__("settings.prompt_library.placeholder_content");
+      aiPromptIntent.placeholder = Homey.__("settings.prompt_library.ai_assist_placeholder");
+
+      /**
+       * Loads all saved prompts from the backend API and renders the list.
+       *
+       * @private
+       * @returns {void}
+       */
+      function _loadPrompts() {
+        promptsContainer.innerHTML = '<div style="text-align: center; padding: 20px;"><div class="loading-spinner"></div></div>';
+        searchPromptsElement.value = '';
+
+        Homey.api("GET", "/saved-prompts", null, function (err, result) {
+          if (err) {
+            console.error('[Settings:loadPrompts] Error loading prompts:', err);
+            promptsContainer.innerHTML = '<div class="no-commands">' + Homey.__("settings.prompt_library.error_load") + ': ' + _escapeHtml(err.message || err.toString()) + '</div>';
+            return;
+          }
+
+          _cachedPrompts = (result && result.prompts) || [];
+          _renderPrompts(_cachedPrompts);
+        });
+      }
+
+      /**
+       * Renders the saved prompts list into the DOM.
+       *
+       * @private
+       * @param {Array<Object>} prompts - Array of prompt records.
+       * @returns {void}
+       */
+      function _renderPrompts(prompts) {
+        if (!prompts || prompts.length === 0) {
+          var isSearching = searchPromptsElement.value.trim().length > 0;
+          var msg = isSearching ? Homey.__("settings.prompt_library.no_match") : Homey.__("settings.prompt_library.no_prompts");
+          promptsContainer.innerHTML = '<div class="no-commands">' + _escapeHtml(msg) + '</div>';
+          return;
+        }
+
+        var html = '';
+        prompts.forEach(function (p) {
+          var displayDate = '';
+          try {
+            var dateObj = new Date(p.updatedAt || p.createdAt);
+            displayDate = dateObj.toLocaleDateString() + ' ' + dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          } catch (_) {
+            displayDate = p.updatedAt || p.createdAt || '';
+          }
+
+          html += '<div class="prompt-item" data-prompt-id="' + _escapeHtml(p.id) + '">';
+
+          // Header: Title
+          html += '<div class="prompt-item-header">';
+          html += '<div class="prompt-item-title">' + _escapeHtml(p.title) + '</div>';
+          html += '</div>';
+
+          // Description (optional)
+          if (p.description) {
+            html += '<div class="prompt-item-desc">' + _escapeHtml(p.description) + '</div>';
+          }
+
+          // Content preview snippet
+          if (p.content) {
+            var previewText = p.content.length > 150 ? p.content.slice(0, 147) + '...' : p.content;
+            html += '<div class="prompt-item-preview">' + _escapeHtml(previewText) + '</div>';
+          }
+
+          // Footer: Date & Actions
+          html += '<div class="prompt-item-footer">';
+          html += '<div class="prompt-item-date">📅 ' + _escapeHtml(displayDate) + '</div>';
+          html += '<div class="prompt-item-actions">';
+          html += '<button type="button" class="homey-button-secondary-shadow homey-button-small btn-edit-prompt" data-prompt-id="' + _escapeHtml(p.id) + '">' + Homey.__("settings.prompt_library.btn_edit") + '</button>';
+          html += '<button type="button" class="homey-button-secondary-shadow homey-button-small btn-duplicate-prompt" data-prompt-id="' + _escapeHtml(p.id) + '">' + Homey.__("settings.prompt_library.btn_duplicate") + '</button>';
+          html += '<button type="button" class="homey-button-secondary-shadow homey-button-small btn-copy-prompt" data-prompt-id="' + _escapeHtml(p.id) + '">' + Homey.__("settings.prompt_library.btn_copy") + '</button>';
+          html += '<button type="button" class="homey-button-danger-shadow homey-button-small btn-delete-prompt" data-prompt-id="' + _escapeHtml(p.id) + '" data-prompt-title="' + _escapeHtml(p.title) + '">' + Homey.__("settings.prompt_library.btn_delete") + '</button>';
+          html += '</div>';
+          html += '</div>';
+
+          html += '</div>';
+        });
+
+        promptsContainer.innerHTML = html;
+
+        // Attach action button event listeners
+        promptsContainer.querySelectorAll('.btn-edit-prompt').forEach(function (btn) {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var id = this.getAttribute('data-prompt-id');
+            var promptObj = _cachedPrompts.find(function (item) { return item.id === id; });
+            if (promptObj) {
+              _openPromptEditor(promptObj);
+            }
+          });
+        });
+
+        promptsContainer.querySelectorAll('.btn-duplicate-prompt').forEach(function (btn) {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var id = this.getAttribute('data-prompt-id');
+            _duplicatePrompt(id);
+          });
+        });
+
+        promptsContainer.querySelectorAll('.btn-copy-prompt').forEach(function (btn) {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var id = this.getAttribute('data-prompt-id');
+            var promptObj = _cachedPrompts.find(function (item) { return item.id === id; });
+            if (promptObj && promptObj.content) {
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(promptObj.content).then(function () {
+                  _showToast(Homey.__("settings.prompt_library.msg_copied"), 'success');
+                }).catch(function (err) {
+                  console.error('[Settings:copyPrompt] Clipboard error:', err);
+                  _showToast(Homey.__("settings.common.unknown_error"), 'error');
+                });
+              } else {
+                // Fallback textarea copy
+                var ta = document.createElement('textarea');
+                ta.value = promptObj.content;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                try {
+                  document.execCommand('copy');
+                  _showToast(Homey.__("settings.prompt_library.msg_copied"), 'success');
+                } catch (_) {
+                  _showToast(Homey.__("settings.common.unknown_error"), 'error');
+                }
+                document.body.removeChild(ta);
+              }
+            }
+          });
+        });
+
+        promptsContainer.querySelectorAll('.btn-delete-prompt').forEach(function (btn) {
+          btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            var id = this.getAttribute('data-prompt-id');
+            var title = this.getAttribute('data-prompt-title');
+            _deletePrompt(id, title);
+          });
+        });
+      }
+
+      /**
+       * Filters the cached prompts by title substring.
+       *
+       * @private
+       * @returns {void}
+       */
+      function _filterPrompts() {
+        var query = searchPromptsElement.value.trim().toLowerCase();
+        if (!query) {
+          _renderPrompts(_cachedPrompts);
+          return;
+        }
+
+        var filtered = _cachedPrompts.filter(function (p) {
+          return p.title && p.title.toLowerCase().indexOf(query) !== -1;
+        });
+
+        _renderPrompts(filtered);
+      }
+
+      searchPromptsElement.addEventListener('input', _filterPrompts);
+
+      /**
+       * Opens the prompt editor view for creating or modifying a prompt.
+       *
+       * @private
+       * @param {Object} [prompt=null] - Optional prompt object to edit.
+       * @returns {void}
+       */
+      function _openPromptEditor(prompt) {
+        if (prompt && typeof prompt === 'object') {
+          promptEditorId.value = prompt.id || '';
+          promptEditorTitle.value = prompt.title || '';
+          promptEditorDescription.value = prompt.description || '';
+          promptEditorContent.value = prompt.content || '';
+          editorHeaderTitle.textContent = Homey.__("settings.prompt_library.modal_title_edit");
+        } else {
+          promptEditorId.value = '';
+          promptEditorTitle.value = '';
+          promptEditorDescription.value = '';
+          promptEditorContent.value = '';
+          editorHeaderTitle.textContent = Homey.__("settings.prompt_library.modal_title_new");
+        }
+
+        aiPromptIntent.value = '';
+        _switchView(viewPromptEditor);
+      }
+
+      btnNewPrompt.addEventListener('click', function (e) {
+        e.preventDefault();
+        _openPromptEditor();
+      });
+
+      /**
+       * Saves or updates the prompt from editor fields.
+       *
+       * @private
+       * @returns {void}
+       */
+      btnSavePrompt.addEventListener('click', function (e) {
+        e.preventDefault();
+        var id = promptEditorId.value.trim();
+        var title = promptEditorTitle.value.trim();
+        var description = promptEditorDescription.value.trim();
+        var content = promptEditorContent.value.trim();
+
+        if (!title) {
+          _showToast(Homey.__("settings.prompt_library.error_title_required"), 'warning');
+          promptEditorTitle.focus();
+          return;
+        }
+
+        if (!content) {
+          _showToast(Homey.__("settings.prompt_library.error_content_required"), 'warning');
+          promptEditorContent.focus();
+          return;
+        }
+
+        var payload = {
+          title: title,
+          description: description,
+          content: content
+        };
+
+        var method = id ? 'PUT' : 'POST';
+        var endpoint = id ? ('/saved-prompts/' + id) : '/saved-prompts';
+
+        Homey.api(method, endpoint, payload, function (err, res) {
+          if (err) {
+            console.error('[Settings:savePrompt] Error saving prompt:', err);
+            _showToast(Homey.__("settings.prompt_library.error_save") + ': ' + (err.message || err), 'error');
+            return;
+          }
+
+          if (res && res.success) {
+            _showToast(Homey.__("settings.prompt_library.msg_saved"), 'success');
+            _loadPrompts();
+            _switchView(viewPromptLibrary);
+          } else {
+            console.error('[Settings:savePrompt] Save failed:', res?.error);
+            _showToast(Homey.__("settings.prompt_library.error_save") + ': ' + (res?.error || Homey.__("settings.common.unknown_error")), 'error');
+          }
+        });
+      });
+
+      /**
+       * Duplicates an existing saved prompt.
+       *
+       * @private
+       * @param {string} id - Prompt unique identifier to duplicate.
+       * @returns {void}
+       */
+      function _duplicatePrompt(id) {
+        Homey.api("POST", "/saved-prompts/" + id + "/duplicate", null, function (err, res) {
+          if (err) {
+            console.error('[Settings:duplicatePrompt] Error duplicating prompt:', err);
+            _showToast(Homey.__("settings.prompt_library.error_duplicate") + ': ' + (err.message || err), 'error');
+            return;
+          }
+
+          if (res && res.success) {
+            _showToast(Homey.__("settings.prompt_library.msg_duplicated"), 'success');
+            _loadPrompts();
+          } else {
+            console.error('[Settings:duplicatePrompt] Duplication failed:', res?.error);
+            _showToast(Homey.__("settings.prompt_library.error_duplicate") + ': ' + (res?.error || Homey.__("settings.common.unknown_error")), 'error');
+          }
+        });
+      }
+
+      /**
+       * Prompts confirmation and deletes a saved prompt.
+       *
+       * @private
+       * @param {string} id - Prompt unique identifier to delete.
+       * @param {string} title - Prompt title for confirmation message.
+       * @returns {void}
+       */
+      function _deletePrompt(id, title) {
+        var confirmMsg = Homey.__("settings.prompt_library.confirm_delete").replace('{title}', title);
+
+        Homey.confirm(confirmMsg, 'warning', function (err, result) {
+          if (err) {
+            console.error('[Settings:deletePrompt] Error showing confirm dialog:', err);
+            return;
+          }
+
+          if (!result) return;
+
+          Homey.api("DELETE", "/saved-prompts/" + id, null, function (err, res) {
+            if (err) {
+              console.error('[Settings:deletePrompt] Error deleting prompt:', err);
+              _showToast(Homey.__("settings.prompt_library.error_delete") + ': ' + (err.message || err), 'error');
+              return;
+            }
+
+            if (res && res.success) {
+              _showToast(Homey.__("settings.prompt_library.msg_deleted"), 'success');
+              _loadPrompts();
+            } else {
+              console.error('[Settings:deletePrompt] Deletion failed:', res?.error);
+              _showToast(Homey.__("settings.prompt_library.error_delete") + ': ' + (res?.error || Homey.__("settings.common.unknown_error")), 'error');
+            }
+          });
+        });
+      }
+
+      /**
+       * Calls the assisted prompt generation API using Gemini and MCP.
+       *
+       * @private
+       * @returns {void}
+       */
+      btnGenerateWithGemini.addEventListener('click', function (e) {
+        e.preventDefault();
+        var intent = aiPromptIntent.value.trim();
+        if (!intent) {
+          _showToast(Homey.__("settings.custom_instructions.error_empty"), 'warning');
+          aiPromptIntent.focus();
+          return;
+        }
+
+        var btnText = btnGenerateWithGemini.querySelector('.btn-text');
+        var spinner = btnGenerateWithGemini.querySelector('.loading-spinner');
+        btnGenerateWithGemini.disabled = true;
+        if (btnText) btnText.style.display = 'none';
+        if (spinner) spinner.style.display = 'inline-block';
+
+        Homey.api("POST", "/saved-prompts/generate", {
+          text: intent,
+          type: aiPromptType.value
+        }, function (err, res) {
+          btnGenerateWithGemini.disabled = false;
+          if (btnText) btnText.style.display = 'inline';
+          if (spinner) spinner.style.display = 'none';
+
+          if (err) {
+            console.error('[Settings:generatePrompt] Error from Gemini:', err);
+            _showToast(Homey.__("prompt.error.generic", { error: err.message || err.toString() }), 'error');
+            return;
+          }
+
+          if (res && res.success && res.generatedPrompt) {
+            promptEditorContent.value = res.generatedPrompt;
+            if (!promptEditorTitle.value.trim() && res.generatedTitle) {
+              promptEditorTitle.value = res.generatedTitle;
+            }
+            if (!promptEditorDescription.value.trim() && res.generatedDescription) {
+              promptEditorDescription.value = res.generatedDescription;
+            }
+            _showToast(Homey.__("settings.prompt_library.msg_generated"), 'success');
+          } else {
+            console.error('[Settings:generatePrompt] Generation failed:', res?.error);
+            _showToast(res?.error || Homey.__("settings.common.unknown_error"), 'error');
+          }
+        });
+      });
+
+      /* ==========================================================================
+       * Diagnostic Logs Management
+       * ========================================================================== */
+      const enableDebugLogging = document.getElementById('enableDebugLogging');
+      const btnRefreshFileList = document.getElementById('btnRefreshFileList');
+      const btnClearAllFiles = document.getElementById('btnClearAllFiles');
+      const logsFileList = document.getElementById('logsFileList');
+
+      // Load initial debug logging state from settings
+      Homey.get('debug_logging_enabled', function (err, isEnabled) {
+        if (err) return console.error('[Settings] Error loading debug_logging_enabled:', err);
+        enableDebugLogging.checked = Boolean(isEnabled);
+      });
+
+      // Handle debug logging toggle change
+      enableDebugLogging.addEventListener('change', function () {
+        var isEnabled = enableDebugLogging.checked;
+        Homey.set('debug_logging_enabled', isEnabled, function (err) {
+          if (err) {
+            enableDebugLogging.checked = !isEnabled;
+            _showToast((Homey.__('settings.common.error_generic') || 'Error') + ': ' + (err.message || err), 'error');
+            return;
+          }
+          _showToast(isEnabled ? Homey.__('settings.logs.toast_enabled') : Homey.__('settings.logs.toast_disabled'), 'success');
+          _fetchLogFiles();
+        });
+      });
+
+      /**
+       * Safe confirm dialog using Homey.confirm with window.confirm fallback.
+       *
+       * @private
+       * @param {string} message - Confirmation prompt text.
+       * @param {function(Error|null, boolean): void} callback - Callback function with confirmed boolean.
+       * @returns {void}
+       */
+      function _showConfirm(message, callback) {
+        if (typeof Homey.confirm === 'function') {
+          Homey.confirm(message, 'warning', callback);
+        } else {
+          var result = window.confirm(message);
+          callback(null, result);
+        }
+      }
+
+      /**
+       * Fetches diagnostic log status and files from backend API and renders file list.
+       *
+       * @private
+       * @param {function(): void} [callback] - Optional completion callback.
+       * @returns {void}
+       */
+      function _fetchLogFiles(callback) {
+        Homey.api('GET', '/log/status', null, function (err, status) {
+          if (err) {
+            console.error('[Settings:fetchLogFiles] Error getting log status:', err);
+            logsFileList.innerHTML = '<div class="log-file-card" style="justify-content: center;"><span style="font-size: 13px; color: #e53e3e;">' + _escapeHtml(err.message || err.toString()) + '</span></div>';
+            if (typeof callback === 'function') callback();
+            return;
+          }
+
+          if (status && typeof status.debugEnabled === 'boolean') {
+            enableDebugLogging.checked = status.debugEnabled;
+          }
+
+          _renderFileList(status && status.files ? status.files : []);
+          if (typeof callback === 'function') callback();
+        });
+      }
+
+      /**
+       * Renders the diagnostic log file cards into the DOM.
+       *
+       * @private
+       * @param {Array<object>} files - Array of log file descriptor objects.
+       * @returns {void}
+       */
+      function _renderFileList(files) {
+        logsFileList.innerHTML = '';
+        if (!files || files.length === 0) {
+          logsFileList.innerHTML = '<div class="log-file-card" style="justify-content: center;"><span style="font-size: 13px; color: var(--text-secondary);">' + Homey.__('settings.logs.no_files') + '</span></div>';
+          return;
+        }
+
+        files.forEach(function (file) {
+          var card = document.createElement('div');
+          card.className = 'log-file-card';
+          var formattedDate = new Date(file.modified).toLocaleString();
+
+          card.innerHTML = 
+            '<div class="log-file-info">' +
+              '<div class="log-file-title">' + _escapeHtml(file.name) + (file.isCurrent ? ' <span style="font-size: 10px; font-weight: normal; color: #34c759; margin-left: 4px;">● ' + Homey.__('settings.logs.active_badge') + '</span>' : '') + '</div>' +
+              '<div class="log-file-meta"><span>' + _escapeHtml(file.sizeFormatted) + '</span> &bull; <span>' + _escapeHtml(formattedDate) + '</span></div>' +
+            '</div>' +
+            '<div class="log-file-actions">' +
+              '<button type="button" class="homey-button-secondary-shadow homey-button-small btn-download-file" data-index="' + file.index + '">' +
+                Homey.__('settings.logs.btn_download') +
+              '</button>' +
+              '<button type="button" class="homey-button-danger-shadow homey-button-small btn-delete-file" data-index="' + file.index + '">' +
+                Homey.__('settings.logs.btn_delete') +
+              '</button>' +
+            '</div>';
+
+          var downloadBtn = card.querySelector('.btn-download-file');
+          downloadBtn.addEventListener('click', function () {
+            _downloadLogFile(file.index, downloadBtn);
+          });
+
+          var deleteBtn = card.querySelector('.btn-delete-file');
+          deleteBtn.addEventListener('click', function () {
+            _deleteSingleLogFile(file.index, file.name);
+          });
+
+          logsFileList.appendChild(card);
+        });
+      }
+
+      /**
+       * Requests a download URL from backend and triggers browser download.
+       *
+       * @private
+       * @param {number} index - Rotation index of the log file.
+       * @param {HTMLButtonElement} [buttonEl] - Download button element for state management.
+       * @returns {void}
+       */
+      function _downloadLogFile(index, buttonEl) {
+        if (buttonEl) buttonEl.disabled = true;
+        Homey.api('GET', '/log/download/' + index, null, function (err, url) {
+          if (buttonEl) buttonEl.disabled = false;
+          if (err) {
+            _showToast(Homey.__('settings.logs.download_error') + ': ' + (err.message || err.toString()), 'error');
+            return;
+          }
+
+          if (url && typeof url === 'string') {
+            try {
+              if (typeof Homey.openURL === 'function') {
+                Homey.openURL(url);
+              }
+            } catch (openErr) {
+              console.warn('[downloadLogFile] Homey.openURL failed, using link fallback:', openErr);
+            }
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = '';
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }
+        });
+      }
+
+      /**
+       * Confirms and deletes a single diagnostic log file.
+       *
+       * @private
+       * @param {number} index - Rotation index of the log file.
+       * @param {string} fileName - Filename for confirmation display.
+       * @returns {void}
+       */
+      function _deleteSingleLogFile(index, fileName) {
+        var confirmMsg = Homey.__('settings.logs.confirm_delete_file').replace('{0}', fileName);
+        _showConfirm(confirmMsg, function (err, confirmed) {
+          if (err || !confirmed) return;
+          Homey.api('DELETE', '/log/' + index, null, function (deleteErr) {
+            if (deleteErr) {
+              _showToast(Homey.__('settings.common.error_generic') + ': ' + (deleteErr.message || deleteErr.toString()), 'error');
+              return;
+            }
+            _showToast(Homey.__('settings.logs.msg_file_deleted'), 'success');
+            _fetchLogFiles();
+          });
+        });
+      }
+
+      btnRefreshFileList.addEventListener('click', function () {
+        btnRefreshFileList.disabled = true;
+        _fetchLogFiles(function () {
+          btnRefreshFileList.disabled = false;
+          _showToast(Homey.__('settings.logs.refreshed'), 'success');
+        });
+      });
+
+      btnClearAllFiles.addEventListener('click', function () {
+        _showConfirm(Homey.__('settings.logs.confirm_clear_all'), function (err, confirmed) {
+          if (err || !confirmed) return;
+          Homey.api('DELETE', '/log/all', null, function (deleteErr) {
+            if (deleteErr) {
+              _showToast(Homey.__('settings.common.error_generic') + ': ' + (deleteErr.message || deleteErr.toString()), 'error');
+              return;
+            }
+            _showToast(Homey.__('settings.logs.msg_cleared'), 'success');
+            _fetchLogFiles();
+          });
+        });
+      });
 
     }
   </script>
